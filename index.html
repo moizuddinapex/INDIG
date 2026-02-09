@@ -131,6 +131,23 @@ body::before {
     opacity: 1;
 }
 
+
+      /* Fix tall product cropping */
+.product-tall .tall-img {
+    object-position: center top;
+    transform: scale(1); /* reset base scale */
+}
+
+/* Reduce hover zoom for tall images */
+.product-tall:hover img {
+    transform: scale(1.03);
+}
+
+
+
+
+
+
         
         
     </style>
@@ -218,10 +235,17 @@ document.querySelectorAll(".product-box").forEach(box => {
 </a>
 
 
-    <a href="product3.html" class="grid-border product-box fade-in-img delay-1 fade-section">
-    <img src="images/product3.1.jpg" class="fill-img parallax-img" alt="Product 3" loading="lazy">
-    <div class="shop-overlay"><span class="shop-button">Shop Now</span></div>
+    <a href="product3.html"
+   class="grid-border product-box fade-section product-tall">
+    <img src="images/product3.1.jpg"
+         class="fill-img parallax-img tall-img"
+         alt="Product 3"
+         loading="lazy">
+    <div class="shop-overlay">
+        <span class="shop-button">Shop Now</span>
+    </div>
 </a>
+
     
         
         
