@@ -8,6 +8,34 @@
    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Noto+Serif:wght@700&family=Playfair+Display:ital,wght@0,400;1,400&family=Inter:wght@300;400&display=swap" rel="stylesheet">
     
     <style>
+         @keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 0.75; /* Matches your transparency setting */
+        transform: translateY(0);
+    }
+}
+
+.fade-in-up {
+    animation: fadeInUp 1.2s ease-out forwards;
+}
+
+/* For images, we want them to fade to full opacity */
+.fade-in-img {
+    animation: fadeInUp 1.5s ease-out forwards;
+    opacity: 0; /* Start hidden */
+}           
+        
+        
+        
+        
+        
+        
+        
+        
         body { 
             background-color: #0a0a0a; 
             color: #ffffff; 
@@ -60,14 +88,14 @@
     </nav>
 
     <header class="py-24 flex flex-col items-center justify-center border-b border-white/10 relative z-10">
-    <h1 class="text-6xl md:text-8xl serif-title uppercase tracking-tighter">
-        Men's Fashion
+    <h1 class="text-6xl md:text-8xl serif-title uppercase tracking-tighter fade-in-up">
+    Men's Fashion
     </h1>
     </header>
 
     <main class="grid grid-cols-1 md:grid-cols-2 relative z-10">
         
-        <div class="grid-border product-box">
+        <div class="grid-border product-box fade-in-img">
             <img src="images/product1.1.jpg" alt="Product 1" class="fill-img hover:scale-110">
         </div>
 
