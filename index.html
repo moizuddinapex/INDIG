@@ -8,7 +8,36 @@
    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Noto+Serif:wght@700&family=Playfair+Display:ital,wght@0,400;1,400&family=Inter:wght@300;400&display=swap" rel="stylesheet">
     
     <style>
-         @keyframes fadeInUp {
+        
+        
+        
+        /* Animation Base */
+.fade-in-img {
+    animation: fadeInUp 1.2s ease-out forwards;
+    opacity: 0;
+}
+
+/* Delay Classes */
+.delay-1 { animation-delay: 0.2s; }
+.delay-2 { animation-delay: 0.4s; }
+.delay-3 { animation-delay: 0.6s; }
+.delay-4 { animation-delay: 0.8s; }
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+        
+        
+        
+        
+        @keyframes fadeInUp {
     from {
         opacity: 0;
         transform: translateY(20px);
@@ -94,22 +123,22 @@
     </header>
 
     <main class="grid grid-cols-1 md:grid-cols-2 relative z-10">
-        
-        <div class="grid-border product-box fade-in-img">
-            <img src="images/product1.1.jpg" alt="Product 1" class="fill-img hover:scale-110">
-        </div>
+    
+    <div class="grid-border product-box fade-in-img delay-1">
+        <img src="images/product1.1.jpg" alt="Product 1" class="fill-img hover:scale-110">
+    </div>
 
-        <div class="grid-border md:border-l-0 product-box">
-            <img src="images/product2.1.jpg" alt="Product 2" class="fill-img hover:scale-110">
-        </div>
+    <div class="grid-border md:border-l-0 product-box fade-in-img delay-2">
+        <img src="images/product2.1.jpg" alt="Product 2" class="fill-img hover:scale-110">
+    </div>
 
-        <div class="grid-border border-t-0 product-box">
-            <img src="images/product3.1.jpg" alt="Product 3" class="fill-img hover:scale-110" style="object-position: center 20%;">
-        </div>
+    <div class="grid-border border-t-0 product-box fade-in-img delay-3">
+        <img src="images/product3.1.jpg" alt="Product 3" class="fill-img hover:scale-110" style="object-position: center 20%;">
+    </div>
 
-        <div class="grid-border border-t-0 md:border-l-0 product-box">
-            <img src="images/product4.1.jpg" alt="Product 4" class="fill-img hover:scale-110">
-        </div>
+    <div class="grid-border border-t-0 md:border-l-0 product-box fade-in-img delay-4">
+        <img src="images/product4.1.jpg" alt="Product 4" class="fill-img hover:scale-110">
+    </div>
 
     </main>
 
