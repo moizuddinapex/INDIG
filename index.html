@@ -65,6 +65,7 @@ body::before {
 }
 
 .product-box {
+    display: block;
     aspect-ratio: 1 / 1;
     position: relative;
     overflow: hidden;
@@ -143,10 +144,18 @@ body::before {
     transform: scale(1.03);
 }
 
+.product-tall {
+    overflow: hidden;
+}
+
+.product-tall img {
+    transform: none !important;
+}
 
 
 
 
+        
 
         
         
@@ -171,11 +180,16 @@ document.querySelectorAll(".fade-section").forEach(el => {
       <script>
 window.addEventListener("scroll", () => {
   document.querySelectorAll(".parallax-img").forEach(img => {
+
+    /* Skip tall images */
+    if (img.classList.contains("tall-img")) return;
+
     img.style.transform =
       `translateY(${window.scrollY * 0.04}px) scale(1.08)`;
   });
 });
 </script>
+
 
 
 
