@@ -26,8 +26,9 @@ body::before {
     background-image: url('images/backgroundimage1.jpg'); /* Ensure path is correct */
     background-size: cover;
     background-position: center;
-    filter: brightness(0.3); /* Removed blur, kept brightness low so text is readable */
-    z-index: -1;
+    filter: blur(4px) brightness(0.4); /* Blur and darken for readability */
+            z-index: -1;
+            transform: scale(1.1); /* Prevents white edges from the blur */
 }
 
         .serif-title { font-family: 'Playfair Display', serif; }
