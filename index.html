@@ -9,11 +9,6 @@
     <style>
         body { background-color: #0a0a0a; color: #ffffff; font-family: 'Inter', sans-serif; }
         .serif-title { font-family: 'Playfair Display', serif; }
-        .hero-gradient {
-            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('hero-bg.jpg'); /* Optional background image */
-            background-size: cover;
-            background-position: center;
-        }
         .grid-border { border: 1px solid #1a1a1a; }
     </style>
 </head>
@@ -28,28 +23,29 @@
         </div>
     </nav>
 
-    <header class="h-[40vh] flex items-center justify-center border-b border-white/10 hero-gradient">
-        <h1 class="text-6xl md:text-8xl serif-title uppercase tracking-tighter italic">
+    <header class="h-[40vh] flex flex-col items-center justify-center border-b border-white/10 relative overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-b from-transparent to-black opacity-50 z-0"></div>
+        <h1 class="text-6xl md:text-8xl serif-title uppercase tracking-tighter italic relative z-10">
             Men's Fashion
         </h1>
     </header>
 
     <main class="grid grid-cols-1 md:grid-cols-2">
         
-        <div class="grid-border aspect-square overflow-hidden bg-[#121212] flex items-center justify-center p-8">
-            <img src="product1.1.jpg" alt="Premium Shirt" class="w-full h-full object-cover hover:scale-105 transition duration-700">
+        <div class="grid-border aspect-square overflow-hidden bg-[#121212] flex items-center justify-center">
+            <img src="images/product1.1.jpg" alt="Premium Shirt" class="w-full h-full object-cover hover:scale-105 transition duration-700">
         </div>
 
-        <div class="grid-border border-l-0 aspect-square overflow-hidden bg-[#121212] flex items-center justify-center p-8">
-            <img src="product2.1.jpg" alt="Tailored Trousers" class="w-full h-full object-cover hover:scale-105 transition duration-700">
+        <div class="grid-border border-l-0 aspect-square overflow-hidden bg-[#121212] flex items-center justify-center">
+            <img src="images/product2.1.jpg" alt="Tailored Trousers" class="w-full h-full object-cover hover:scale-105 transition duration-700">
         </div>
 
-        <div class="grid-border border-t-0 aspect-square overflow-hidden bg-[#121212] flex items-center justify-center p-8">
-            <img src="product3.1.jpg" alt="Leather Shoes" class="w-full h-full object-cover hover:scale-105 transition duration-700">
+        <div class="grid-border border-t-0 aspect-square overflow-hidden bg-[#121212] flex items-center justify-center">
+            <img src="images/product3.1.jpg" alt="Leather Shoes" class="w-full h-full object-cover hover:scale-105 transition duration-700">
         </div>
 
-        <div class="grid-border border-t-0 border-l-0 aspect-square overflow-hidden bg-[#121212] flex items-center justify-center p-8">
-            <img src="product4.1.jpg" alt="Luxury Watch" class="w-full h-full object-cover hover:scale-105 transition duration-700">
+        <div class="grid-border border-t-0 border-l-0 aspect-square overflow-hidden bg-[#121212] flex items-center justify-center">
+            <img src="images/product4.1.jpg" alt="Luxury Watch" class="w-full h-full object-cover hover:scale-105 transition duration-700">
         </div>
 
     </main>
