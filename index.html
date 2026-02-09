@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#000000">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <title>INDIG-GROK | Premium Men's Fashion</title>
     <script src="https://cdn.tailwindcss.com"></script>
    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Noto+Serif:wght@700&family=Playfair+Display:ital,wght@0,400;1,400&family=Inter:wght@300;400&display=swap" rel="stylesheet">
@@ -117,12 +119,80 @@ body::before {
     transform: scale(1.08);
 }
 
+.fade-section {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: all 1s ease;
+}
+
+.fade-section.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
 
 
+
+         .product-box.show-overlay .shop-overlay {
+    opacity: 1;
+}
+
+        
         
     </style>
 </head>
-<body class="min-h-screen">
+
+    
+    <script>
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add("visible");
+    }
+  });
+}, { threshold: 0.2 });
+
+document.querySelectorAll(".fade-section").forEach(el => {
+  observer.observe(el);
+});
+</script>
+
+      <script>
+window.addEventListener("scroll", () => {
+  document.querySelectorAll(".parallax-img").forEach(img => {
+    img.style.transform =
+      `translateY(${window.scrollY * 0.04}px) scale(1.08)`;
+  });
+});
+</script>
+
+
+
+    <script>
+document.querySelectorAll(".product-box").forEach(box => {
+  let tapped = false;
+
+  box.addEventListener("click", e => {
+    if (window.innerWidth < 768 && !tapped) {
+      e.preventDefault();
+      box.classList.add("show-overlay");
+      tapped = true;
+      setTimeout(() => {
+        box.classList.remove("show-overlay");
+        tapped = false;
+      }, 1500);
+    }
+  });
+});
+</script>
+
+
+
+
+
+    
+    
+    
+    <body class="min-h-screen">
 
     <nav class="flex justify-between items-center px-8 py-8 uppercase tracking-[0.3em] text-[10px] border-b border-white/10 relative z-10">
         <div class="brand-font font-bold tracking-normal">INDIG-GROK</div>
@@ -141,30 +211,34 @@ body::before {
 
     <main class="grid grid-cols-1 md:grid-cols-2 relative z-10">
 
-    <div class="grid-border product-box fade-in-img delay-1">
-        <img src="images/product1.1.jpg" class="fill-img" alt="Product 1">
-        <div class="shop-overlay"><span class="shop-button">Shop Now</span></div>
-    </div>
+    <a href="product1.html" class="grid-border product-box fade-in-img delay-1 fade-section">
+    <img src="images/product1.1.jpg" class="fill-img parallax-img" alt="Product 1" loading="lazy">
+    <div class="shop-overlay"><span class="shop-button">Shop Now</span></div>
+</a>
 
-    <div class="grid-border product-box fade-in-img delay-2">
-        <img src="images/product2.1.jpg" class="fill-img" alt="Product 2">
-        <div class="shop-overlay"><span class="shop-button">Shop Now</span></div>
-    </div>
 
-    <div class="grid-border product-box fade-in-img delay-3">
-        <img src="images/product3.1.jpg" class="fill-img" alt="Product 3">
-        <div class="shop-overlay"><span class="shop-button">Shop Now</span></div>
-    </div>
+    <a href="product2.html" class="grid-border product-box fade-in-img delay-1 fade-section">
+    <img src="images/product2.1.jpg" class="fill-img parallax-img" alt="Product 2" loading="lazy">
+    <div class="shop-overlay"><span class="shop-button">Shop Now</span></div>
+</a>
 
-    <div class="grid-border product-box fade-in-img delay-4">
-        <img src="images/product4.1.jpg" class="fill-img" alt="Product 4">
-        <div class="shop-overlay"><span class="shop-button">Shop Now</span></div>
-    </div>
+
+    <a href="product3.html" class="grid-border product-box fade-in-img delay-1 fade-section">
+    <img src="images/product3.1.jpg" class="fill-img parallax-img" alt="Product 3" loading="lazy">
+    <div class="shop-overlay"><span class="shop-button">Shop Now</span></div>
+</a>
+    
+        
+        
+        <a href="product4.html" class="grid-border product-box fade-in-img delay-1 fade-section">
+    <img src="images/product4.1.jpg" class="fill-img parallax-img" alt="Product 4" loading="lazy">
+    <div class="shop-overlay"><span class="shop-button">Shop Now</span></div>
+</a>
 
 </main>
 
    
-    </main>
+
 
     <footer class="py-16 text-center text-[9px] uppercase tracking-[0.4em] text-gray-400 relative z-10">
         &copy; 2026 INDIG-GROK
