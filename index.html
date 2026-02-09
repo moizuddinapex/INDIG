@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>INDIG-GROK | Premium Men's Fashion</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400&display=swap" rel="stylesheet">
+    <style>
+        body { background-color: #0a0a0a; color: #ffffff; font-family: 'Inter', sans-serif; }
+        .serif-title { font-family: 'Playfair Display', serif; }
+        .hero-gradient {
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('hero-bg.jpg'); /* Optional background image */
+            background-size: cover;
+            background-position: center;
+        }
+        .grid-border { border: 1px solid #1a1a1a; }
+    </style>
+</head>
+<body class="min-h-screen">
+
+    <nav class="flex justify-between items-center px-8 py-6 uppercase tracking-widest text-xs border-b border-white/10">
+        <div class="text-lg font-bold serif-title">INDIG-GROK</div>
+        <div class="space-x-8 hidden md:flex">
+            <a href="#" class="hover:text-gray-400 transition">Shop</a>
+            <a href="#" class="hover:text-gray-400 transition">About</a>
+            <a href="#" class="hover:text-gray-400 transition">Contact</a>
+        </div>
+    </nav>
+
+    <header class="h-[40vh] flex items-center justify-center border-b border-white/10 hero-gradient">
+        <h1 class="text-6xl md:text-8xl serif-title uppercase tracking-tighter italic">
+            Men's Fashion
+        </h1>
+    </header>
+
+    <main class="grid grid-cols-1 md:grid-cols-2">
+        
+        <div class="grid-border aspect-square overflow-hidden bg-[#121212] flex items-center justify-center p-8">
+            <img src="product1.1.jpg" alt="Premium Shirt" class="w-full h-full object-cover hover:scale-105 transition duration-700">
+        </div>
+
+        <div class="grid-border border-l-0 aspect-square overflow-hidden bg-[#121212] flex items-center justify-center p-8">
+            <img src="product2.1.jpg" alt="Tailored Trousers" class="w-full h-full object-cover hover:scale-105 transition duration-700">
+        </div>
+
+        <div class="grid-border border-t-0 aspect-square overflow-hidden bg-[#121212] flex items-center justify-center p-8">
+            <img src="product3.1.jpg" alt="Leather Shoes" class="w-full h-full object-cover hover:scale-105 transition duration-700">
+        </div>
+
+        <div class="grid-border border-t-0 border-l-0 aspect-square overflow-hidden bg-[#121212] flex items-center justify-center p-8">
+            <img src="product4.1.jpg" alt="Luxury Watch" class="w-full h-full object-cover hover:scale-105 transition duration-700">
+        </div>
+
+    </main>
+
+    <footer class="py-12 text-center text-[10px] uppercase tracking-[0.3em] text-gray-500">
+        &copy; 2026 INDIG-GROK. All Rights Reserved.
+    </footer>
+
+</body>
+</html>
