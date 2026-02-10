@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Monarch Piqué Polo | INDIG-GROK</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+
+<style>
+:root {
+    --gold:#c5a059;
+    --dark-bg:#0a0a0a;
+}
+
+body {
+    background: var(--dark-bg);
+    color:white;
+    font-family:'Cinzel',serif;
+}
+
+body::before {
+    content:"";
+    position:fixed;
+    inset:0;
+    background:url('images/backgroundimage1.jpg') center/cover no-repeat;
+    filter:brightness(0.2);
+    z-index:-1;
+}
+
+.price { color:var(--gold); }
+
+.buy-btn {
+    background:white;
+    color:black;
+    letter-spacing:0.25em;
+    padding:14px;
+    text-transform:uppercase;
+    font-size:11px;
+    transition:0.3s;
+}
+
+.buy-btn:hover {
+    background:var(--gold);
+    color:white;
+}
+</style>
+</head>
+
+<body>
+
+<nav class="flex justify-between px-8 py-8 border-b border-white/10 text-[10px] tracking-[0.3em] uppercase">
+    <div class="text-xl">INDIG-GROK</div>
+    <a href="product1.html" class="hover:text-gray-400">Back to Collection</a>
+</nav>
+
+<main class="max-w-6xl mx-auto px-6 py-20 grid md:grid-cols-2 gap-16">
+
+    <!-- LEFT: Images -->
+    <div class="space-y-6">
+        <img src="images/shirt1.1.1.png" class="w-full">
+        <img src="images/shirt1.1.1_back.png" class="w-full opacity-80">
+    </div>
+
+    <!-- RIGHT: Details -->
+    <div>
+        <h1 class="text-4xl serif-title mb-4 uppercase tracking-widest">
+            Monarch Piqué Polo
+        </h1>
+
+        <p class="price text-xl mb-6">$145.00</p>
+
+        <p class="text-sm text-gray-300 leading-7 mb-10">
+            A refined piqué polo crafted for understated luxury.
+            Designed with breathable structure, clean tailoring,
+            and a timeless silhouette — suitable for day to night wear.
+        </p>
+
+        <!-- Size -->
+        <div class="mb-8">
+            <p class="text-xs tracking-widest mb-3">SELECT SIZE</p>
+            <div class="flex gap-3 text-xs">
+                <button class="border px-4 py-2">S</button>
+                <button class="border px-4 py-2">M</button>
+                <button class="border px-4 py-2">L</button>
+                <button class="border px-4 py-2">XL</button>
+            </div>
+        </div>
+
+        <button class="buy-btn w-full mb-6">Add to Cart</button>
+
+        <ul class="text-[11px] tracking-wider text-gray-400 space-y-2">
+            <li>• Premium cotton blend</li>
+            <li>• Tailored fit</li>
+            <li>• Made for INDIG-GROK</li>
+        </ul>
+    </div>
+
+</main>
+
+<footer class="text-center py-12 text-[9px] tracking-[0.4em] uppercase text-gray-400">
+© 2026 INDIG-GROK
+</footer>
+
+</body>
+</html>
