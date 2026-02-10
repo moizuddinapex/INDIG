@@ -19,13 +19,12 @@
             font-family: 'Cinzel', serif;
         }
 
-        /* Reusing your front page background */
         body::before {
             content: "";
             position: fixed;
             inset: 0;
             background: url('images/backgroundimage1.jpg') center / cover no-repeat;
-            filter: brightness(0.2); /* Darker for product focus */
+            filter: brightness(0.2);
             z-index: -1;
         }
 
@@ -44,11 +43,35 @@
             background: rgba(255, 255, 255, 0.06);
         }
 
-        .product-image {
-            aspect-ratio: 3/4;
-            object-fit: cover;
+        /* NEW CSS FOR SWAP EFFECT */
+        .image-container {
+            position: relative;
             width: 100%;
+            aspect-ratio: 3/4;
+            overflow: hidden;
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .product-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: opacity 0.5s ease-in-out;
+        }
+
+        .product-image.back-view {
+            opacity: 0;
+        }
+
+        .product-card:hover .front-view {
+            opacity: 0;
+        }
+
+        .product-card:hover .back-view {
+            opacity: 1;
         }
 
         .buy-button {
@@ -95,7 +118,10 @@
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
             
             <div class="product-card">
-                <img src="images/Capture1.PNG" alt="Monarch Piqué" class="product-image">
+                <div class="image-container">
+                    <img src="images/Capture1.PNG" alt="Front" class="product-image front-view">
+                    <img src="images/Capture1_back.PNG" alt="Back" class="product-image back-view">
+                </div>
                 <div class="p-6 text-center">
                     <h3 class="text-xs tracking-widest mb-2">MONARCH PIQUÉ POLO</h3>
                     <p class="price-tag text-sm mb-4">$145.00</p>
@@ -104,7 +130,10 @@
             </div>
 
             <div class="product-card">
-                <img src="images/Capture2.PNG" alt="Imperial Knit" class="product-image">
+                <div class="image-container">
+                    <img src="images/Capture2.PNG" alt="Front" class="product-image front-view">
+                    <img src="images/Capture2_back.PNG" alt="Back" class="product-image back-view">
+                </div>
                 <div class="p-6 text-center">
                     <h3 class="text-xs tracking-widest mb-2">IMPERIAL TEXTURED KNIT</h3>
                     <p class="price-tag text-sm mb-4">$160.00</p>
@@ -113,7 +142,10 @@
             </div>
 
             <div class="product-card">
-                <img src="images/Capture3.PNG" alt="Sovereign Silk" class="product-image">
+                <div class="image-container">
+                    <img src="images/Capture3.PNG" alt="Front" class="product-image front-view">
+                    <img src="images/Capture3_back.PNG" alt="Back" class="product-image back-view">
+                </div>
                 <div class="p-6 text-center">
                     <h3 class="text-xs tracking-widest mb-2">SOVEREIGN SILK POLO</h3>
                     <p class="price-tag text-sm mb-4">$185.00</p>
@@ -122,7 +154,10 @@
             </div>
 
             <div class="product-card">
-                <img src="https://images.unsplash.com/photo-1554568218-0f1715e72254?auto=format&fit=crop&q=80&w=800" class="product-image">
+                <div class="image-container">
+                    <img src="https://images.unsplash.com/photo-1554568218-0f1715e72254?auto=format&fit=crop&q=80&w=800" class="product-image front-view">
+                    <img src="https://images.unsplash.com/photo-1554568218-0f1715e72254?auto=format&fit=crop&q=80&w=800&brightness=0.8" class="product-image back-view">
+                </div>
                 <div class="p-6 text-center">
                     <h3 class="text-xs tracking-widest mb-2">ONYX ELITE SHIRT</h3>
                     <p class="price-tag text-sm mb-4">$130.00</p>
@@ -130,61 +165,7 @@
                 </div>
             </div>
 
-            <div class="product-card">
-                <img src="https://images.unsplash.com/photo-1626497748470-284d41f66350?auto=format&fit=crop&q=80&w=800" class="product-image">
-                <div class="p-6 text-center">
-                    <h3 class="text-xs tracking-widest mb-2">GILDED GRAPHITE</h3>
-                    <p class="price-tag text-sm mb-4">$120.00</p>
-                    <a href="#" class="buy-button">Add to Cart</a>
-                </div>
             </div>
-
-            <div class="product-card">
-                <img src="https://images.unsplash.com/photo-1598032895397-b9472444bf93?auto=format&fit=crop&q=80&w=800" class="product-image">
-                <div class="p-6 text-center">
-                    <h3 class="text-xs tracking-widest mb-2">AZURE REGENT</h3>
-                    <p class="price-tag text-sm mb-4">$155.00</p>
-                    <a href="#" class="buy-button">Add to Cart</a>
-                </div>
-            </div>
-
-            <div class="product-card">
-                <img src="https://images.unsplash.com/photo-1586363104862-3a5e2ab60d99?auto=format&fit=crop&q=80&w=800" class="product-image">
-                <div class="p-6 text-center">
-                    <h3 class="text-xs tracking-widest mb-2">IVORY SCEPTER</h3>
-                    <p class="price-tag text-sm mb-4">$140.00</p>
-                    <a href="#" class="buy-button">Add to Cart</a>
-                </div>
-            </div>
-
-            <div class="product-card">
-                <img src="https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?auto=format&fit=crop&q=80&w=800" class="product-image">
-                <div class="p-6 text-center">
-                    <h3 class="text-xs tracking-widest mb-2">ROYAL INDIGO</h3>
-                    <p class="price-tag text-sm mb-4">$175.00</p>
-                    <a href="#" class="buy-button">Add to Cart</a>
-                </div>
-            </div>
-
-            <div class="product-card">
-                <img src="https://images.unsplash.com/photo-1596755094514-f87e34085b2c?auto=format&fit=crop&q=80&w=800" class="product-image">
-                <div class="p-6 text-center">
-                    <h3 class="text-xs tracking-widest mb-2">LEGACY CRIMSON</h3>
-                    <p class="price-tag text-sm mb-4">$135.00</p>
-                    <a href="#" class="buy-button">Add to Cart</a>
-                </div>
-            </div>
-
-            <div class="product-card">
-                <img src="https://images.unsplash.com/photo-1603252109303-2751441dd157?auto=format&fit=crop&q=80&w=800" class="product-image">
-                <div class="p-6 text-center">
-                    <h3 class="text-xs tracking-widest mb-2">VELVET NIGHT</h3>
-                    <p class="price-tag text-sm mb-4">$190.00</p>
-                    <a href="#" class="buy-button">Add to Cart</a>
-                </div>
-            </div>
-
-        </div>
     </main>
 
     <footer class="py-16 text-center text-[9px] uppercase tracking-[0.4em] text-gray-400">
