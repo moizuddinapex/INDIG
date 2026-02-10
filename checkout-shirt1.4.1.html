@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Checkout | INDIG-GROK</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+
+<style>
+:root {
+    --gold: #c5a059;
+    --dark-bg: #0a0a0a;
+}
+
+body {
+    margin:0;
+    background: var(--dark-bg);
+    color: white;
+    font-family: 'Cinzel', serif;
+}
+
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background: url('images/backgroundimage1.jpg') center/cover no-repeat;
+    filter: brightness(0.2);
+    z-index: -1;
+}
+
+.container {
+    max-width: 640px;
+    margin: auto;
+    padding: 3rem 1rem;
+}
+
+h1 {
+    font-size: 2rem;
+    text-align: center;
+    letter-spacing: 0.2em;
+}
+
+.section {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.1);
+    padding: 1.8rem;
+    border-radius: 6px;
+    margin-top: 1.8rem;
+}
+
+.label {
+    text-transform: uppercase;
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    color: #ccc;
+}
+
+input, select {
+    width: 100%;
+    margin-top: .6rem;
+    margin-bottom: 1rem;
+    padding: .8rem;
+    border: 1px solid rgba(255,255,255,0.2);
+    background: rgba(0,0,0,0.4);
+    color: white;
+    font-size: 14px;
+    border-radius: 4px;
+}
+
+.checkout-btn {
+    background: var(--gold);
+    color: black;
+    font-weight: bold;
+    text-transform: uppercase;
+    padding: 1rem;
+    width: 100%;
+    font-size: 14px;
+    letter-spacing: .25em;
+    transition: .3s;
+    text-align: center;
+}
+
+.checkout-btn:hover {
+    background: white;
+    color: black;
+}
+
+.product-summary {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+
+.product-summary img {
+    width: 85px;
+    height: auto;
+    object-fit: cover;
+    border: 1px solid rgba(255,255,255,0.2);
+}
+
+.product-summary div {
+    font-size: 14px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>Checkout</h1>
+
+    <!-- PRODUCT SUMMARY -->
+    <div class="section product-summary">
+        <img src="images/{{image}}" alt="{{productName}}">
+        <div>
+            <p class="uppercase tracking-wide">{{productName}}</p>
+            <p class="text-2xl text-gold font-bold">${{price}}</p>
+        </div>
+    </div>
+
+    <!-- SIZE / OPTIONS -->
+    <div class="section">
+        <label class="label">Select Size</label>
+        <select id="size">
+            <option value="S">Small (S)</option>
+            <option value="M" selected>Medium (M)</option>
+            <option value="L">Large (L)</option>
+            <option value="XL">XL</option>
+        </select>
+
+        <label class="label">Quantity</label>
+        <input type="number" id="qty" min="1" value="1">
+    </div>
+
+    <!-- BILLING / PAYMENT -->
+    <div class="section">
+        <label class="label">Full Name</label>
+        <input type="text" placeholder="John Doe" id="fullname">
+
+        <label class="label">Email</label>
+        <input type="email" placeholder="you@example.com" id="email">
+
+        <label class="label">Phone</label>
+        <input type="tel" placeholder="+92__________" id="phone">
+
+        <label class="label">Address</label>
+        <input type="text" placeholder="Street Address" id="address">
+    </div>
+
+    <!-- PAYMENT BUTTON -->
+    <div class="section">
+        <button class="checkout-btn" id="completeCheckout">
+            Complete Checkout
+        </button>
+    </div>
+
+</div>
+
+
+<script>
+document.getElementById('completeCheckout').addEventListener('click', ()=>{
+    // You will plug in real payment API logic here.
+    alert('Checkout functionality needs integration with your payment provider.');
+});
+</script>
+
+</body>
+</html>
