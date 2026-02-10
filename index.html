@@ -135,15 +135,18 @@ body::before {
 
       /* Fix tall product cropping */
 .product-tall .tall-img {
-    object-position: center top;
-    transform: scale(1); /* reset base scale */
+    /* Anchors the image to the top so the head/shoulders aren't cut */
+    object-position: center top; 
+    /* Changed to cover to ensure it fills the box width */
+    object-fit: cover; 
+    width: 100%;
+    height: 100%;
 }
 
-/* Reduce hover zoom for tall images */
-.product-tall:hover img {
-    transform: scale(1.03);
+/* Specific hover for tall images to prevent over-zooming */
+.product-tall:hover .tall-img {
+    transform: scale(1.05) !important; 
 }
-
 .product-tall {
     background: radial-gradient(
         circle at center,
@@ -259,7 +262,7 @@ document.addEventListener("DOMContentLoaded", () => {
     /* Tall images: subtle micro-parallax */
     if (img.classList.contains("tall-img")) {
       img.style.transform =
-        `translateY(${scrollY * 0.015}px)`;
+        `translateY(${scrollY * 0.01}px)`;
       return;
     }
 
