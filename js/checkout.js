@@ -1,3 +1,28 @@
+
+// Function to toggle the cart visibility
+function toggleCart(show = true) {
+    const cartSidebar = document.getElementById('cart-sidebar');
+    const overlay = document.getElementById('cart-overlay');
+    
+    if (show) {
+        cartSidebar.classList.add('active');
+        overlay.classList.add('active');
+    } else {
+        cartSidebar.classList.remove('active');
+        overlay.classList.remove('active');
+    }
+}
+
+// Update your existing Add to Cart function to include:
+function addToCart(productName, price, image) {
+    // ... your existing logic to add to localstorage ...
+    
+    // Trigger the slide-in effect immediately after adding
+    updateCartUI();
+    toggleCart(true); 
+}
+
+
 const PRICE = 145.00;
 
 const qtyInput = document.getElementById('qty');
