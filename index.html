@@ -186,44 +186,43 @@ body::before {
 
 
         
-/* Overlay Background */
+/* Background Overlay */
 .cart-overlay {
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+    inset: 0;
     background: rgba(0, 0, 0, 0.7);
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.3s ease;
-    z-index: 9999;
+    display: none;
+    z-index: 9998;
 }
-
 
 
 .cart-overlay.active {
-    opacity: 1;
-    visibility: visible;
+    display: block;
+}
         
-/* Sidebar Drawer */
+/* Sidebar Container - Always on the right, hidden by default */
 .cart-drawer {
-    position: fixed;
+    position: fixed !important;
     top: 0;
-    right: -450px; /* Hidden off-screen */
+    right: -100%; /* Start completely off-screen */
     width: 400px;
-    height: 100%;
+    height: 100vh;
     background: white;
-    box-shadow: -10px 0 30px rgba(0,0,0,0.5);
-    transition: right 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    z-index: 10000;
+    z-index: 9999;
+    transition: right 0.4s ease-in-out; /* The sliding effect */
     display: flex;
     flex-direction: column;
-
-/* Active State */
-.cart-drawer.active {
-    right: 0;
+    box-shadow: -5px 0 15px rgba(0,0,0,0.3);
 }
+
+    
+
+/* When active, slide to the 0 position */
+.cart-drawer.active {
+    right: 0 !important;
+}
+
+    
 /* Content styling to ensure visibility against white background */
 .cart-header h3, .cart-items, .cart-total {
     color: #000 !important;
@@ -259,7 +258,11 @@ body::before {
 }
 
 
-
+/* Fix text colors inside the white cart */
+.cart-drawer h3, .cart-drawer div, .cart-drawer span {
+    color: black !important;
+    font-family: 'Inter', sans-serif;
+}
         
         
 
@@ -277,13 +280,17 @@ body::before {
     <body class="min-h-screen">
 
     <nav class="flex justify-between items-center px-8 py-8 uppercase tracking-[0.3em] text-[10px] border-b border-white/10 relative z-10">
-        <div class="brand-font font-bold tracking-normal">INDIG-GROK</div>
-        <div class="space-x-10 hidden md:flex">
-            <a href="#" class="hover:text-gray-400 transition">Collection</a>
-            <a href="#" class="hover:text-gray-400 transition">Archive</a>
-            <a href="#" class="hover:text-gray-400 transition">Information</a>
-        </div>
-    </nav>
+    <div class="brand-font font-bold tracking-normal">INDIG-GROK</div>
+    <div class="space-x-10 hidden md:flex">
+        <a href="#" class="hover:text-gray-400 transition">Collection</a>
+        <a href="#" class="hover:text-gray-400 transition">Archive</a>
+        <a href="#" class="hover:text-gray-400 transition">Information</a>
+        <button onclick="toggleCart(true)" class="hover:text-gray-400 transition flex items-center gap-2">
+            <span>BAG</span>
+            <span id="cart-count">(0)</span>
+        </button>
+    </div>
+</nav>
 
     <header class="py-24 flex flex-col items-center justify-center border-b border-white/10 relative z-10">
     <h1 class="text-6xl md:text-8xl serif-title uppercase tracking-tighter fade-in-up">
