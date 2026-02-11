@@ -190,31 +190,30 @@ body::before {
 .cart-overlay {
     position: fixed;
     inset: 0;
-    background: rgba(0, 0, 0, 0.7);
+    background: rgba(0,0,0,0.7);
     display: none;
-    z-index: 9998;
+    z-index: 9999;
 }
-
 
 .cart-overlay.active {
     display: block;
 }
         
 /* Sidebar Container - Always on the right, hidden by default */
+
 .cart-drawer {
-    position: fixed !important;
+    position: fixed !important; /* This "lifts" it off the page */
     top: 0;
-    right: -450px; /* Hidden off-screen */
+    right: -100%; /* This hides it to the right */
     width: 400px;
     height: 100vh;
     background: white;
-    z-index: 10000;
-    transition: right 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    z-index: 10000; /* Keeps it on top of everything */
+    transition: right 0.4s ease;
     display: flex;
     flex-direction: column;
-    color: black !important;
 }
-    
+        
 
 /* When active, slide to the 0 position */
 .cart-drawer.active {
@@ -300,8 +299,9 @@ body::before {
         <a href="#" class="hover:text-gray-400 transition">Collection</a>
         <a href="#" class="hover:text-gray-400 transition">Archive</a>
         <a href="#" class="hover:text-gray-400 transition">Information</a>
-        <button onclick="toggleCart(true)" class="hover:text-gray-400 transition flex items-center gap-2">
-            <span>BAG</span>
+        <button onclick="toggleCart(true)" class="border border-white px-3 py-1">
+    BAG <span id="cart-count">(0)</span>
+</button>
             <span id="cart-count">(0)</span>
         </button>
     </div>
@@ -415,9 +415,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     
-<div class="cursor-pointer" onclick="toggleCart(true)">
-    <span>BAG (0)</span>
-</div>
+
 
 <nav class="flex justify-between items-center px-8 py-8 uppercase tracking-[0.3em] text-[10px] border-b border-white/10 relative z-50">
     <div class="brand-font font-bold tracking-normal">INDIG-GROK</div>
@@ -438,23 +436,23 @@ document.addEventListener("DOMContentLoaded", () => {
 
 <div id="cart-sidebar" class="cart-drawer">
     <div class="cart-header">
-        <h3 class="font-bold">SHOPPING BAG</h3>
-        <button onclick="toggleCart(false)" class="close-btn">&times;</button>
+        <h3 style="color: black !important; font-weight: bold;">SHOPPING BAG</h3>
+        <button onclick="toggleCart(false)" class="close-btn" style="color: black !important;">&times;</button>
     </div>
 
-    <div id="cart-items-container" class="cart-items"></div>
+    <div id="cart-items-container" class="cart-items">
+        </div>
 
     <div class="cart-footer">
-        <div class="flex justify-between mb-6">
-            <span class="font-bold">SUBTOTAL</span>
-            <span id="cart-total-price">Rs 0</span>
+        <div class="flex justify-between mb-4">
+            <span style="color: black !important; font-weight: bold;">SUBTOTAL</span>
+            <span id="cart-total-price" style="color: black !important;">Rs 0</span>
         </div>
         <button class="checkout-btn" onclick="goToCheckout()">CHECKOUT</button>
     </div>
 </div>
 
 <script src="js/checkout.js"></script>
-    
     
     
     
