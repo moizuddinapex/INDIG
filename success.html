@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Order Confirmed | INDIG-GROK</link>
+
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&display=swap" rel="stylesheet">
+
+<style>
+body {
+    margin:0;
+    font-family:'Cinzel', serif;
+    background:#0a0a0a;
+    color:white;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    height:100vh;
+}
+
+body::before {
+    content:"";
+    position:fixed;
+    inset:0;
+    background:url('images/backgroundimage1.jpg') center/cover no-repeat;
+    filter:brightness(0.2);
+    z-index:-1;
+}
+
+.box {
+    text-align:center;
+    background:rgba(255,255,255,0.04);
+    border:1px solid rgba(255,255,255,0.1);
+    padding:3rem;
+    border-radius:10px;
+    max-width:420px;
+}
+
+h1 {
+    letter-spacing:.3em;
+    margin-bottom:1rem;
+}
+
+a {
+    display:inline-block;
+    margin-top:2rem;
+    padding:1rem 2.5rem;
+    background:#c5a059;
+    color:black;
+    text-decoration:none;
+    letter-spacing:.3em;
+}
+</style>
+</head>
+
+<body>
+<div class="box">
+    <h1>THANK YOU</h1>
+    <p>Your order has been placed successfully.</p>
+    <p>Our team will contact you shortly.</p>
+
+    <a href="index.html">Back to Store</a>
+</div>
+</body>
+</html>
