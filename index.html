@@ -162,15 +162,40 @@ body::before {
 
 
 
+
+/* The Sidebar Container */
+#cart-sidebar {
+    position: fixed;
+    top: 0;
+    right: -100%; /* Start hidden off-screen to the right */
+    width: 400px;
+    height: 100%;
+    background: white;
+    z-index: 9999;
+    transition: right 0.4s ease; /* This creates the slide effect */
+    box-shadow: -5px 0 15px rgba(0,0,0,0.1);
+    display: flex;
+    flex-direction: column;
+}
+
+/* The 'Active' state triggered by JS */
+#cart-sidebar.active {
+    right: 0; /* Slides into view */
+}
+
+
+
+        
+/* Darken background when cart is open */
 .cart-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0,0,0,0.5);
-  display: none;
-  z-index: 999;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+    display: none; /* Hidden by default */
+    z-index: 9998;
 }
 
 .cart-drawer {
@@ -358,14 +383,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
     
 <!-- CART OVERLAY -->
-<div id="cartOverlay" class="cart-overlay"></div>
+<div id="cart-overlay" onclick="toggleCart(false)"></div>
+<div id="cart-sidebar">
 
 <!-- CART DRAWER -->
 <div id="cartDrawer" class="cart-drawer">
   <div class="cart-header">
-    <h2>Shopping Cart</h2>
-    <button onclick="closeCart()">✕</button>
-  </div>
+    <h3>Shopping Cart</h3>
+        <button onclick="toggleCart(false)">&times;</button>
+    </div>
 
   <div id="cartItems" class="cart-items"></div>
 
