@@ -1,59 +1,66 @@
 
-// Function to toggle the cart visibility
+let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+// Unified Toggle Function
 function toggleCart(show = true) {
-    const cartSidebar = document.getElementById('cart-sidebar');
+    const drawer = document.getElementById('cart-sidebar');
     const overlay = document.getElementById('cart-overlay');
     
     if (show) {
-        cartSidebar.classList.add('active');
+        drawer.classList.add('active');
         overlay.classList.add('active');
+        renderCart();
     } else {
-        cartSidebar.classList.remove('active');
+        drawer.classList.remove('active');
         overlay.classList.remove('active');
     }
 }
 
-// Update your existing Add to Cart function to include:
-function addToCart(productName, price, image) {
-    // ... your existing logic to add to localstorage ...
+// Function to add item and slide open cart
+function addToCart(name, price, image) {
+    cart.push({ name, price, image });
+    localStorage.setItem("cart", JSON.stringify(cart));
     
-    // Trigger the slide-in effect immediately after adding
-    updateCartUI();
+    // Update UI and slide open
+    renderCart();
     toggleCart(true); 
 }
 
+// Function to draw the items inside the cart
+function renderCart() {
+    const container = document.getElementById("cart-items-container");
+    const totalElement = document.getElementById("cart-total-price");
+    
+    container.innerHTML = "";
+    let total = 0;
 
-const PRICE = 145.00;
+    if (cart.length === 0) {
+        container.innerHTML = '<p class="text-gray-500 text-center mt-10">Your cart is empty.</p>';
+    } else {
+        cart.forEach((item, index) => {
+            total += item.price;
+            container.innerHTML += `
+                <div class="flex items-center gap-4 mb-4 pb-4 border-b border-gray-100">
+                    <img src="${item.image}" class="w-20 h-24 object-cover">
+                    <div class="flex-1">
+                        <h4 class="font-bold text-sm uppercase">${item.name}</h4>
+                        <p class="text-gray-600">Rs ${item.price.toLocaleString()}</p>
+                        <button onclick="removeItem(${index})" class="text-[10px] underline text-red-500 uppercase mt-2">Remove</button>
+                    </div>
+                </div>
+            `;
+        });
+    }
 
-const qtyInput = document.getElementById('qty');
-
-qtyInput.addEventListener('input', () => {
-    // later you can calculate total here
-    console.log('Quantity changed:', qtyInput.value);
-});
-
-
-<script>
-let cart = JSON.parse(localStorage.getItem("cart")) || [];
-
-function openCart() {
-  document.getElementById("cartDrawer").classList.add("active");
-  document.getElementById("cartOverlay").classList.add("active");
-  renderCart();
+    totalElement.innerText = "Rs " + total.toLocaleString();
 }
 
-function closeCart() {
-  document.getElementById("cartDrawer").classList.remove("active");
-  document.getElementById("cartOverlay").classList.remove("active");
+function removeItem(index) {
+    cart.splice(index, 1);
+    localStorage.setItem("cart", JSON.stringify(cart));
+    renderCart();
 }
 
-document.getElementById("cartOverlay").addEventListener("click", closeCart);
-
-function addToCart(name, price, image) {
-  cart.push({ name, price, image });
-  localStorage.setItem("cart", JSON.stringify(cart));
-  openCart();
-}
 
 function renderCart() {
   const container = document.getElementById("cartItems");
