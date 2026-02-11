@@ -287,7 +287,17 @@ body::before {
 
     
     
-
+    <nav class="flex justify-between items-center px-8 py-8 uppercase tracking-[0.3em] text-[10px] border-b border-white/10 relative z-50">
+    <div class="brand-font font-bold tracking-normal">INDIG-GROK</div>
+    <div class="space-x-10 hidden md:flex items-center">
+        <a href="#" class="hover:text-gray-400 transition">Collection</a>
+        <a href="#" class="hover:text-gray-400 transition">Archive</a>
+        <a href="#" class="hover:text-gray-400 transition">Information</a>
+        <button onclick="toggleCart(true)" class="border border-white px-3 py-1 hover:bg-white hover:text-black transition">
+            BAG <span id="cart-count">(0)</span>
+        </button>
+    </div>
+</nav>
     
     
     
