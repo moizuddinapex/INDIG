@@ -26,34 +26,51 @@ function addToCart(name, price, image) {
     toggleCart(true); 
 }
 
-// Function to draw the items inside the cart
+
+function toggleCart(show = true) {
+    // We target the cart-sidebar ID but apply the 'active' class
+    const drawer = document.getElementById('cart-sidebar');
+    const overlay = document.getElementById('cart-overlay');
+    
+    if (show) {
+        drawer.classList.add('active');
+        overlay.classList.add('active');
+        renderCart(); // Refresh the items list
+    } else {
+        drawer.classList.remove('active');
+        overlay.classList.remove('active');
+    }
+}
+
+// Update your renderCart to show the count in the navbar
 function renderCart() {
-    const container = document.getElementById("cart-items-container");
-    const totalElement = document.getElementById("cart-total-price");
+    const container = document.getElementById("cartItems");
+    const countElement = document.getElementById("cart-count");
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
     
     container.innerHTML = "";
     let total = 0;
 
-    if (cart.length === 0) {
-        container.innerHTML = '<p class="text-gray-500 text-center mt-10">Your cart is empty.</p>';
-    } else {
-        cart.forEach((item, index) => {
-            total += item.price;
-            container.innerHTML += `
-                <div class="flex items-center gap-4 mb-4 pb-4 border-b border-gray-100">
-                    <img src="${item.image}" class="w-20 h-24 object-cover">
-                    <div class="flex-1">
-                        <h4 class="font-bold text-sm uppercase">${item.name}</h4>
-                        <p class="text-gray-600">Rs ${item.price.toLocaleString()}</p>
-                        <button onclick="removeItem(${index})" class="text-[10px] underline text-red-500 uppercase mt-2">Remove</button>
-                    </div>
+    cart.forEach((item, index) => {
+        total += item.price;
+        container.innerHTML += `
+            <div style="display:flex; gap:15px; margin-bottom:20px; align-items:center; border-bottom: 1px solid #eee; padding-bottom: 10px;">
+                <img src="${item.image}" width="70" height="90" style="object-fit: cover;">
+                <div style="flex-grow: 1;">
+                    <div style="font-weight: bold; font-size: 12px;">${item.name}</div>
+                    <div style="font-size: 11px;">Rs ${item.price}</div>
                 </div>
-            `;
-        });
-    }
+            </div>
+        `;
+    });
 
-    totalElement.innerText = "Rs " + total.toLocaleString();
+    document.getElementById("cartTotal").innerText = "Rs " + total;
+    if(countElement) countElement.innerText = `(${cart.length})`;
 }
+
+
+
+
 
 function removeItem(index) {
     cart.splice(index, 1);
