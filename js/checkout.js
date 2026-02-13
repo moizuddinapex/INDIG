@@ -4,8 +4,8 @@ let cart = JSON.parse(localStorage.getItem("cart")) || [];
 
 // 1. OPEN/CLOSE SIDEBAR
 function toggleCart(show = true) {
-    const drawer = document.getElementById('cart-sidebar');
-    const overlay = document.getElementById('cart-overlay');
+    const drawer = document.getElementById('cartSidebar');
+    const overlay = document.getElementById('cartOverlay');
     
     if (show) {
         drawer.classList.add('active');
@@ -70,3 +70,28 @@ function goToCheckout() {
 
 // Ensure cart count updates on page load
 document.addEventListener('DOMContentLoaded', renderCart);
+
+// OPEN CART WHEN BAG ICON CLICKED
+document.addEventListener("DOMContentLoaded", () => {
+    const bag = document.querySelector(".bag-icon");
+
+    if (bag) {
+        bag.addEventListener("click", () => toggleCart(true));
+    }
+
+    const overlay = document.getElementById("cartOverlay");
+    if (overlay) {
+        overlay.addEventListener("click", () => toggleCart(false));
+    }
+
+    const closeBtn = document.getElementById("closeCart");
+    if (closeBtn) {
+        closeBtn.addEventListener("click", () => toggleCart(false));
+    }
+});
+
+
+
+
+
+
