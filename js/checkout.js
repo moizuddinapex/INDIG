@@ -1,134 +1,108 @@
-// ==========================
-// GLOBAL CART STATE
-// ==========================
+// --------------------
+// Global cart state
+// --------------------
 let cart = JSON.parse(localStorage.getItem("cart")) || [];
 
-
-// =====================
-// SIDEBAR CONTROLS
-// =====================
-
+// --------------------
+// 1. Toggle Cart Sidebar
+// --------------------
 function toggleCart(show = true) {
+  const drawer  = document.getElementById("cartSidebar");
+  const overlay = document.getElementById("cartOverlay");
 
-    const sidebar = document.getElementById("cartSidebar");
-    const overlay = document.getElementById("cartOverlay");
+  if (!drawer || !overlay) return;
 
-    if (!sidebar || !overlay) return;
-
-    if (show) {
-        sidebar.classList.add("active");
-        overlay.classList.add("active");
-    } else {
-        sidebar.classList.remove("active");
-        overlay.classList.remove("active");
-    }
+  if (show) {
+    drawer.classList.add("active");
+    overlay.classList.add("active");
+    renderCart();
+  } else {
+    drawer.classList.remove("active");
+    overlay.classList.remove("active");
+  }
 }
 
-// ==========================
-// ADD TO CART
-// ==========================
+// --------------------
+// 2. Add Item To Cart
+// --------------------
 function addToCart(name, price, image) {
+  // Add new item
+  cart.push({ name, price, image });
 
-    cart.push({ name, price, image });
-    localStorage.setItem("cart", JSON.stringify(cart));
+  // Save
+  localStorage.setItem("cart", JSON.stringify(cart));
 
-    renderCart();
-    toggleCart(true);
+  // Update UI
+  renderCart();
+  toggleCart(true);
 }
 
-
-// ==========================
-// RENDER CART
-// ==========================
+// --------------------
+// 3. Render Cart Items
+// --------------------
 function renderCart() {
+  const container    = document.getElementById("cart-items-container");
+  const totalElement = document.getElementById("cart-total-price");
+  const countElement = document.getElementById("cart-count");
 
-    const container = document.getElementById("cart-items-container");
-    const totalElement = document.getElementById("cart-total-price");
-    const countElement = document.getElementById("cart-count");
+  if (!container || !totalElement) return;
 
-    if (!container) return;
+  container.innerHTML = "";
+  let total = 0;
 
-    container.innerHTML = "";
-    let total = 0;
+  if (cart.length === 0) {
+    container.innerHTML = `<p class="empty-cart">Your bag is empty</p>`;
+  } else {
+    cart.forEach((item, index) => {
+      total += item.price;
 
-    if (cart.length === 0) {
-        container.innerHTML =
-            `<div class="empty-msg">Your bag is empty</div>`;
-    } else {
+      container.innerHTML += `
+        <div class="cart-item">
+          <img src="${item.image}" alt="${item.name}" class="cart-img" />
+          <div class="cart-info">
+            <h4 class="cart-name">${item.name}</h4>
+            <p class="cart-price">Rs ${item.price.toLocaleString()}</p>
+            <button onclick="removeItem(${index})" class="remove-btn">Remove</button>
+          </div>
+        </div>
+      `;
+    });
+  }
 
-        cart.forEach((item, index) => {
-
-            total += item.price;
-
-            container.innerHTML += `
-                <div class="cart-item">
-                    <img src="${item.image}" />
-                    <div class="cart-item-info">
-                        <h4>${item.name}</h4>
-                        <p>Rs ${item.price.toLocaleString()}</p>
-                        <button onclick="removeItem(${index})">Remove</button>
-                    </div>
-                </div>
-            `;
-        });
-    }
-
-    if (totalElement)
-        totalElement.innerText = "Rs " + total.toLocaleString();
-
-    if (countElement)
-        countElement.innerText = `(${cart.length})`;
+  // Update totals
+  totalElement.innerText = "Rs " + total.toLocaleString();
+  if (countElement) countElement.innerText = `(${cart.length})`;
 }
 
-
-// ==========================
-// REMOVE ITEM
-// ==========================
+// --------------------
+// 4. Remove Item
+// --------------------
 function removeItem(index) {
-    cart.splice(index, 1);
-    localStorage.setItem("cart", JSON.stringify(cart));
-    renderCart();
+  if (index < 0 || index >= cart.length) return;
+
+  cart.splice(index, 1);
+  localStorage.setItem("cart", JSON.stringify(cart));
+  renderCart();
 }
 
-
-// ==========================
-// CHECKOUT REDIRECT
-// ==========================
+// --------------------
+// 5. Go to Checkout Page
+// --------------------
 function goToCheckout() {
-    window.location.href = "checkout-shirt1.1.1.html";
+  window.location.href = "checkout-shirt1.1.1.html";
 }
 
-
-// ==========================
-// INIT EVENTS
-// ==========================
+// --------------------
+// Initialize
+// --------------------
 document.addEventListener("DOMContentLoaded", () => {
+  renderCart();
 
-    renderCart();
+  const bag      = document.querySelector(".bag-icon");
+  const overlay  = document.getElementById("cartOverlay");
+  const closeBtn = document.getElementById("closeCart");
 
-    // BAG ICON CLICK
-    const bagIcon =
-        document.querySelector(".bag-icon") ||
-        document.querySelector(".fa-shopping-bag") ||
-        document.querySelector(".header__icon--cart");
-
-    if (bagIcon) {
-        bagIcon.addEventListener("click", (e) => {
-            e.preventDefault();
-            toggleCart(true);
-        });
-    } else {
-        console.log("Bag icon not found");
-    }
-
-    // close button
-document.getElementById("closeCart")
-?.addEventListener("click", () => toggleCart(false));
-
-// overlay click
-document.getElementById("cartOverlay")
-?.addEventListener("click", () => toggleCart(false));
-
-
-
-
+  if (bag)      bag.addEventListener("click", () => toggleCart(true));
+  if (overlay)  overlay.addEventListener("click", () => toggleCart(false));
+  if (closeBtn) closeBtn.addEventListener("click", () => toggleCart(false));
+});
