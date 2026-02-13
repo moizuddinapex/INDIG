@@ -1,108 +1,82 @@
-// --------------------
-// Global cart state
-// --------------------
+// ---------- CART STATE ----------
 let cart = JSON.parse(localStorage.getItem("cart")) || [];
 
-// --------------------
-// 1. Toggle Cart Sidebar
-// --------------------
-function toggleCart(show = true) {
-  const drawer  = document.getElementById("cartSidebar");
-  const overlay = document.getElementById("cartOverlay");
+// ---------- SELECT ELEMENTS ----------
+const sidebar = document.getElementById("cartSidebar");
+const overlay = document.getElementById("cartOverlay");
+const bagIcon = document.getElementById("bagIcon");
+const closeBtn = document.getElementById("closeCart");
+const cartItemsContainer = document.getElementById("cart-items-container");
+const cartTotalPrice = document.getElementById("cart-total-price");
 
-  if (!drawer || !overlay) return;
-
-  if (show) {
-    drawer.classList.add("active");
-    overlay.classList.add("active");
-    renderCart();
-  } else {
-    drawer.classList.remove("active");
-    overlay.classList.remove("active");
-  }
-}
-
-// --------------------
-// 2. Add Item To Cart
-// --------------------
-function addToCart(name, price, image) {
-  // Add new item
-  cart.push({ name, price, image });
-
-  // Save
-  localStorage.setItem("cart", JSON.stringify(cart));
-
-  // Update UI
+// ---------- OPEN / CLOSE ----------
+function openCart() {
+  sidebar.classList.add("active");
+  overlay.classList.add("active");
   renderCart();
-  toggleCart(true);
 }
 
-// --------------------
-// 3. Render Cart Items
-// --------------------
+function closeCart() {
+  sidebar.classList.remove("active");
+  overlay.classList.remove("active");
+}
+
+// ---------- RENDER CART ----------
 function renderCart() {
-  const container    = document.getElementById("cart-items-container");
-  const totalElement = document.getElementById("cart-total-price");
-  const countElement = document.getElementById("cart-count");
-
-  if (!container || !totalElement) return;
-
-  container.innerHTML = "";
+  cartItemsContainer.innerHTML = "";
   let total = 0;
 
   if (cart.length === 0) {
-    container.innerHTML = `<p class="empty-cart">Your bag is empty</p>`;
+    cartItemsContainer.innerHTML = `<p>Your cart is empty</p>`;
   } else {
     cart.forEach((item, index) => {
-      total += item.price;
+      total += item.price * item.qty;
 
-      container.innerHTML += `
-        <div class="cart-item">
-          <img src="${item.image}" alt="${item.name}" class="cart-img" />
-          <div class="cart-info">
-            <h4 class="cart-name">${item.name}</h4>
-            <p class="cart-price">Rs ${item.price.toLocaleString()}</p>
-            <button onclick="removeItem(${index})" class="remove-btn">Remove</button>
-          </div>
+      const div = document.createElement("div");
+      div.classList.add("cart-item");
+      div.innerHTML = `
+        <img src="${item.image}" alt="${item.name}">
+        <div class="cart-info">
+          <h4>${item.name}</h4>
+          <p>Rs ${item.price.toLocaleString()} x ${item.qty}</p>
+          <button onclick="removeItem(${index})" class="remove-btn">Remove</button>
         </div>
       `;
+      cartItemsContainer.appendChild(div);
     });
   }
 
-  // Update totals
-  totalElement.innerText = "Rs " + total.toLocaleString();
-  if (countElement) countElement.innerText = `(${cart.length})`;
+  cartTotalPrice.innerText = "Rs " + total.toLocaleString();
 }
 
-// --------------------
-// 4. Remove Item
-// --------------------
-function removeItem(index) {
-  if (index < 0 || index >= cart.length) return;
+// ---------- ADD ITEM ----------
+function addToCart(name, price, image) {
+  const existing = cart.find(i => i.name === name);
+  if (existing) {
+    existing.qty += 1;
+  } else {
+    cart.push({ name, price, image, qty: 1 });
+  }
+  localStorage.setItem("cart", JSON.stringify(cart));
+  openCart();
+}
 
+// ---------- REMOVE ITEM ----------
+function removeItem(index) {
   cart.splice(index, 1);
   localStorage.setItem("cart", JSON.stringify(cart));
   renderCart();
 }
 
-// --------------------
-// 5. Go to Checkout Page
-// --------------------
+// ---------- CHECKOUT ----------
 function goToCheckout() {
   window.location.href = "checkout-shirt1.1.1.html";
 }
 
-// --------------------
-// Initialize
-// --------------------
-document.addEventListener("DOMContentLoaded", () => {
-  renderCart();
+// ---------- EVENT LISTENERS ----------
+bagIcon.addEventListener("click", openCart);
+closeBtn.addEventListener("click", closeCart);
+overlay.addEventListener("click", closeCart);
 
-  const bag      = document.querySelector(".bag-icon");
-  const overlay  = document.getElementById("cartOverlay");
-  const closeBtn = document.getElementById("closeCart");
-
-  if (bag)      bag.addEventListener("click", () => toggleCart(true));
-  if (overlay)  overlay.addEventListener("click", () => toggleCart(false));
-  if (closeBtn) closeBtn.addEventListener("click", () => toggleCart(false));
-});
+// ---------- INITIALIZE ----------
+document.addEventListener("DOMContentLoaded", renderCart);
