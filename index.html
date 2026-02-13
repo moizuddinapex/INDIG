@@ -7,590 +7,368 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <title>INDIG-GROK | Premium Men's Fashion</title>
     <script src="https://cdn.tailwindcss.com"></script>
-   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Noto+Serif:wght@700&family=Playfair+Display:ital,wght@0,400;1,400&family=Inter:wght@300;400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Noto+Serif:wght@700&family=Playfair+Display:ital,wght@0,400;1,400&family=Inter:wght@300;400&display=swap" rel="stylesheet">
     
     <style>
-        
-      /* ---------- Animations ---------- */
+        /* ---------- Animations ---------- */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
 
-@keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translateY(30px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
+        .fade-in-img {
+            animation: fadeInUp 1.2s ease-out forwards;
+            opacity: 0;
+        }
 
-.fade-in-img {
-    animation: fadeInUp 1.2s ease-out forwards;
-    opacity: 0;
-}
+        /* ---------- Layout ---------- */
+        body {
+            background-color: #0a0a0a;
+            color: #ffffff;
+            font-family: 'Cinzel', serif;
+            letter-spacing: 0.1em;
+            margin: 0;
+        }
 
-/* ---------- Layout ---------- */
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            background: url('images/backgroundimage1.jpg') center / cover no-repeat;
+            filter: brightness(0.3);
+            z-index: -1;
+        }
 
-body {
-    background-color: #0a0a0a;
-    color: #ffffff;
-    font-family: 'Cinzel', serif;
-    letter-spacing: 0.1em;
-    margin: 0;
-}
+        .brand-font {
+            font-family: 'Noto Serif', serif;
+            font-size: 1.5rem;
+            letter-spacing: -0.02em;
+        }
 
-body::before {
-    content: "";
-    position: fixed;
-    inset: 0;
-    background: url('images/backgroundimage1.jpg') center / cover no-repeat;
-    filter: brightness(0.3);
-    z-index: -1;
-}
+        .serif-title {
+            font-family: 'Playfair Display', serif;
+        }
 
-.brand-font {
-    font-family: 'Noto Serif', serif;
-    font-size: 1.5rem;
-    letter-spacing: -0.02em;
-}
+        /* ---------- Product Grid ---------- */
+        .grid-border {
+            border: 1px solid rgba(255,255,255,0.1);
+        }
 
-.serif-title {
-    font-family: 'Playfair Display', serif;
-}
+        .product-box {
+            display: block;
+            aspect-ratio: 1 / 1;
+            position: relative;
+            overflow: hidden;
+            background: #0d0d0d;
+        }
 
-/* ---------- Product Grid ---------- */
+        .fill-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.7s ease;
+        }
 
-.grid-border {
-    border: 1px solid rgba(255,255,255,0.1);
-}
+        /* ---------- Shop Overlay ---------- */
+        .shop-overlay {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(0,0,0,0.4);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
 
-.product-box {
-    display: block;
-    aspect-ratio: 1 / 1;
-    position: relative;
-    overflow: hidden;
-    background: #0d0d0d;
-}
+        .shop-button {
+            background: white;
+            color: black;
+            padding: 14px 28px;
+            font-size: 11px;
+            letter-spacing: 0.2em;
+            font-weight: bold;
+            transform: translateY(15px);
+            transition: transform 0.4s ease;
+        }
 
-.fill-img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.7s ease;
-}
+        .product-box:hover .shop-overlay {
+            opacity: 1;
+        }
 
-/* ---------- Shop Overlay ---------- */
+        .product-box:hover .shop-button {
+            transform: translateY(0);
+        }
 
-.shop-overlay {
-    position: absolute;
-    inset: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: rgba(0,0,0,0.4);
-    opacity: 0;
-    transition: opacity 0.4s ease;
-}
+        .product-box:hover img {
+            transform: scale(1.08);
+        }
 
-.shop-button {
-    background: white;
-    color: black;
-    padding: 14px 28px;
-    font-size: 11px;
-    letter-spacing: 0.2em;
-    font-weight: bold;
-    transform: translateY(15px);
-    transition: transform 0.4s ease;
-}
+        .fade-section {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 1s ease;
+        }
 
-.product-box:hover .shop-overlay {
-    opacity: 1;
-}
+        .fade-section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
 
-.product-box:hover .shop-button {
-    transform: translateY(0);
-}
+        .product-box.show-overlay .shop-overlay {
+            opacity: 1;
+        }
 
-.product-box:hover img {
-    transform: scale(1.08);
-}
+        /* Fix tall product cropping */
+        .product-tall .tall-img {
+            object-position: center top; 
+            object-fit: cover; 
+            width: 100%;
+            height: 100%;
+        }
 
-.fade-section {
-    opacity: 0;
-    transform: translateY(40px);
-    transition: all 1s ease;
-}
+        .product-tall:hover .tall-img {
+            transform: none !important; 
+        }
 
-.fade-section.visible {
-    opacity: 1;
-    transform: translateY(0);
-}
+        .product-tall {
+            background: radial-gradient(
+                circle at center,
+                #111 0%,
+                #0a0a0a 70%
+            );
+            overflow: hidden;
+        }
 
+        .product-tall img {
+            object-fit: contain;
+            background: #0d0d0d;
+        }
 
+        /* ---------- Cart Overlay ---------- */
+        .cart-overlay {
+            position: fixed;
+            top: 0; 
+            left: 0;
+            width: 100%; 
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease;
+            z-index: 999;
+        }
 
-         .product-box.show-overlay .shop-overlay {
-    opacity: 1;
-}
+        .cart-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
 
+        /* ---------- Cart Sidebar (Right to Left) ---------- */
+        .cart-sidebar {
+            position: fixed;
+            top: 0;
+            right: -400px;
+            width: 350px;
+            height: 100%;
+            background: #111;
+            color: #fff;
+            padding: 20px;
+            box-shadow: -3px 0 8px rgba(0,0,0,0.3);
+            transition: right 0.3s ease;
+            z-index: 1000;
+            overflow-y: auto;
+        }
 
-      /* Fix tall product cropping */
-.product-tall .tall-img {
-    /* Anchors the image to the top so the head/shoulders aren't cut */
-    object-position: center top; 
-    /* Changed to cover to ensure it fills the box width */
-    object-fit: cover; 
-    width: 100%;
-    height: 100%;
-}
+        .cart-sidebar.active {
+            right: 0;
+        }
 
-/* Specific hover for tall images to prevent over-zooming */
-.product-tall:hover .tall-img {
-    transform: none !important; 
-}
-.product-tall {
-    background: radial-gradient(
-        circle at center,
-        #111 0%,
-        #0a0a0a 70%
-    overflow: hidden;
-}
+        .cart-sidebar h2 {
+            margin-top: 0;
+        }
 
-.product-tall img {
-    object-fit: contain;
-    background: #0d0d0d;
-}
+        .close-btn {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            font-size: 28px;
+            cursor: pointer;
+            background: none;
+            border: none;
+            color: #fff;
+        }
 
+        .cart-item {
+            display: flex;
+            margin-bottom: 15px;
+            gap: 10px;
+        }
 
+        .cart-item img {
+            width: 60px;
+            height: 60px;
+            object-fit: cover;
+        }
 
-/* Overlay */
-.cart-overlay {
-  position: fixed;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
-  background: rgba(0,0,0,0.5);
-  opacity: 0;
-  visibility: hidden;
-  transition: opacity 0.3s ease;
-  z-index: 999;
-}
+        .cart-info h4 {
+            margin: 0;
+            font-size: 16px;
+        }
 
-.cart-overlay.active {
-  opacity: 1;
-  visibility: visible;
-}
-        
-        
-        
+        .cart-info p {
+            margin: 5px 0;
+        }
 
+        .remove-btn {
+            cursor: pointer;
+            background: #ff4444;
+            border: none;
+            color: white;
+            padding: 4px 8px;
+            font-size: 12px;
+        }
 
-/
+        .cart-footer {
+            margin-top: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
 
-/* Sidebar */
-.cart-sidebar {
-  position: fixed;
-  top: 0;
-  right: -400px;
-  width: 350px;
-  height: 100%;
-  background: #111;
-  color: #fff;
-  padding: 20px;
-  box-shadow: -3px 0 8px rgba(0,0,0,0.3);
-  transition: right 0.3s ease;
-  z-index: 1000;
-  overflow-y: auto;
-}
+        .cart-footer button {
+            width: 100%;
+            padding: 12px;
+            background: #fff;
+            color: #000;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+            letter-spacing: 0.1em;
+        }
 
-.cart-sidebar.active {
-  right: 0;
-}
-
-
-cart-sidebar h2 {
-  margin-top: 0;
-        
-        
-}
-
-/* Header */
-.cart-header {
-    display: flex;
-    justify-content: space-between;
-    padding: 20px;
-    border-bottom: 1px solid #333;
-}
-
-.cart-header span {
-    cursor: pointer;
-    font-size: 24px;
-}
-
-/* Body */
-.cart-body {
-    flex: 1;
-    padding: 20px;
-}
-
-.cart-item {
-  display: flex;
-  margin-bottom: 15px;
-  gap: 10px;
-}
-
-.cart-item img {
-  width: 60px;
-  height: 60px;
-  object-fit: cover;
-}
-
-
-        
-/* Price */
-.old-price {
-    text-decoration: line-through;
-    color: #777;
-    margin-right: 8px;
-}
-
-.new-price {
-    color: #fff;
-    font-weight: bold;
-}
-
-/* Quantity */
-.quantity {
-    display: flex;
-    align-items: center;
-    margin-top: 10px;
-    border: 1px solid #333;
-    width: fit-content;
-}
-
-.qty-btn {
-    background: none;
-    border: none;
-    color: #fff;
-    padding: 6px 12px;
-    cursor: pointer;
-}
-
-.qty-btn:hover {
-    background: #222;
-}
-
-.quantity span {
-    padding: 0 12px;
-}
-
-.cart-footer {
-  margin-top: 20px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.subtotal,
-.total {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 10px;
-}
-
-.checkout-btn {
-    width: 100%;
-    padding: 12px;
-    background: #fff;
-    color: #000;
-    border: none;
-    cursor: pointer;
-    margin-bottom: 10px;
-}
-
-.viewcart-btn {
-    width: 100%;
-    padding: 12px;
-    background: #000;
-    color: #fff;
-    border: 1px solid #fff;
-    cursor: pointer;
-}
-
-.checkout-sidebar {
-  position: fixed;
-  top: 0;
-  right: -350px;
-  width: 350px;
-  height: 100%;
-  background: #fff;
-  box-shadow: -2px 0 8px rgba(0,0,0,0.2);
-  padding: 20px;
-  transition: right 0.3s ease;
-  z-index: 1000;
-}
-
-.checkout-sidebar.active {
-  right: 0;
-}
-
-.checkout-sidebar .close-btn {
-  position: absolute;
-  top: 10px;
-  left: 10px;
-  cursor: pointer;
-  font-size: 24px;
-}
-
-.open-sidebar-btn {
-  position: fixed;
-  top: 20px;
-  right: 20px;
-  z-index: 1100;
-}
-
-
-
-.close-btn {
-  position: absolute;
-  top: 10px;
-  left: 10px;
-  font-size: 28px;
-  cursor: pointer;
-  background: none;
-  border: none;
-  color: #fff;
-}
-
-.cart-info h4 {
-  margin: 0;
-  font-size: 16px;
-}
-
-.cart-info p {
-  margin: 5px 0;
-}
-        
-        
-.remove-btn {
-  cursor: pointer;
-  background: #ff4444;
-  border: none;
-  color: white;
-  padding: 4px 8px;
-  font-size: 12px;
-}
-        
-.bag-icon {
-  position: fixed;
-  top: 20px;
-  right: 20px;
-  font-size: 28px;
-  cursor: pointer;
-  z-index: 1100;
-}
-        
-        
-
-        
-        
+        .cart-footer button:hover {
+            background: #f0f0f0;
+        }
     </style>
 </head>
-
-    
+<body>
     
     <nav class="flex justify-between items-center px-8 py-8 uppercase tracking-[0.3em] text-[10px] border-b border-white/10 relative z-50">
-    <div class="brand-font font-bold tracking-normal">INDIG-GROK</div>
-    <div class="space-x-10 hidden md:flex items-center">
-        <a href="#" class="hover:text-gray-400 transition">Collection</a>
-        <a href="#" class="hover:text-gray-400 transition">Archive</a>
-        <a href="#" class="hover:text-gray-400 transition">Information</a>
-        <button onclick="toggleCart(true)" class="border border-white px-3 py-1 hover:bg-white hover:text-black transition">
-            BAG <span id="cart-count">(0)</span>
-        </button>
-    </div>
-</nav>
-    
-    
-    
-    
-
+        <div class="brand-font font-bold tracking-normal">INDIG-GROK</div>
+        <div class="space-x-10 hidden md:flex items-center">
+            <a href="#" class="hover:text-gray-400 transition">Collection</a>
+            <a href="#" class="hover:text-gray-400 transition">Archive</a>
+            <a href="#" class="hover:text-gray-400 transition">Information</a>
+            <button onclick="openCart()" class="border border-white px-3 py-1 hover:bg-white hover:text-black transition">
+                BAG <span id="cart-count">(0)</span>
+            </button>
+        </div>
+    </nav>
 
     <header class="py-24 flex flex-col items-center justify-center border-b border-white/10 relative z-10">
-    <h1 class="text-6xl md:text-8xl serif-title uppercase tracking-tighter fade-in-up">
-    Men's Fashion
-    </h1>
+        <h1 class="text-6xl md:text-8xl serif-title uppercase tracking-tighter fade-in-up">
+            Men's Fashion
+        </h1>
     </header>
 
     <main class="grid grid-cols-1 md:grid-cols-2 relative z-10">
+        <a href="product1.html" class="grid-border product-box fade-in-img delay-1 fade-section">
+            <img src="images/product1.1.jpg" class="fill-img parallax-img" alt="Product 1" loading="lazy">
+            <div class="shop-overlay"><span class="shop-button">Shop Now</span></div>
+        </a>
 
-    <a href="product1.html" class="grid-border product-box fade-in-img delay-1 fade-section">
-    <img src="images/product1.1.jpg" class="fill-img parallax-img" alt="Product 1" loading="lazy">
-    <div class="shop-overlay"><span class="shop-button">Shop Now</span></div>
-</a>
+        <a href="product2.html" class="grid-border product-box fade-in-img delay-1 fade-section">
+            <img src="images/product2.1.jpg" class="fill-img parallax-img" alt="Product 2" loading="lazy">
+            <div class="shop-overlay"><span class="shop-button">Shop Now</span></div>
+        </a>
 
+        <a href="product3.html" class="grid-border product-box fade-section product-tall">
+            <img src="images/product3.1.jpg" class="fill-img parallax-img tall-img" alt="Product 3" loading="lazy">
+            <div class="shop-overlay">
+                <span class="shop-button">Shop Now</span>
+            </div>
+        </a>
 
-    <a href="product2.html" class="grid-border product-box fade-in-img delay-1 fade-section">
-    <img src="images/product2.1.jpg" class="fill-img parallax-img" alt="Product 2" loading="lazy">
-    <div class="shop-overlay"><span class="shop-button">Shop Now</span></div>
-</a>
-
-
-    <a href="product3.html"
-   class="grid-border product-box fade-section product-tall">
-    <img src="images/product3.1.jpg"
-         class="fill-img parallax-img tall-img"
-         alt="Product 3"
-         loading="lazy">
-    <div class="shop-overlay">
-        <span class="shop-button">Shop Now</span>
-    </div>
-</a>
-
-    
-        
-        
         <a href="product4.html" class="grid-border product-box fade-in-img delay-1 fade-section">
-    <img src="images/product4.1.jpg" class="fill-img parallax-img" alt="Product 4" loading="lazy">
-    <div class="shop-overlay"><span class="shop-button">Shop Now</span></div>
-</a>
-
-</main>
-
-   
-
+            <img src="images/product4.1.jpg" class="fill-img parallax-img" alt="Product 4" loading="lazy">
+            <div class="shop-overlay"><span class="shop-button">Shop Now</span></div>
+        </a>
+    </main>
 
     <footer class="py-16 text-center text-[9px] uppercase tracking-[0.4em] text-gray-400 relative z-10">
         &copy; 2026 INDIG-GROK
     </footer>
 
+    <!-- Cart Overlay -->
+    <div id="cartOverlay" class="cart-overlay"></div>
 
-    
-    <script>
-document.addEventListener("DOMContentLoaded", () => {
-
-  /* Intersection Observer */
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add("visible");
-      }
-    });
-  }, { threshold: 0.2 });
-
-  document.querySelectorAll(".fade-section").forEach(el => {
-    observer.observe(el);
-  });
-
-  /* Parallax (skip tall images) */
-  window.addEventListener("scroll", () => {
-  const scrollY = window.scrollY;
-
-  document.querySelectorAll(".parallax-img").forEach(img => {
-
-    /* Tall images: subtle micro-parallax */
-    if (img.classList.contains("tall-img")) {
-      img.style.transform =
-        `translateY(${scrollY * 0.01}px)`;
-      return;
-    }
-
-    /* Normal products */
-    img.style.transform =
-      `translateY(${scrollY * 0.04}px) scale(1.08)`;
-  });
-});
-
-
-  /* Mobile tap overlay */
-  document.querySelectorAll(".product-box").forEach(box => {
-    let tapped = false;
-    box.addEventListener("click", e => {
-      if (window.innerWidth < 768 && !tapped) {
-        e.preventDefault();
-        box.classList.add("show-overlay");
-        tapped = true;
-        setTimeout(() => {
-          box.classList.remove("show-overlay");
-          tapped = false;
-        }, 1500);
-      }
-    });
-  });
-
-});
-</script>
-
-
-
-    
-
-
-
-<main class="grid grid-cols-1 md:grid-cols-2 relative z-10">
-    </main>
-
-
-   
-
-    
-
-   
-
-<script src="js/checkout.js"></script>
-    
-    
-
-    
-           <!-- Overlay -->
-<div id="cartOverlay" class="cart-overlay"></div>
-
-
-                <div class="quantity">
-                    <button class="qty-btn" onclick="decreaseQty()">−</button>
-                    <span id="qty">1</span>
-                    <button class="qty-btn" onclick="increaseQty()">+</button>
-                 
+    <!-- Cart Sidebar -->
+    <div id="cartSidebar" class="cart-sidebar">
+        <button id="closeCart" class="close-btn">×</button>
+        <h2>My Cart</h2>
+        <div id="cart-items-container"></div>
+        <div class="cart-footer">
+            <span id="cart-total-price">Rs 0</span>
+            <button onclick="goToCheckout()">Checkout</button>
+        </div>
     </div>
 
-   
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            /* Intersection Observer */
+            const observer = new IntersectionObserver(entries => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add("visible");
+                    }
+                });
+            }, { threshold: 0.2 });
 
-<!-- Sidebar -->
-<div id="cartSidebar" class="cart-sidebar">
-  <button id="closeCart" class="close-btn">×</button>
-  <h2>My Cart</h2>
-  <div id="cart-items-container"></div>
-  <div class="cart-footer">
-    <span id="cart-total-price">Rs 0</span>
-    <button onclick="goToCheckout()">Checkout</button>
-  </div>
-</div>
+            document.querySelectorAll(".fade-section").forEach(el => {
+                observer.observe(el);
+            });
 
-<!-- Bag Icon -->
-<div id="bagIcon" class="bag-icon">🛍️</div>
+            /* Parallax (skip tall images) */
+            window.addEventListener("scroll", () => {
+                const scrollY = window.scrollY;
 
-</div>
+                document.querySelectorAll(".parallax-img").forEach(img => {
+                    /* Tall images: subtle micro-parallax */
+                    if (img.classList.contains("tall-img")) {
+                        img.style.transform = `translateY(${scrollY * 0.01}px)`;
+                        return;
+                    }
 
+                    /* Normal products */
+                    img.style.transform = `translateY(${scrollY * 0.04}px) scale(1.08)`;
+                });
+            });
 
+            /* Mobile tap overlay */
+            document.querySelectorAll(".product-box").forEach(box => {
+                let tapped = false;
+                box.addEventListener("click", e => {
+                    if (window.innerWidth < 768 && !tapped) {
+                        e.preventDefault();
+                        box.classList.add("show-overlay");
+                        tapped = true;
+                        setTimeout(() => {
+                            box.classList.remove("show-overlay");
+                            tapped = false;
+                        }, 1500);
+                    }
+                });
+            });
+        });
+    </script>
 
-
-<!-- Sidebar Checkout -->
-<div id="checkoutSidebar" class="checkout-sidebar">
-  <h2>My Cart</h2>
-  <ul id="cartItems"></ul>
-  <div class="total">
-    <span>Total:</span> $<span id="cartTotal">0.00</span>
-  </div>
-  <button id="checkoutBtn">Checkout</button>
-  <span class="close-btn" id="closeSidebar">&times;</span>
-</div>
-
-<!-- Sidebar Toggle Button -->
-<button id="openSidebar" class="open-sidebar-btn">Cart 🛒</button>
-
-
-
-
-    
-    
-    
-    </body>
+    <script src="js/checkout.js"></script>
+</body>
 </html>
