@@ -162,45 +162,54 @@ body::before {
 
 
 
-
 /* Overlay */
-#cartOverlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0,0,0,0.6);
-    opacity: 0;
-    visibility: hidden;
-    transition: 0.3s ease;
-    z-index: 999;
+.cart-overlay {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0,0,0,0.5);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease;
+  z-index: 999;
 }
+
+.cart-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+        
+        
+        
+
+
+/
 
 /* Sidebar */
-#cartSidebar {
-    position: fixed;
-    top: 0;
-    right: -420px;
-    width: 400px;
-    height: 100%;
-    background: #111;
-    color: #fff;
-    box-shadow: -10px 0 30px rgba(0,0,0,0.5);
-    transition: 0.4s ease;
-    z-index: 1000;
-    display: flex;
-    flex-direction: column;
+.cart-sidebar {
+  position: fixed;
+  top: 0;
+  right: -400px;
+  width: 350px;
+  height: 100%;
+  background: #111;
+  color: #fff;
+  padding: 20px;
+  box-shadow: -3px 0 8px rgba(0,0,0,0.3);
+  transition: right 0.3s ease;
+  z-index: 1000;
+  overflow-y: auto;
 }
 
-/* Active */
-#cartSidebar.active {
-    right: 0;
+.cart-sidebar.active {
+  right: 0;
 }
 
-#cartOverlay.active {
-    opacity: 1;
-    visibility: visible;
+
+cart-sidebar h2 {
+  margin-top: 0;
+        
+        
 }
 
 /* Header */
@@ -223,16 +232,19 @@ body::before {
 }
 
 .cart-item {
-    display: flex;
-    gap: 15px;
+  display: flex;
+  margin-bottom: 15px;
+  gap: 10px;
 }
 
 .cart-item img {
-    width: 80px;
-    height: 100px;
-    object-fit: cover;
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
 }
 
+
+        
 /* Price */
 .old-price {
     text-decoration: line-through;
@@ -270,10 +282,11 @@ body::before {
     padding: 0 12px;
 }
 
-/* Footer */
 .cart-footer {
-    padding: 20px;
-    border-top: 1px solid #333;
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .subtotal,
@@ -336,12 +349,44 @@ body::before {
 
 
 
+.close-btn {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  font-size: 28px;
+  cursor: pointer;
+  background: none;
+  border: none;
+  color: #fff;
+}
 
+.cart-info h4 {
+  margin: 0;
+  font-size: 16px;
+}
 
+.cart-info p {
+  margin: 5px 0;
+}
         
-
         
-
+.remove-btn {
+  cursor: pointer;
+  background: #ff4444;
+  border: none;
+  color: white;
+  padding: 4px 8px;
+  font-size: 12px;
+}
+        
+.bag-icon {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  font-size: 28px;
+  cursor: pointer;
+  z-index: 1100;
+}
         
         
 
@@ -483,8 +528,7 @@ document.addEventListener("DOMContentLoaded", () => {
 <main class="grid grid-cols-1 md:grid-cols-2 relative z-10">
     </main>
 
-<div id="cartOverlay"></div>
-<div id="cartSidebar"></div>
+
    
 
     
@@ -494,51 +538,34 @@ document.addEventListener("DOMContentLoaded", () => {
 <script src="js/checkout.js"></script>
     
     
-<!-- OVERLAY -->
-<div id="cartOverlay"></div>
 
-<!-- CART SIDEBAR -->
-<div id="cartSidebar">
+    
+           <!-- Overlay -->
+<div id="cartOverlay" class="cart-overlay"></div>
 
-    <div class="cart-header">
-        <h2>Shopping Cart</h2>
-        <span id="closeCart">&times;</span>
-    </div>
-
-    <div class="cart-body">
-        <div class="cart-item">
-            <img src="images/shirt1.jpg" alt="Product">
-
-            <div class="cart-details">
-                <h4>Red Yarn-Dyed Striped Polo</h4>
-                <p class="price">
-                    <span class="old-price">Rs 4,990</span>
-                    <span class="new-price">Rs 3,493</span>
-                </p>
 
                 <div class="quantity">
                     <button class="qty-btn" onclick="decreaseQty()">−</button>
                     <span id="qty">1</span>
                     <button class="qty-btn" onclick="increaseQty()">+</button>
-                </div>
-            </div>
-        </div>
+                 
     </div>
 
-    <div class="cart-footer">
-        <div class="subtotal">
-            <span>Subtotal</span>
-            <span id="subtotal">Rs 3,493</span>
-        </div>
+   
 
-        <div class="total">
-            <span>Total</span>
-            <span id="total">Rs 3,493</span>
-        </div>
+<!-- Sidebar -->
+<div id="cartSidebar" class="cart-sidebar">
+  <button id="closeCart" class="close-btn">×</button>
+  <h2>My Cart</h2>
+  <div id="cart-items-container"></div>
+  <div class="cart-footer">
+    <span id="cart-total-price">Rs 0</span>
+    <button onclick="goToCheckout()">Checkout</button>
+  </div>
+</div>
 
-        <button class="checkout-btn">CHECKOUT</button>
-        <button class="viewcart-btn">VIEW CART</button>
-    </div>
+<!-- Bag Icon -->
+<div id="bagIcon" class="bag-icon">🛍️</div>
 
 </div>
 
