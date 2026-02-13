@@ -94,22 +94,6 @@ document.addEventListener("DOMContentLoaded", () => {
     renderCart();
 
 
-document.addEventListener('DOMContentLoaded', () => {
-    // 1. Identify your "Buy" button
-    // Make sure the class '.buy-btn' matches the class on your button in product2.html
-    const buyButton = document.querySelector('.buy-btn'); 
-
-    if (buyButton) {
-        buyButton.addEventListener('click', (e) => {
-            e.preventDefault(); // Prevents default jump behavior
-            
-            // 2. Redirect to the correct file name
-            // Note: Use the exact name of your file: checkout-shoes1.1.1.html
-            window.location.href = 'checkout-shoes1.1.1.html';
-        });
-    } else {
-        console.error("The Buy button with class '.buy-btn' was not found on this page.");
-    }
 
 
 
