@@ -122,7 +122,111 @@
 }
 
     
-    
+   /* ---------- Cart Overlay ---------- */
+        .cart-overlay {
+            position: fixed;
+            top: 0; 
+            left: 0;
+            width: 100%; 
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease;
+            z-index: 999;
+        }
+
+        .cart-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* ---------- Cart Sidebar (Right to Left) ---------- */
+        .cart-sidebar {
+            position: fixed;
+            top: 0;
+            right: -400px;
+            width: 350px;
+            height: 100%;
+            background: #111;
+            color: #fff;
+            padding: 20px;
+            box-shadow: -3px 0 8px rgba(0,0,0,0.3);
+            transition: right 0.3s ease;
+            z-index: 1000;
+            overflow-y: auto;
+        }
+
+        .cart-sidebar.active {
+            right: 0;
+        }
+
+        .cart-sidebar h2 {
+            margin-top: 0;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            font-size: 28px;
+            cursor: pointer;
+            background: none;
+            border: none;
+            color: #fff;
+        }
+
+        .cart-item {
+            display: flex;
+            margin-bottom: 15px;
+            gap: 10px;
+        }
+
+        .cart-item img {
+            width: 60px;
+            height: 60px;
+            object-fit: cover;
+        }
+
+        .cart-info h4 {
+            margin: 0;
+            font-size: 16px;
+        }
+
+        .cart-info p {
+            margin: 5px 0;
+        }
+
+        .remove-btn {
+            cursor: pointer;
+            background: #ff4444;
+            border: none;
+            color: white;
+            padding: 4px 8px;
+            font-size: 12px;
+        }
+
+        .cart-footer {
+            margin-top: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .cart-footer button {
+            width: 100%;
+            padding: 12px;
+            background: #fff;
+            color: #000;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+            letter-spacing: 0.1em;
+        }
+
+        .cart-footer button:hover {
+            background: #f0f0f0;
+        } 
     
     
     
@@ -207,7 +311,11 @@
                          🛒
                         </a>
                     
-                
+
+
+
+
+                    
                 </div>
                 <div class="p-6 text-center">
                     <h3 class="text-xs tracking-widest mb-2">SOVEREIGN SILK POLO</h3>
@@ -253,6 +361,19 @@
     <footer class="py-16 text-center text-[9px] uppercase tracking-[0.4em] text-gray-400">
         &copy; 2026 INDIG-GROK
     </footer>
+<!-- Cart Overlay -->
+    <div id="cartOverlay" class="cart-overlay"></div>
+
+    <!-- Cart Sidebar -->
+    <div id="cartSidebar" class="cart-sidebar">
+        <button id="closeCart" class="close-btn">×</button>
+        <h2>My Cart</h2>
+        <div id="cart-items-container"></div>
+        <div class="cart-footer">
+            <span id="cart-total-price">Rs 0</span>
+            <button onclick="goToCheckout()">Checkout</button>
+        </div>
+    </div>
 
 </body>
 </html>
