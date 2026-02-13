@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    
+    
+
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Checkout | INDIG-GROK</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+
+<style>
+:root {
+    --gold: #c5a059;
+    --dark-bg: #0a0a0a;
+}
+
+body {
+    margin:0;
+    background: var(--dark-bg);
+    color: white;
+    font-family: 'Cinzel', serif;
+}
+
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background: url('images/backgroundimage1.jpg') center/cover no-repeat;
+    filter: brightness(0.2);
+    z-index: -1;
+}
+
+.container {
+    max-width: 640px;
+    margin: auto;
+    padding: 3rem 1rem;
+}
+
+h1 {
+    font-size: 2rem;
+    text-align: center;
+    letter-spacing: 0.2em;
+}
+
+.section {
+    background: rgba(255,255,255,0.035);
+    border: 1px solid rgba(255,255,255,0.08);
+    padding: 2.4rem;
+    border-radius: 8px;
+    margin-top: 3rem;
+}
+
+
+.label {
+    text-transform: uppercase;
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    color: #ccc;
+    display: block;
+    margin-bottom: 0.6rem;
+
+}
+    
+
+input, select {
+    width: 100%;
+    margin-top: .6rem;
+    margin-bottom: 1rem;
+    padding: .8rem;
+    border: 1px solid rgba(255,255,255,0.2);
+    background: rgba(0,0,0,0.4);
+    color: white;
+    font-size: 14px;
+    border-radius: 4px;
+    margin-bottom: 2rem;
+    padding: 1rem;
+    font-size: 14px;
+
+}
+
+.checkout-btn {
+    background: var(--gold);
+    color: black;
+    font-weight: bold;
+    text-transform: uppercase;
+    padding: 1rem;
+    width: 100%;
+    font-size: 14px;
+    letter-spacing: .25em;
+    transition: .3s;
+    text-align: center;
+}
+
+.checkout-btn:hover {
+    background: white;
+    color: black;
+}
+
+.product-summary {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+
+.product-summary img {
+    width: 85px;
+    height: auto;
+    object-fit: cover;
+    border: 1px solid rgba(255,255,255,0.2);
+}
+
+.product-summary div {
+    font-size: 14px;
+}
+
+.product-images {
+    display: flex;
+    gap: 12px;
+}
+
+.product-images img {
+    width: 110px;   /* Medium size */
+    height: auto;
+    object-fit: cover;
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 4px;
+}
+
+
+
+
+
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>Checkout</h1>
+
+    <!-- PRODUCT SUMMARY -->
+    <!-- PRODUCT SUMMARY -->
+<div class="section product-summary">
+
+    <div class="product-images">
+    <img src="images/shirt1.1.1.png" alt="View 1">
+    <img src="images/shirt1.1.2.png" alt="View 2">
+    <img src="images/shirt1.1.3.png" alt="View 3">
+</div>
+
+
+    <div class="flex-1">
+        <p class="uppercase tracking-wide mb-1">Monarch Piqué Polo</p>
+        <p class="text-sm text-gray-400 mb-4">Premium Knit Polo</p>
+
+        <div class="flex justify-between text-sm mb-2">
+            <span>Price</span>
+            <span>$145.00</span>
+        </div>
+
+        <div class="flex justify-between text-sm mb-4">
+            <span>Quantity</span>
+            <span id="qtyDisplay">1</span>
+        </div>
+
+        <div class="border-t border-white/10 pt-4 flex justify-between text-base font-bold text-[var(--gold)]">
+            <span>Total</span>
+            <span id="totalPrice">$145.00</span>
+        </div>
+    </div>
+
+</div>
+
+
+   
+
+    <!-- SIZE / OPTIONS -->
+    <div class="section">
+        <label class="label">Select Size</label>
+        <select id="size">
+            <option value="S">Small (S)</option>
+            <option value="M" selected>Medium (M)</option>
+            <option value="L">Large (L)</option>
+            <option value="XL">XL</option>
+        </select>
+
+        <label class="label">Quantity</label>
+        <input type="number" id="qty" min="1" value="1">
+    </div>
+
+    <!-- BILLING / PAYMENT -->
+    <div class="section">
+        <label class="label">Full Name</label>
+        <input type="text" placeholder="John Doe" id="fullname">
+
+        <label class="label">Email</label>
+        <input type="email" placeholder="you@example.com" id="email">
+
+        <label class="label">Phone</label>
+        <input type="tel" placeholder="+92__________" id="phone">
+
+        <label class="label">Address</label>
+        <input type="text" placeholder="Street Address" id="address">
+    </div>
+
+    <!-- PAYMENT BUTTON -->
+    <div class="section">
+        <button class="checkout-btn" id="completeCheckout">
+        Buy Now on WhatsApp
+        </button>
+    </div>
+
+</div>
+
+
+<script>
+const PRICE = 145.00;
+const PHONE = "923423163018";
+
+const qtyInput   = document.getElementById('qty');
+const qtyDisplay = document.getElementById('qtyDisplay');
+const totalPrice = document.getElementById('totalPrice');
+const buyBtn     = document.getElementById('completeCheckout');
+
+function updateTotal() {
+    const qty = parseInt(qtyInput.value) || 1;
+    qtyDisplay.textContent = qty;
+    totalPrice.textContent = `$${(PRICE * qty).toFixed(2)}`;
+}
+
+qtyInput.addEventListener('input', updateTotal);
+updateTotal();
+
+buyBtn.addEventListener('click', () => {
+    const size  = document.getElementById('size').value;
+    const qty   = qtyInput.value;
+    const total = (PRICE * qty).toFixed(2);
+
+    const message = `
+New Order – INDIG-GROK
+
+Product: Monarch Piqué Polo
+Size: ${size}
+Quantity: ${qty}
+Total: $${total}
+    `.trim();
+
+    const url = `https://wa.me/${PHONE}?text=${encodeURIComponent(message)}`;
+    window.location.href = url;
+});
+</script>
+
+
+    
+
+</body>
+</html>
