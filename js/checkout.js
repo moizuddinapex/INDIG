@@ -4,29 +4,25 @@
 let cart = JSON.parse(localStorage.getItem("cart")) || [];
 
 
-// ==========================
-// OPEN / CLOSE SIDEBAR
-// ==========================
+// =====================
+// SIDEBAR CONTROLS
+// =====================
+
 function toggleCart(show = true) {
 
-    const drawer = document.getElementById("cart-sidebar");
-    const overlay = document.getElementById("cart-overlay");
+    const sidebar = document.getElementById("cartSidebar");
+    const overlay = document.getElementById("cartOverlay");
 
-    if (!drawer || !overlay) {
-        console.log("Cart elements missing");
-        return;
-    }
+    if (!sidebar || !overlay) return;
 
     if (show) {
-        drawer.classList.add("active");
+        sidebar.classList.add("active");
         overlay.classList.add("active");
-        renderCart();
     } else {
-        drawer.classList.remove("active");
+        sidebar.classList.remove("active");
         overlay.classList.remove("active");
     }
 }
-
 
 // ==========================
 // ADD TO CART
@@ -125,13 +121,13 @@ document.addEventListener("DOMContentLoaded", () => {
         console.log("Bag icon not found");
     }
 
-    // CLOSE EVENTS
-    document.getElementById("cart-overlay")
-        ?.addEventListener("click", () => toggleCart(false));
+    // close button
+document.getElementById("closeCart")
+?.addEventListener("click", () => toggleCart(false));
 
-    document.getElementById("closeCart")
-        ?.addEventListener("click", () => toggleCart(false));
-});
+// overlay click
+document.getElementById("cartOverlay")
+?.addEventListener("click", () => toggleCart(false));
 
 
 
