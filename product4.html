@@ -360,53 +360,67 @@
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
             
             <div class="product-card">
-                <div class="image-container">
-                    <img src="images/watch1.1.1.png" class="product-image front-view">
-                    <img src="images/watch1.1.2.png" class="product-image back-view">
-
-                    <div class="quick-buy-container">
-    <div class="quick-buy">🛒</div>
-    <div class="size-tooltip">
-        <h4>Select Size</h4>
-        <div class="size-options">
-            <button class="size-btn" onclick="event.stopPropagation(); selectSize(this, 'SM')">SM</button>
-            <button class="size-btn" onclick="event.stopPropagation(); selectSize(this, 'MED')">MED</button>
-            <button class="size-btn" onclick="event.stopPropagation(); selectSize(this, 'LG')">LG</button>
-            <button class="size-btn" onclick="event.stopPropagation(); selectSize(this, 'XL')">XL</button>
-            <button class="size-btn" onclick="event.stopPropagation(); selectSize(this, '2XL')">2XL</button>
-            <button class="size-btn" onclick="event.stopPropagation(); selectSize(this, '3XL')">3XL</button>
+    <div class="image-container">
+        <img src="images/watch1.1.1.png" class="product-image front-view" alt="Product">
+        <img src="images/watch1.1.2.png" class="product-image back-view" alt="Product Back">
+        
+        <div class="quick-buy-container">
+            <div class="quick-buy">🛒</div>
+            <div class="size-tooltip">
+                <h4>Select Size</h4>
+                <div class="size-options">
+                    <button class="size-btn" onclick="event.stopPropagation(); selectSize(this, 'SM')">SM</button>
+                    <button class="size-btn" onclick="event.stopPropagation(); selectSize(this, 'MED')">MED</button>
+                    <button class="size-btn" onclick="event.stopPropagation(); selectSize(this, 'LG')">LG</button>
+                    <button class="size-btn" onclick="event.stopPropagation(); selectSize(this, 'XL')">XL</button>
+                    <button class="size-btn" onclick="event.stopPropagation(); selectSize(this, '2XL')">2XL</button>
+                    <button class="size-btn" onclick="event.stopPropagation(); selectSize(this, '3XL')">3XL</button>
+                </div>
+                <div class="size-display" id="size-display-1">Size: MED</div>
+                <button class="buy-now-tooltip" onclick="event.stopPropagation(); addToCartWithSize('MONARCH PIQUÉ POLO', 145.00, 'images/watch1.1.1.png', 1)">ADD TO CART</button>
+            </div>
         </div>
-        <div class="size-display" id="size-display-1">Size: MED</div>
-        <button class="buy-now-tooltip" onclick="event.stopPropagation(); addToCartWithSize('MONARCH PIQUÉ POLO', 145.00, 'images/watch1.1.1.png', 1)">ADD TO CART</button>
+    </div>
+    <!-- ADD BACK THE PRODUCT INFO (but without duplicate button) -->
+    <div class="p-6 text-center">
+        <h3 class="text-xs tracking-widest mb-2">MONARCH PIQUÉ POLO</h3>
+        <p class="price-tag text-sm mb-4">$145.00</p>
+        <!-- NO "Add to Cart" button here - only in tooltip -->
     </div>
 </div>
-                
                 
                 
             </div>
 
             <div class="product-card">
-                <div class="image-container">
-                    <img src="images/watch1.2.1.png" class="product-image front-view">
-                    <img src="images/watch1.2.2.png" class="product-image back-view">
-               
-                <div class="quick-buy-container">
-    <div class="quick-buy">🛒</div>
-    <div class="size-tooltip">
-        <h4>Select Size</h4>
-        <div class="size-options">
-            <button class="size-btn" onclick="event.stopPropagation(); selectSize(this, 'SM')">SM</button>
-            <button class="size-btn" onclick="event.stopPropagation(); selectSize(this, 'MED')">MED</button>
-            <button class="size-btn" onclick="event.stopPropagation(); selectSize(this, 'LG')">LG</button>
-            <button class="size-btn" onclick="event.stopPropagation(); selectSize(this, 'XL')">XL</button>
-            <button class="size-btn" onclick="event.stopPropagation(); selectSize(this, '2XL')">2XL</button>
-            <button class="size-btn" onclick="event.stopPropagation(); selectSize(this, '3XL')">3XL</button>
+    <div class="image-container">
+        <img src="images/watch1.2.1.png" class="product-image front-view" alt="Product">
+        <img src="images/watch1.2.2.png" class="product-image back-view" alt="Product Back">
+        
+        <div class="quick-buy-container">
+            <div class="quick-buy">🛒</div>
+            <div class="size-tooltip">
+                <h4>Select Size</h4>
+                <div class="size-options">
+                    <button class="size-btn" onclick="event.stopPropagation(); selectSize(this, 'SM')">SM</button>
+                    <button class="size-btn" onclick="event.stopPropagation(); selectSize(this, 'MED')">MED</button>
+                    <button class="size-btn" onclick="event.stopPropagation(); selectSize(this, 'LG')">LG</button>
+                    <button class="size-btn" onclick="event.stopPropagation(); selectSize(this, 'XL')">XL</button>
+                    <button class="size-btn" onclick="event.stopPropagation(); selectSize(this, '2XL')">2XL</button>
+                    <button class="size-btn" onclick="event.stopPropagation(); selectSize(this, '3XL')">3XL</button>
+                </div>
+                <div class="size-display" id="size-display-1">Size: MED</div>
+                <button class="buy-now-tooltip" onclick="event.stopPropagation(); addToCartWithSize('MONARCH PIQUÉ POLO', 145.00, 'images/watch1.2.1.png', 1)">ADD TO CART</button>
+            </div>
         </div>
-        <div class="size-display" id="size-display-2">Size: MED</div>
-        <button class="buy-now-tooltip" onclick="event.stopPropagation(); addToCartWithSize('IMPERIAL TEXTURED KNIT', 160.00, 'images/watch1.2.1.png', 2)">ADD TO CART</button>
+    </div>
+    <!-- ADD BACK THE PRODUCT INFO (but without duplicate button) -->
+    <div class="p-6 text-center">
+        <h3 class="text-xs tracking-widest mb-2">MONARCH PIQUÉ POLO</h3>
+        <p class="price-tag text-sm mb-4">$145.00</p>
+        <!-- NO "Add to Cart" button here - only in tooltip -->
     </div>
 </div>
-
                     
                 
                 </div>
@@ -414,27 +428,34 @@
             </div>
 
             <div class="product-card">
-                <div class="image-container">
-                    <img src="images/watch1.3.1.png" class="product-image front-view">
-                    <img src="images/watch1.3.3.png" class="product-image back-view">
-
-                      <div class="quick-buy-container">
-    <div class="quick-buy">🛒</div>
-    <div class="size-tooltip">
-        <h4>Select Size</h4>
-        <div class="size-options">
-            <button class="size-btn" onclick="event.stopPropagation(); selectSize(this, 'SM')">SM</button>
-            <button class="size-btn" onclick="event.stopPropagation(); selectSize(this, 'MED')">MED</button>
-            <button class="size-btn" onclick="event.stopPropagation(); selectSize(this, 'LG')">LG</button>
-            <button class="size-btn" onclick="event.stopPropagation(); selectSize(this, 'XL')">XL</button>
-            <button class="size-btn" onclick="event.stopPropagation(); selectSize(this, '2XL')">2XL</button>
-            <button class="size-btn" onclick="event.stopPropagation(); selectSize(this, '3XL')">3XL</button>
+    <div class="image-container">
+        <img src="images/watch1.3.1.png" class="product-image front-view" alt="Product">
+        <img src="images/watch1.3.2.png" class="product-image back-view" alt="Product Back">
+        
+        <div class="quick-buy-container">
+            <div class="quick-buy">🛒</div>
+            <div class="size-tooltip">
+                <h4>Select Size</h4>
+                <div class="size-options">
+                    <button class="size-btn" onclick="event.stopPropagation(); selectSize(this, 'SM')">SM</button>
+                    <button class="size-btn" onclick="event.stopPropagation(); selectSize(this, 'MED')">MED</button>
+                    <button class="size-btn" onclick="event.stopPropagation(); selectSize(this, 'LG')">LG</button>
+                    <button class="size-btn" onclick="event.stopPropagation(); selectSize(this, 'XL')">XL</button>
+                    <button class="size-btn" onclick="event.stopPropagation(); selectSize(this, '2XL')">2XL</button>
+                    <button class="size-btn" onclick="event.stopPropagation(); selectSize(this, '3XL')">3XL</button>
+                </div>
+                <div class="size-display" id="size-display-1">Size: MED</div>
+                <button class="buy-now-tooltip" onclick="event.stopPropagation(); addToCartWithSize('MONARCH PIQUÉ POLO', 145.00, 'images/watch1.3.1.png', 1)">ADD TO CART</button>
+            </div>
         </div>
-        <div class="size-display" id="size-display-3">Size: MED</div>
-        <button class="buy-now-tooltip" onclick="event.stopPropagation(); addToCartWithSize('SOVEREIGN SILK POLO', 185.00, 'images/watch1.3.1.png', 3)">ADD TO CART</button>
+    </div>
+    <!-- ADD BACK THE PRODUCT INFO (but without duplicate button) -->
+    <div class="p-6 text-center">
+        <h3 class="text-xs tracking-widest mb-2">MONARCH PIQUÉ POLO</h3>
+        <p class="price-tag text-sm mb-4">$145.00</p>
+        <!-- NO "Add to Cart" button here - only in tooltip -->
     </div>
 </div>
-
                     
                 
                 
@@ -444,28 +465,34 @@
 
                         <!-- Product 4 (watch1.4.1) -->
             <div class="product-card">
-                <div class="image-container">
-                    <img src="images/watch1.4.1.png" class="product-image front-view">
-                    <img src="images/watch1.4.2.png" alt="Back" class="product-image back-view">
-                    
-                     <div class="quick-buy-container">
-    <div class="quick-buy">🛒</div>
-    <div class="size-tooltip">
-        <h4>Select Size</h4>
-        <div class="size-options">
-            <button class="size-btn" onclick="event.stopPropagation(); selectSize(this, 'SM')">SM</button>
-            <button class="size-btn" onclick="event.stopPropagation(); selectSize(this, 'MED')">MED</button>
-            <button class="size-btn" onclick="event.stopPropagation(); selectSize(this, 'LG')">LG</button>
-            <button class="size-btn" onclick="event.stopPropagation(); selectSize(this, 'XL')">XL</button>
-            <button class="size-btn" onclick="event.stopPropagation(); selectSize(this, '2XL')">2XL</button>
-            <button class="size-btn" onclick="event.stopPropagation(); selectSize(this, '3XL')">3XL</button>
+    <div class="image-container">
+        <img src="images/watch1.4.1.png" class="product-image front-view" alt="Product">
+        <img src="images/watch1.4.2.png" class="product-image back-view" alt="Product Back">
+        
+        <div class="quick-buy-container">
+            <div class="quick-buy">🛒</div>
+            <div class="size-tooltip">
+                <h4>Select Size</h4>
+                <div class="size-options">
+                    <button class="size-btn" onclick="event.stopPropagation(); selectSize(this, 'SM')">SM</button>
+                    <button class="size-btn" onclick="event.stopPropagation(); selectSize(this, 'MED')">MED</button>
+                    <button class="size-btn" onclick="event.stopPropagation(); selectSize(this, 'LG')">LG</button>
+                    <button class="size-btn" onclick="event.stopPropagation(); selectSize(this, 'XL')">XL</button>
+                    <button class="size-btn" onclick="event.stopPropagation(); selectSize(this, '2XL')">2XL</button>
+                    <button class="size-btn" onclick="event.stopPropagation(); selectSize(this, '3XL')">3XL</button>
+                </div>
+                <div class="size-display" id="size-display-1">Size: MED</div>
+                <button class="buy-now-tooltip" onclick="event.stopPropagation(); addToCartWithSize('MONARCH PIQUÉ POLO', 145.00, 'images/watch1.4.1.png', 1)">ADD TO CART</button>
+            </div>
         </div>
-        <div class="size-display" id="size-display-4">Size: MED</div>
-        <button class="buy-now-tooltip" onclick="event.stopPropagation(); addToCartWithSize('SOVEREIGN SILK POLO', 185.00, 'images/watch1.4.1.png', 4)">ADD TO CART</button>
+    </div>
+    <!-- ADD BACK THE PRODUCT INFO (but without duplicate button) -->
+    <div class="p-6 text-center">
+        <h3 class="text-xs tracking-widest mb-2">MONARCH PIQUÉ POLO</h3>
+        <p class="price-tag text-sm mb-4">$145.00</p>
+        <!-- NO "Add to Cart" button here - only in tooltip -->
     </div>
 </div>
-
-                    
 
 
                </div>     
@@ -474,24 +501,32 @@
 
             <!-- Product 5 (watch1.5.1) -->
             <div class="product-card">
-                <div class="image-container">
-                    <img src="images/watch1.5.1.png" class="product-image front-view">
-                    <img src="images/watch1.5.2.png" class="product-image back-view">
-                    
-                     <div class="quick-buy-container">
-    <div class="quick-buy">🛒</div>
-    <div class="size-tooltip">
-        <h4>Select Size</h4>
-        <div class="size-options">
-            <button class="size-btn" onclick="event.stopPropagation(); selectSize(this, 'SM')">SM</button>
-            <button class="size-btn" onclick="event.stopPropagation(); selectSize(this, 'MED')">MED</button>
-            <button class="size-btn" onclick="event.stopPropagation(); selectSize(this, 'LG')">LG</button>
-            <button class="size-btn" onclick="event.stopPropagation(); selectSize(this, 'XL')">XL</button>
-            <button class="size-btn" onclick="event.stopPropagation(); selectSize(this, '2XL')">2XL</button>
-            <button class="size-btn" onclick="event.stopPropagation(); selectSize(this, '3XL')">3XL</button>
+    <div class="image-container">
+        <img src="images/watch1.5.1.png" class="product-image front-view" alt="Product">
+        <img src="images/watch1.5.2.png" class="product-image back-view" alt="Product Back">
+        
+        <div class="quick-buy-container">
+            <div class="quick-buy">🛒</div>
+            <div class="size-tooltip">
+                <h4>Select Size</h4>
+                <div class="size-options">
+                    <button class="size-btn" onclick="event.stopPropagation(); selectSize(this, 'SM')">SM</button>
+                    <button class="size-btn" onclick="event.stopPropagation(); selectSize(this, 'MED')">MED</button>
+                    <button class="size-btn" onclick="event.stopPropagation(); selectSize(this, 'LG')">LG</button>
+                    <button class="size-btn" onclick="event.stopPropagation(); selectSize(this, 'XL')">XL</button>
+                    <button class="size-btn" onclick="event.stopPropagation(); selectSize(this, '2XL')">2XL</button>
+                    <button class="size-btn" onclick="event.stopPropagation(); selectSize(this, '3XL')">3XL</button>
+                </div>
+                <div class="size-display" id="size-display-1">Size: MED</div>
+                <button class="buy-now-tooltip" onclick="event.stopPropagation(); addToCartWithSize('MONARCH PIQUÉ POLO', 145.00, 'images/watch1.5.1.png', 1)">ADD TO CART</button>
+            </div>
         </div>
-        <div class="size-display" id="size-display-5">Size: MED</div>
-        <button class="buy-now-tooltip" onclick="event.stopPropagation(); addToCartWithSize('SOVEREIGN SILK POLO', 185.00, 'images/watch1.5.1.png', 5)">ADD TO CART</button>
+    </div>
+    <!-- ADD BACK THE PRODUCT INFO (but without duplicate button) -->
+    <div class="p-6 text-center">
+        <h3 class="text-xs tracking-widest mb-2">MONARCH PIQUÉ POLO</h3>
+        <p class="price-tag text-sm mb-4">$145.00</p>
+        <!-- NO "Add to Cart" button here - only in tooltip -->
     </div>
 </div>
 
