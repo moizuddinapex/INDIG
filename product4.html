@@ -99,7 +99,9 @@
             color: var(--gold);
         }
    
-               .quick-buy {
+        /* ---------- Quick Buy ---------- */   
+        
+        .quick-buy {
     position: absolute;
     bottom: 12px;
     right: 12px;
@@ -121,7 +123,111 @@
     transform: scale(1.1);
 }
 
-    
+
+/* Sizing Tooltip - appears on hover */
+.quick-buy-container {
+    position: absolute;
+    bottom: 12px;
+    right: 12px;
+    z-index: 10;
+}
+
+.size-tooltip {
+    position: absolute;
+    bottom: 50px;
+    right: 0;
+    background: rgba(0, 0, 0, 0.95);
+    border: 1px solid var(--gold);
+    padding: 15px;
+    width: 200px;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+    z-index: 20;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.5);
+}
+
+.quick-buy-container:hover .size-tooltip {
+    opacity: 1;
+    visibility: visible;
+    bottom: 45px;
+}
+
+.size-tooltip h4 {
+    color: var(--gold);
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    border-bottom: 1px solid rgba(197, 160, 89, 0.3);
+    padding-bottom: 5px;
+}
+
+.size-options {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 5px;
+    margin-bottom: 15px;
+}
+
+.size-btn {
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: white;
+    padding: 5px 0;
+    font-size: 11px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-family: 'Cinzel', serif;
+}
+
+.size-btn:hover {
+    border-color: var(--gold);
+    color: var(--gold);
+}
+
+.size-btn.selected {
+    background: var(--gold);
+    color: black;
+    border-color: var(--gold);
+}
+
+.buy-now-tooltip {
+    width: 100%;
+    background: white;
+    color: black;
+    border: none;
+    padding: 10px 0;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-weight: bold;
+    margin-top: 10px;
+    font-family: 'Cinzel', serif;
+}
+
+.buy-now-tooltip:hover {
+    background: var(--gold);
+    color: white;
+}
+
+.size-display {
+    font-size: 10px;
+    color: var(--gold);
+    margin-top: 5px;
+    min-height: 15px;
+}
+
+
+
+
+
+
+        
    /* ---------- Cart Overlay ---------- */
         .cart-overlay {
             position: fixed;
@@ -258,9 +364,22 @@
                     <img src="images/watch1.1.1.png" class="product-image front-view">
                     <img src="images/watch1.1.2.png" class="product-image back-view">
 
-                    <a href="watch1.1.1.html" class="quick-buy">
-                      🛒
-                     </a>
+                    <div class="quick-buy-container">
+    <div class="quick-buy">🛒</div>
+    <div class="size-tooltip">
+        <h4>Select Size</h4>
+        <div class="size-options">
+            <button class="size-btn" onclick="event.stopPropagation(); selectSize(this, 'SM')">SM</button>
+            <button class="size-btn" onclick="event.stopPropagation(); selectSize(this, 'MED')">MED</button>
+            <button class="size-btn" onclick="event.stopPropagation(); selectSize(this, 'LG')">LG</button>
+            <button class="size-btn" onclick="event.stopPropagation(); selectSize(this, 'XL')">XL</button>
+            <button class="size-btn" onclick="event.stopPropagation(); selectSize(this, '2XL')">2XL</button>
+            <button class="size-btn" onclick="event.stopPropagation(); selectSize(this, '3XL')">3XL</button>
+        </div>
+        <div class="size-display" id="size-display-1">Size: MED</div>
+        <button class="buy-now-tooltip" onclick="event.stopPropagation(); addToCartWithSize('MONARCH PIQUÉ POLO', 145.00, 'images/watch1.1.1.png', 1)">ADD TO CART</button>
+    </div>
+</div>
                 
                 
                 </div>
@@ -276,9 +395,24 @@
                     <img src="images/watch1.2.1.png" class="product-image front-view">
                     <img src="images/watch1.2.2.png" class="product-image back-view">
                
-                <a href="watch1.2.1.html" class="quick-buy">
-                 🛒
-                  </a>
+                <div class="quick-buy-container">
+    <div class="quick-buy">🛒</div>
+    <div class="size-tooltip">
+        <h4>Select Size</h4>
+        <div class="size-options">
+            <button class="size-btn" onclick="event.stopPropagation(); selectSize(this, 'SM')">SM</button>
+            <button class="size-btn" onclick="event.stopPropagation(); selectSize(this, 'MED')">MED</button>
+            <button class="size-btn" onclick="event.stopPropagation(); selectSize(this, 'LG')">LG</button>
+            <button class="size-btn" onclick="event.stopPropagation(); selectSize(this, 'XL')">XL</button>
+            <button class="size-btn" onclick="event.stopPropagation(); selectSize(this, '2XL')">2XL</button>
+            <button class="size-btn" onclick="event.stopPropagation(); selectSize(this, '3XL')">3XL</button>
+        </div>
+        <div class="size-display" id="size-display-2">Size: MED</div>
+        <button class="buy-now-tooltip" onclick="event.stopPropagation(); addToCartWithSize('IMPERIAL TEXTURED KNIT', 160.00, 'images/watch1.2.1.png', 2)">ADD TO CART</button>
+    </div>
+</div>
+
+                    
                 
                 </div>
                 <div class="p-6 text-center">
@@ -293,9 +427,24 @@
                     <img src="images/watch1.3.1.png" class="product-image front-view">
                     <img src="images/watch1.3.3.png" class="product-image back-view">
 
-                    <a href="watch1.3.1.html" class="quick-buy">
-                     🛒
-                     </a>
+                      <div class="quick-buy-container">
+    <div class="quick-buy">🛒</div>
+    <div class="size-tooltip">
+        <h4>Select Size</h4>
+        <div class="size-options">
+            <button class="size-btn" onclick="event.stopPropagation(); selectSize(this, 'SM')">SM</button>
+            <button class="size-btn" onclick="event.stopPropagation(); selectSize(this, 'MED')">MED</button>
+            <button class="size-btn" onclick="event.stopPropagation(); selectSize(this, 'LG')">LG</button>
+            <button class="size-btn" onclick="event.stopPropagation(); selectSize(this, 'XL')">XL</button>
+            <button class="size-btn" onclick="event.stopPropagation(); selectSize(this, '2XL')">2XL</button>
+            <button class="size-btn" onclick="event.stopPropagation(); selectSize(this, '3XL')">3XL</button>
+        </div>
+        <div class="size-display" id="size-display-3">Size: MED</div>
+        <button class="buy-now-tooltip" onclick="event.stopPropagation(); addToCartWithSize('SOVEREIGN SILK POLO', 185.00, 'images/watch1.3.1.png', 3)">ADD TO CART</button>
+    </div>
+</div>
+
+                    
                 
                 
                 </div>
@@ -311,8 +460,28 @@
                 <div class="image-container">
                     <img src="images/watch1.4.1.png" class="product-image front-view">
                     <img src="images/watch1.4.2.png" alt="Back" class="product-image back-view">
-                    <a href="watch1.4.1.html" class="quick-buy">🛒</a>
-                </div>
+                    
+                     <div class="quick-buy-container">
+    <div class="quick-buy">🛒</div>
+    <div class="size-tooltip">
+        <h4>Select Size</h4>
+        <div class="size-options">
+            <button class="size-btn" onclick="event.stopPropagation(); selectSize(this, 'SM')">SM</button>
+            <button class="size-btn" onclick="event.stopPropagation(); selectSize(this, 'MED')">MED</button>
+            <button class="size-btn" onclick="event.stopPropagation(); selectSize(this, 'LG')">LG</button>
+            <button class="size-btn" onclick="event.stopPropagation(); selectSize(this, 'XL')">XL</button>
+            <button class="size-btn" onclick="event.stopPropagation(); selectSize(this, '2XL')">2XL</button>
+            <button class="size-btn" onclick="event.stopPropagation(); selectSize(this, '3XL')">3XL</button>
+        </div>
+        <div class="size-display" id="size-display-4">Size: MED</div>
+        <button class="buy-now-tooltip" onclick="event.stopPropagation(); addToCartWithSize('SOVEREIGN SILK POLO', 185.00, 'images/watch1.4.1.png', 4)">ADD TO CART</button>
+    </div>
+</div>
+
+                    
+
+
+                    
                 <div class="p-6 text-center">
                     <h3 class="text-xs tracking-widest mb-2">SOVEREIGN SILK POLO</h3>
                     <p class="price-tag text-sm mb-4">$185.00</p>
@@ -325,7 +494,30 @@
                 <div class="image-container">
                     <img src="images/watch1.5.1.png" class="product-image front-view">
                     <img src="images/watch1.5.2.png" class="product-image back-view">
-                    <a href="watch1.5.1.html" class="quick-buy">🛒</a>
+                    
+                     <div class="quick-buy-container">
+    <div class="quick-buy">🛒</div>
+    <div class="size-tooltip">
+        <h4>Select Size</h4>
+        <div class="size-options">
+            <button class="size-btn" onclick="event.stopPropagation(); selectSize(this, 'SM')">SM</button>
+            <button class="size-btn" onclick="event.stopPropagation(); selectSize(this, 'MED')">MED</button>
+            <button class="size-btn" onclick="event.stopPropagation(); selectSize(this, 'LG')">LG</button>
+            <button class="size-btn" onclick="event.stopPropagation(); selectSize(this, 'XL')">XL</button>
+            <button class="size-btn" onclick="event.stopPropagation(); selectSize(this, '2XL')">2XL</button>
+            <button class="size-btn" onclick="event.stopPropagation(); selectSize(this, '3XL')">3XL</button>
+        </div>
+        <div class="size-display" id="size-display-5">Size: MED</div>
+        <button class="buy-now-tooltip" onclick="event.stopPropagation(); addToCartWithSize('SOVEREIGN SILK POLO', 185.00, 'images/watch1.5.1.png', 5)">ADD TO CART</button>
+    </div>
+</div>
+
+
+
+
+
+
+                    
                 </div>
                 <div class="p-6 text-center">
                     <h3 class="text-xs tracking-widest mb-2">SOVEREIGN SILK POLO</h3>
