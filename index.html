@@ -262,15 +262,30 @@
     
     <nav class="flex justify-between items-center px-8 py-8 uppercase tracking-[0.3em] text-[10px] border-b border-white/10 relative z-50">
         <div class="brand-font font-bold tracking-normal">INDIG-GROK</div>
-        <div class="space-x-10 hidden md:flex items-center">
-            <a href="#" class="hover:text-gray-400 transition">Sale</a>
-            <a href="#" class="hover:text-gray-400 transition">Collection</a>
-            <a href="#" class="hover:text-gray-400 transition">Archive</a>
-            <a href="#" class="hover:text-gray-400 transition">Information</a>
-            <button onclick="openCart()" class="border border-white px-3 py-1 hover:bg-white hover:text-black transition">
-                BAG <span id="cart-count">(0)</span>
-            </button>
+         <div class="space-x-10 hidden md:flex items-center">
+    <a href="#" class="hover:text-gray-400 transition">Sale</a>
+    
+    <!-- Collection Dropdown -->
+    <div class="relative group">
+        <a href="#" class="hover:text-gray-400 transition">Collection</a>
+        
+        <!-- Dropdown Menu -->
+        <div class="absolute top-full left-0 mt-2 w-40 bg-black border border-white/10 shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50">
+            <a href="product1.html" class="block px-4 py-3 text-[10px] uppercase tracking-widest hover:bg-white hover:text-black transition border-b border-white/10">Shirts</a>
+            <a href="product2.html" class="block px-4 py-3 text-[10px] uppercase tracking-widest hover:bg-white hover:text-black transition border-b border-white/10">Shoes</a>
+            <a href="product3.html" class="block px-4 py-3 text-[10px] uppercase tracking-widest hover:bg-white hover:text-black transition border-b border-white/10">Pants</a>
+            <a href="product4.html" class="block px-4 py-3 text-[10px] uppercase tracking-widest hover:bg-white hover:text-black transition">Watches</a>
         </div>
+    </div>
+    
+    <a href="#" class="hover:text-gray-400 transition">Archive</a>
+    <a href="#" class="hover:text-gray-400 transition">Information</a>
+    <button onclick="openCart()" class="border border-white px-3 py-1 hover:bg-white hover:text-black transition">
+        BAG <span id="cart-count">(0)</span>
+    </button>
+</div>
+
+        
     </nav>
 
     <header class="py-24 flex flex-col items-center justify-center border-b border-white/10 relative z-10">
