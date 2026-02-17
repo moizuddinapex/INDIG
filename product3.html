@@ -121,7 +121,108 @@
     transform: scale(1.1);
 }
 
-    
+
+/* Sizing Tooltip - appears on hover */
+.quick-buy-container {
+    position: absolute;
+    bottom: 12px;
+    right: 12px;
+    z-index: 10;
+}
+
+.size-tooltip {
+    position: absolute;
+    bottom: 50px;
+    right: 0;
+    background: rgba(0, 0, 0, 0.95);
+    border: 1px solid var(--gold);
+    padding: 15px;
+    width: 200px;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+    z-index: 20;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.5);
+}
+
+.quick-buy-container:hover .size-tooltip {
+    opacity: 1;
+    visibility: visible;
+    bottom: 45px;
+}
+
+.size-tooltip h4 {
+    color: var(--gold);
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    border-bottom: 1px solid rgba(197, 160, 89, 0.3);
+    padding-bottom: 5px;
+}
+
+.size-options {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 5px;
+    margin-bottom: 15px;
+}
+
+.size-btn {
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: white;
+    padding: 5px 0;
+    font-size: 11px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-family: 'Cinzel', serif;
+}
+
+.size-btn:hover {
+    border-color: var(--gold);
+    color: var(--gold);
+}
+
+.size-btn.selected {
+    background: var(--gold);
+    color: black;
+    border-color: var(--gold);
+}
+
+.buy-now-tooltip {
+    width: 100%;
+    background: white;
+    color: black;
+    border: none;
+    padding: 10px 0;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-weight: bold;
+    margin-top: 10px;
+    font-family: 'Cinzel', serif;
+}
+
+.buy-now-tooltip:hover {
+    background: var(--gold);
+    color: white;
+}
+
+.size-display {
+    font-size: 10px;
+    color: var(--gold);
+    margin-top: 5px;
+    min-height: 15px;
+}
+
+
+
+        
    /* ---------- Cart Overlay ---------- */
         .cart-overlay {
             position: fixed;
