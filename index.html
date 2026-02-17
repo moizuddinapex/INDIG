@@ -7,7 +7,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <title>INDIG-GROK | Premium Men's Fashion</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Noto+Serif:wght@700&family=Playfair+Display:ital,wght@0,400;1,400&family=Inter:wght@300;400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     
     <style>
         /* ---------- Animations ---------- */
@@ -27,15 +27,26 @@
             opacity: 0;
         }
 
-        /* ---------- Layout ---------- */
-        body {
-            background-color: #0a0a0a;
-            color: #ffffff;
-            font-family: 'Cinzel', serif;
-            letter-spacing: 0.1em;
-            margin: 0;
-        }
+        /* ---------- Refined Typography ---------- */
+body {
+    background-color: #0a0a0a;
+    color: #ffffff;
+    font-family: 'Inter', sans-serif;
+    font-weight: 300;
+    letter-spacing: 0.02em;
+    margin: 0;
+}
 
+h1, h2, h3, h4, h5, h6, 
+.serif-title, 
+.brand-font,
+.nav-links {
+    font-family: 'Playfair Display', serif;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+}
+
+        
         body::before {
             content: "";
             position: fixed;
@@ -45,12 +56,95 @@
             z-index: -1;
         }
 
-        .brand-font {
-            font-family: 'Noto Serif', serif;
-            font-size: 1.5rem;
-            letter-spacing: -0.02em;
-        }
+        /* Brand name specific styling */
+.brand-font {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.8rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    background: linear-gradient(135deg, #ffffff 0%, #c5a059 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
 
+
+       @media (max-width: 768px) {
+    header h1 {
+        font-size: 3rem;
+    }
+}
+
+/* Product section headers (if any) */
+.section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.5rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    text-align: center;
+    margin-bottom: 2rem;
+    position: relative;
+}
+
+.section-title::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 2px;
+    background: var(--gold, #c5a059);
+    margin: 1rem auto 0;
+}
+
+/* Newsletter section */
+.newsletter-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    margin-bottom: 1rem;
+}
+
+.newsletter-text {
+    font-family: 'Inter', sans-serif;
+    font-weight: 300;
+    letter-spacing: 0.02em;
+    color: #a0a0a0;
+}
+
+/* Footer typography */
+footer, .footer-text {
+    font-family: 'Inter', sans-serif;
+    font-weight: 300;
+    letter-spacing: 0.1em;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+}
+
+/* Button text */
+button, .shop-button, .buy-button {
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    font-size: 0.7rem;
+}
+
+/* Product card text */
+.product-card h3 {
+    font-family: 'Playfair Display', serif;
+    font-weight: 600;
+    font-size: 0.8rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+}
+
+.product-card .price-tag {
+    font-family: 'Inter', sans-serif;
+    font-weight: 400;
+    color: var(--gold, #c5a059);
+}
+
+        
         .serif-title {
             font-family: 'Playfair Display', serif;
         }
@@ -289,10 +383,8 @@
     </nav>
 
     <header class="py-24 flex flex-col items-center justify-center border-b border-white/10 relative z-10">
-        <h1 class="text-6xl md:text-8xl serif-title uppercase tracking-tighter fade-in-up">
-            Men's Fashion
-        </h1>
-    </header>
+    <h1 class="text-6xl md:text-8xl fade-in-up">Men's Fashion</h1>
+</header>
 
     <main class="grid grid-cols-1 md:grid-cols-2 relative z-10">
         <a href="product1.html" class="grid-border product-box fade-in-img delay-1 fade-section">
@@ -326,8 +418,9 @@
             
             <!-- Newsletter Section -->
             <div class="text-center mb-16 border-b border-white/10 pb-16">
-                <h2 class="text-3xl md:text-4xl serif-title uppercase tracking-widest mb-4">Newsletter</h2>
-                <p class="text-gray-400 text-sm max-w-2xl mx-auto mb-8">Be the first one to know about discounts, offers and events</p>
+    <h2 class="newsletter-title">Newsletter</h2>
+    <p class="newsletter-text max-w-2xl mx-auto mb-8">Be the first one to know about discounts, offers and events</p>
+
                 
                 <form class="flex flex-col md:flex-row gap-4 max-w-2xl mx-auto">
                     <input type="email" placeholder="Your email address" class="flex-1 bg-transparent border border-white/20 px-6 py-4 text-sm uppercase tracking-widest focus:outline-none focus:border-[#c5a059] transition">
@@ -339,9 +432,11 @@
             <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
                 
                 <!-- Brand Info -->
-                <div>
-                    <h3 class="brand-font text-2xl mb-6">INDIG-GROK</h3>
-                    <p class="text-gray-400 text-xs leading-relaxed mb-6">INDIG-GROK is a premium fashion brand dedicated to quality and brilliant customer service since 2020. We believe in satisfying customers through our exceptional products.</p>
+                
+                    <div>
+    <h3 class="brand-font text-2xl mb-6">INDIG-GROK</h3>
+    <p class="text-gray-400 text-xs leading-relaxed mb-6" style="font-family: 'Inter', sans-serif; font-weight: 300;">INDIG-GROK is a premium fashion brand dedicated to quality and brilliant customer service since 2020. We believe in satisfying customers through our exceptional products.</p>
+
                     <div class="flex space-x-4">
                         <a href="#" class="w-10 h-10 border border-white/20 flex items-center justify-center hover:border-[#c5a059] hover:text-[#c5a059] transition">f</a>
                         <a href="#" class="w-10 h-10 border border-white/20 flex items-center justify-center hover:border-[#c5a059] hover:text-[#c5a059] transition">ig</a>
