@@ -840,6 +840,71 @@ footer a:hover::after {
 }
 
 
+/* ---------- Brand Story Section ---------- */
+.section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 3rem;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    position: relative;
+    display: inline-block;
+}
+
+.section-title.text-left::after {
+    content: '';
+    position: absolute;
+    bottom: -15px;
+    left: 0;
+    width: 60px;
+    height: 2px;
+    background: var(--gold, #c5a059);
+}
+
+/* Pillar hover effects */
+.grid-cols-3 > div {
+    transition: all 0.3s ease;
+    cursor: default;
+    padding: 1rem 0;
+    border: 1px solid transparent;
+}
+
+.grid-cols-3 > div:hover {
+    border-color: rgba(197, 160, 89, 0.2);
+    background: rgba(197, 160, 89, 0.02);
+}
+
+.grid-cols-3 > div:hover .text-3xl {
+    transform: scale(1.2);
+    transition: transform 0.3s ease;
+}
+
+/* Decorative circles animation */
+@keyframes slowRotate {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+.rounded-full {
+    animation: slowRotate 60s linear infinite;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .section-title {
+        font-size: 2.5rem;
+        text-align: center;
+    }
+    
+    .section-title.text-left::after {
+        left: 50%;
+        transform: translateX(-50%);
+    }
+}
+
+
+
+
+        
 
 
         
@@ -907,6 +972,82 @@ footer a:hover::after {
     
     </main> <!-- This closes your existing main tag with the product grid -->
 
+    
+    
+    <!-- ===== OUR STORY SECTION ===== -->
+<section class="relative z-10 py-24 px-6 max-w-7xl mx-auto">
+    <!-- Decorative gold line -->
+    <div class="gold-divider w-24 mx-auto mb-16"></div>
+    
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+        
+        <!-- Left side - The Story Text -->
+        <div class="space-y-8">
+            <h2 class="section-title text-left mb-0">The INDIG-GROK Man</h2>
+            
+            <p class="text-gray-300 text-lg leading-relaxed" style="font-family: 'Inter', sans-serif; font-weight: 300; letter-spacing: 0.02em;">
+                He exists in the space between tradition and tomorrow. 
+                <span class="text-[#c5a059] font-medium">INDIG-GROK</span> was born from a singular vision: to clothe the modern gentleman in armor that whispers, never shouts.
+            </p>
+            
+            <div class="space-y-4 text-gray-400 text-base leading-relaxed" style="font-family: 'Inter', sans-serif; font-weight: 300;">
+                <p>
+                    We believe in <span class="text-white font-medium">modern classicism</span>—where centuries-old tailoring traditions meet contemporary minimalism. Each piece is a study in restraint: clean lines, impeccable proportions, and details that reveal themselves only to those who look closely.
+                </p>
+                <p>
+                    This is <span class="text-white font-medium">understated luxury</span>. No logos shouting for attention. No fleeting trends. Just exceptional fabrics, precision craftsmanship, and the quiet confidence of a man who knows exactly who he is.
+                </p>
+            </div>
+            
+            <!-- Signature line -->
+            <div class="pt-6">
+                <div class="w-16 h-px bg-[#c5a059] mb-4"></div>
+                <p class="font-light text-sm tracking-widest text-gray-500" style="font-family: 'Playfair Display', serif;">
+                    — For those who understand that true elegance is invisible
+                </p>
+            </div>
+            
+            <!-- Key pillars with gold accents -->
+            <div class="grid grid-cols-3 gap-4 pt-8">
+                <div class="text-center">
+                    <div class="text-[#c5a059] text-3xl mb-2">•</div>
+                    <p class="text-xs tracking-widest">TIMELESS</p>
+                </div>
+                <div class="text-center">
+                    <div class="text-[#c5a059] text-3xl mb-2">•</div>
+                    <p class="text-xs tracking-widest">EFFORTLESS</p>
+                </div>
+                <div class="text-center">
+                    <div class="text-[#c5a059] text-3xl mb-2">•</div>
+                    <p class="text-xs tracking-widest">DISTINCT</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Right side - Visual representation (abstract/artistic) -->
+        <div class="relative h-[600px] hidden lg:block">
+            <!-- Dark gradient background -->
+            <div class="absolute inset-0 bg-gradient-to-br from-[#c5a059]/10 to-transparent"></div>
+            
+            <!-- Decorative elements -->
+            <div class="absolute top-20 right-20 w-64 h-64 border border-[#c5a059]/20 rounded-full"></div>
+            <div class="absolute bottom-20 left-20 w-96 h-96 border border-[#c5a059]/10 rounded-full"></div>
+            
+            <!-- Quote overlay -->
+            <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center w-full px-12">
+                <p class="text-5xl text-white/5 font-bold" style="font-family: 'Playfair Display', serif;">INDIG</p>
+                <p class="text-4xl text-white/5 font-bold mt-4" style="font-family: 'Playfair Display', serif;">GROK</p>
+                <div class="w-12 h-px bg-[#c5a059]/30 mx-auto my-8"></div>
+                <p class="text-sm tracking-[0.3em] text-gray-600">EST. 2020</p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Decorative gold line -->
+    <div class="gold-divider w-24 mx-auto mt-16"></div>
+</section>
+    
+    
     <!-- NEWSLETTER & FOOTER SECTION with backgroundimage2.jpg -->
     <section class="relative z-10 py-20 mt-20" style="background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('images/backgroundimage2.jpg') center/cover fixed;">
         <div class="max-w-7xl mx-auto px-6">
