@@ -253,117 +253,152 @@
     <main class="max-w-7xl mx-auto px-6 pb-24">
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
             
-            <div class="product-card">
-                <div class="image-container">
-                    <img src="images/shirt1.1.1.png" class="product-image front-view">
-                    <img src="images/shirt1.1.3.png" class="product-image back-view">
-
-                    <a href="shirt1.1.1.html" class="quick-buy">
-                      🛒
-                     </a>
+             <!-- PRODUCT 1: MONARCH PIQUÉ POLO -->
+        <div class="product-card">
+            <div class="image-container">
+                <img src="images/shirt1.1.1.png" class="product-image front-view" alt="Monarch Piqué Polo Front">
+                <img src="images/shirt1.1.2.png" class="product-image back-view" alt="Monarch Piqué Polo Back">
                 
-                
-                </div>
-                <div class="p-6 text-center">
-                    <h3 class="text-xs tracking-widest mb-2">MONARCH PIQUÉ POLO</h3>
-                    <p class="price-tag text-sm mb-4">$145.00</p>
-                    <a href="javascript:void(0);" onclick="addToCart('MONARCH PIQUÉ POLO', 145.00, 'images/shirt1.1.1.png')" class="buy-button">Add to Cart</a>
+                <div class="quick-buy-container">
+                    <div class="quick-buy">🛒</div>
+                    <div class="size-tooltip">
+                        <h4>Select Size</h4>
+                        <div class="size-options">
+                            <button class="size-btn" onclick="event.stopPropagation(); selectSize(this, 'SM')">SM</button>
+                            <button class="size-btn" onclick="event.stopPropagation(); selectSize(this, 'MED')">MED</button>
+                            <button class="size-btn" onclick="event.stopPropagation(); selectSize(this, 'LG')">LG</button>
+                            <button class="size-btn" onclick="event.stopPropagation(); selectSize(this, 'XL')">XL</button>
+                            <button class="size-btn" onclick="event.stopPropagation(); selectSize(this, '2XL')">2XL</button>
+                            <button class="size-btn" onclick="event.stopPropagation(); selectSize(this, '3XL')">3XL</button>
+                        </div>
+                        <div class="size-display" id="size-display-1">Size: MED</div>
+                        <button class="buy-now-tooltip" onclick="event.stopPropagation(); addToCartWithSize('MONARCH PIQUÉ POLO', 145.00, 'images/shirt1.1.1.png', 1)">ADD TO CART</button>
+                    </div>
                 </div>
             </div>
+            <div class="p-6 text-center">
+                <h3 class="text-xs tracking-widest mb-2">MONARCH PIQUÉ POLO</h3>
+                <p class="price-tag text-sm mb-4">$145.00</p>
+            </div>
+        </div>
 
-            <div class="product-card">
-                <div class="image-container">
-                    <img src="images/shirt1.2.1.png" class="product-image front-view">
-                    <img src="images/shirt1.2.2.png" class="product-image back-view">
-               
-                <a href="shirt1.2.1.html" class="quick-buy">
-                 🛒
-                  </a>
+        <!-- PRODUCT 2: IMPERIAL TEXTURED KNIT -->
+        <div class="product-card">
+            <div class="image-container">
+                <img src="images/shirt1.2.1.png" class="product-image front-view" alt="Imperial Textured Knit Front">
+                <img src="images/shirt1.2.2.png" class="product-image back-view" alt="Imperial Textured Knit Back">
                 
-                </div>
-                <div class="p-6 text-center">
-                    <h3 class="text-xs tracking-widest mb-2">IMPERIAL TEXTURED KNIT</h3>
-                    <p class="price-tag text-sm mb-4">$160.00</p>
-                    <a href="javascript:void(0);" onclick="addToCart('IMPERIAL TEXTURED KNIT', 145.00, 'images/shirt1.2.1.png')" class="buy-button">Add to Cart</a>
+                <div class="quick-buy-container">
+                    <div class="quick-buy">🛒</div>
+                    <div class="size-tooltip">
+                        <h4>Select Size</h4>
+                        <div class="size-options">
+                            <button class="size-btn" onclick="event.stopPropagation(); selectSize(this, 'SM')">SM</button>
+                            <button class="size-btn" onclick="event.stopPropagation(); selectSize(this, 'MED')">MED</button>
+                            <button class="size-btn" onclick="event.stopPropagation(); selectSize(this, 'LG')">LG</button>
+                            <button class="size-btn" onclick="event.stopPropagation(); selectSize(this, 'XL')">XL</button>
+                            <button class="size-btn" onclick="event.stopPropagation(); selectSize(this, '2XL')">2XL</button>
+                            <button class="size-btn" onclick="event.stopPropagation(); selectSize(this, '3XL')">3XL</button>
+                        </div>
+                        <div class="size-display" id="size-display-2">Size: MED</div>
+                        <button class="buy-now-tooltip" onclick="event.stopPropagation(); addToCartWithSize('IMPERIAL TEXTURED KNIT', 160.00, 'images/shirt1.2.1.png', 2)">ADD TO CART</button>
+                    </div>
                 </div>
             </div>
+            <div class="p-6 text-center">
+                <h3 class="text-xs tracking-widest mb-2">IMPERIAL TEXTURED KNIT</h3>
+                <p class="price-tag text-sm mb-4">$160.00</p>
+            </div>
+        </div>
 
-            <div class="product-card">
-                <div class="image-container">
-                    <img src="images/shirt1.3.1.png" class="product-image front-view">
-                    <img src="images/shirt1.3.3.png" class="product-image back-view">
-
-                    <a href="shirt1.3.1.html" class="quick-buy">
-                     🛒
-                     </a>
+        <!-- PRODUCT 3: SOVEREIGN SILK POLO (First) -->
+        <div class="product-card">
+            <div class="image-container">
+                <img src="images/shirt1.3.1.png" class="product-image front-view" alt="Sovereign Silk Polo Front">
+                <img src="images/shirt1.3.3.png" class="product-image back-view" alt="Sovereign Silk Polo Back">
                 
-                
-                </div>
-                <div class="p-6 text-center">
-                    <h3 class="text-xs tracking-widest mb-2">SOVEREIGN SILK POLO</h3>
-                    <p class="price-tag text-sm mb-4">$185.00</p>
-                    <a href="javascript:void(0);" onclick="addToCart('SOVEREIGN SILK POLO', 145.00, 'images/shirt1.3.1.png')" class="buy-button">Add to Cart</a>
+                <div class="quick-buy-container">
+                    <div class="quick-buy">🛒</div>
+                    <div class="size-tooltip">
+                        <h4>Select Size</h4>
+                        <div class="size-options">
+                            <button class="size-btn" onclick="event.stopPropagation(); selectSize(this, 'SM')">SM</button>
+                            <button class="size-btn" onclick="event.stopPropagation(); selectSize(this, 'MED')">MED</button>
+                            <button class="size-btn" onclick="event.stopPropagation(); selectSize(this, 'LG')">LG</button>
+                            <button class="size-btn" onclick="event.stopPropagation(); selectSize(this, 'XL')">XL</button>
+                            <button class="size-btn" onclick="event.stopPropagation(); selectSize(this, '2XL')">2XL</button>
+                            <button class="size-btn" onclick="event.stopPropagation(); selectSize(this, '3XL')">3XL</button>
+                        </div>
+                        <div class="size-display" id="size-display-3">Size: MED</div>
+                        <button class="buy-now-tooltip" onclick="event.stopPropagation(); addToCartWithSize('SOVEREIGN SILK POLO', 185.00, 'images/shirt1.3.1.png', 3)">ADD TO CART</button>
+                    </div>
                 </div>
             </div>
+            <div class="p-6 text-center">
+                <h3 class="text-xs tracking-widest mb-2">SOVEREIGN SILK POLO</h3>
+                <p class="price-tag text-sm mb-4">$185.00</p>
+            </div>
+        </div>
 
-            <div class="product-card">
-                <div class="image-container">
-                    <img src="images/shirt1.4.1.png" class="product-image front-view">
-                    <img src="images/shirt1.4.1.png" alt="Back" class="product-image back-view">
+        <!-- PRODUCT 4: SOVEREIGN SILK POLO (Second) -->
+        <div class="product-card">
+            <div class="image-container">
+                <img src="images/shirt1.4.1.png" class="product-image front-view" alt="Sovereign Silk Polo Front">
+                <img src="images/shirt1.4.2_back.png" class="product-image back-view" alt="Sovereign Silk Polo Back">
                 
-                     <a href="shirt1.4.1.html" class="quick-buy">
-                         🛒
-                        </a>
-                    
-
-
-
-
-                    
-                </div>
-                <div class="p-6 text-center">
-                    <h3 class="text-xs tracking-widest mb-2">SOVEREIGN SILK POLO</h3>
-                    <p class="price-tag text-sm mb-4">$185.00</p>
-                    <a href="javascript:void(0);" onclick="addToCart('SOVEREIGN SILK POLO', 145.00, 'images/shirt1.4.1.png')" class="buy-button">Add to Cart</a>
+                <div class="quick-buy-container">
+                    <div class="quick-buy">🛒</div>
+                    <div class="size-tooltip">
+                        <h4>Select Size</h4>
+                        <div class="size-options">
+                            <button class="size-btn" onclick="event.stopPropagation(); selectSize(this, 'SM')">SM</button>
+                            <button class="size-btn" onclick="event.stopPropagation(); selectSize(this, 'MED')">MED</button>
+                            <button class="size-btn" onclick="event.stopPropagation(); selectSize(this, 'LG')">LG</button>
+                            <button class="size-btn" onclick="event.stopPropagation(); selectSize(this, 'XL')">XL</button>
+                            <button class="size-btn" onclick="event.stopPropagation(); selectSize(this, '2XL')">2XL</button>
+                            <button class="size-btn" onclick="event.stopPropagation(); selectSize(this, '3XL')">3XL</button>
+                        </div>
+                        <div class="size-display" id="size-display-4">Size: MED</div>
+                        <button class="buy-now-tooltip" onclick="event.stopPropagation(); addToCartWithSize('SOVEREIGN SILK POLO', 185.00, 'images/shirt1.4.1.png', 4)">ADD TO CART</button>
+                    </div>
                 </div>
             </div>
+            <div class="p-6 text-center">
+                <h3 class="text-xs tracking-widest mb-2">SOVEREIGN SILK POLO</h3>
+                <p class="price-tag text-sm mb-4">$185.00</p>
+            </div>
+        </div>
 
-
-            <div class="product-card">
-                <div class="image-container">
-                    <img src="images/shirt1.5.1.png" class="product-image front-view">
-                    <img src="images/shirt1.5.1.png" class="product-image back-view">
-
-               <a href="shirt1.5.1.html" class="quick-buy">
-                🛒
-                 </a>
+        <!-- PRODUCT 5: SOVEREIGN SILK POLO (Third) -->
+        <div class="product-card">
+            <div class="image-container">
+                <img src="images/shirt1.5.1.png" class="product-image front-view" alt="Sovereign Silk Polo Front">
+                <img src="images/shirt1.5.2_back.png" class="product-image back-view" alt="Sovereign Silk Polo Back">
                 
-                </div>
-                <div class="p-6 text-center">
-                    <h3 class="text-xs tracking-widest mb-2">SOVEREIGN SILK POLO</h3>
-                    <p class="price-tag text-sm mb-4">$185.00</p>
-                    <a href="javascript:void(0);" onclick="addToCart('SOVEREIGN SILK POLO', 145.00, 'images/shirt1.5.1.png')" class="buy-button">Add to Cart</a>
+                <div class="quick-buy-container">
+                    <div class="quick-buy">🛒</div>
+                    <div class="size-tooltip">
+                        <h4>Select Size</h4>
+                        <div class="size-options">
+                            <button class="size-btn" onclick="event.stopPropagation(); selectSize(this, 'SM')">SM</button>
+                            <button class="size-btn" onclick="event.stopPropagation(); selectSize(this, 'MED')">MED</button>
+                            <button class="size-btn" onclick="event.stopPropagation(); selectSize(this, 'LG')">LG</button>
+                            <button class="size-btn" onclick="event.stopPropagation(); selectSize(this, 'XL')">XL</button>
+                            <button class="size-btn" onclick="event.stopPropagation(); selectSize(this, '2XL')">2XL</button>
+                            <button class="size-btn" onclick="event.stopPropagation(); selectSize(this, '3XL')">3XL</button>
+                        </div>
+                        <div class="size-display" id="size-display-5">Size: MED</div>
+                        <button class="buy-now-tooltip" onclick="event.stopPropagation(); addToCartWithSize('SOVEREIGN SILK POLO', 185.00, 'images/shirt1.5.1.png', 5)">ADD TO CART</button>
+                    </div>
                 </div>
             </div>
-
-             <div class="product-card">
-                <div class="image-container">
-                    <img src="images/shirt1.5.1.png" class="product-image front-view">
-                    <img src="images/shirt1.5.1.png" class="product-image back-view">
-
-               <a href="shirt1.5.1.html" class="quick-buy">
-                🛒
-                 </a>
-                
-                </div>
-                <div class="p-6 text-center">
-                    <h3 class="text-xs tracking-widest mb-2">SOVEREIGN SILK POLO</h3>
-                    <p class="price-tag text-sm mb-4">$185.00</p>
-                    <a href="javascript:void(0);" onclick="addToCart('SOVEREIGN SILK POLO', 145.00, 'images/shirt1.5.1.png')" class="buy-button">Add to Cart</a>
-                </div>
+            <div class="p-6 text-center">
+                <h3 class="text-xs tracking-widest mb-2">SOVEREIGN SILK POLO</h3>
+                <p class="price-tag text-sm mb-4">$185.00</p>
             </div>
+        </div>
 
-        </div> </main>
+    </div>
 
                 </main> <!-- This closes your existing main tag with the product grid -->
 
