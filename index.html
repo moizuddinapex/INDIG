@@ -1074,7 +1074,53 @@ footer a:hover::after {
 }
 
 
-        
+        /* ---------- Social Proof Styles ---------- */
+
+/* Animated star/pulse effect */
+@keyframes softPulse {
+    0% { opacity: 0.6; transform: scale(1); }
+    50% { opacity: 1; transform: scale(1.05); }
+    100% { opacity: 0.6; transform: scale(1); }
+}
+
+.flex.-space-x-2 > div {
+    animation: softPulse 3s infinite;
+    animation-delay: calc(var(--i, 0) * 0.2s);
+}
+
+.flex.-space-x-2 > div:nth-child(1) { --i: 1; }
+.flex.-space-x-2 > div:nth-child(2) { --i: 2; }
+.flex.-space-x-2 > div:nth-child(3) { --i: 3; }
+.flex.-space-x-2 > div:nth-child(4) { --i: 4; }
+
+/* Decorative background circles animation */
+@keyframes slowSpin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+.absolute.-top-24.-right-24 {
+    animation: slowSpin 40s linear infinite;
+}
+
+.absolute.-bottom-24.-left-24 {
+    animation: slowSpin 30s linear infinite reverse;
+}
+
+/* Trust badges hover */
+.text-gray-600 span {
+    transition: color 0.3s ease;
+    cursor: default;
+}
+
+.text-gray-600 span:hover {
+    color: var(--gold, #c5a059);
+}
+
+/* Form button arrow animation */
+.newsletter-button .inline-block {
+    transition: transform 0.3s ease;
+}
 
         
     
@@ -1334,15 +1380,24 @@ footer a:hover::after {
         <div class="max-w-7xl mx-auto px-6">
             
             <!-- Newsletter Section -->
-            <div class="text-center mb-16 border-b border-white/10 pb-16">
+            <!-- Newsletter Section with Minimal Social Proof -->
+<div class="text-center mb-16 border-b border-white/10 pb-16">
+    
     <h2 class="newsletter-title">Newsletter</h2>
     <p class="newsletter-text max-w-2xl mx-auto mb-8">Be the first one to know about discounts, offers and events</p>
+    
+    <!-- Subtle inline social proof -->
+    <p class="text-[10px] text-gray-500 mb-4 flex items-center justify-center" style="font-family: 'Inter', sans-serif;">
+        <span class="w-8 h-px bg-[#c5a059]/30 mr-3"></span>
+        <span>Join <span class="text-[#c5a059] font-medium">5,000+</span> style-conscious gentlemen</span>
+        <span class="w-8 h-px bg-[#c5a059]/30 ml-3"></span>
+    </p>
+    
+    <form class="flex flex-col md:flex-row gap-4 max-w-2xl mx-auto">
+        <input type="email" placeholder="Your email address" class="newsletter-input flex-1">
+        <button type="submit" class="newsletter-button">Subscribe</button>
+    </form>
 
-                
-                <form class="flex flex-col md:flex-row gap-4 max-w-2xl mx-auto">
-    <input type="email" placeholder="Your email address" class="newsletter-input flex-1">
-    <button type="submit" class="newsletter-button">Subscribe</button>
-</form>
             </div>
             
             <!-- Main Footer Grid -->
