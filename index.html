@@ -350,6 +350,212 @@ button, .shop-button, .buy-button {
         .cart-footer button:hover {
             background: #f0f0f0;
         }
+ 
+    /* ---------- Refined Gold Accent Palette ---------- */
+:root {
+    --gold: #c5a059;
+    --gold-light: #d4b478;
+    --gold-dark: #a88648;
+    --gold-glow: rgba(197, 160, 89, 0.2);
+}
+
+/* Navigation gold accents */
+nav a:hover {
+    color: var(--gold) !important;
+    transition: color 0.3s ease;
+}
+
+nav .gold-border {
+    border-color: var(--gold);
+}
+
+/* Collection dropdown gold styling */
+.dropdown-menu a:hover {
+    background: var(--gold) !important;
+    color: black !important;
+}
+
+/* Header gold accent line */
+header h1 {
+    position: relative;
+    display: inline-block;
+}
+
+header h1::after {
+    content: '';
+    position: absolute;
+    bottom: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 2px;
+    background: var(--gold);
+}
+
+/* Product box hover effects */
+.product-box {
+    position: relative;
+    overflow: hidden;
+}
+
+.product-box::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, var(--gold-glow), transparent);
+    transition: left 0.7s ease;
+    z-index: 1;
+    pointer-events: none;
+}
+
+.product-box:hover::before {
+    left: 100%;
+}
+
+.product-box .shop-overlay {
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(2px);
+}
+
+.product-box .shop-button {
+    background: transparent;
+    color: white;
+    border: 1px solid var(--gold);
+    padding: 12px 28px;
+    transition: all 0.4s ease;
+    position: relative;
+    overflow: hidden;
+    z-index: 2;
+}
+
+.product-box .shop-button:hover {
+    background: var(--gold);
+    color: black;
+    border-color: var(--gold);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px var(--gold-glow);
+}
+
+/* Gold borders and accents */
+.grid-border {
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: border-color 0.4s ease;
+}
+
+.product-box:hover .grid-border {
+    border-color: var(--gold);
+}
+
+/* Newsletter section gold accents */
+.newsletter-title::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 2px;
+    background: var(--gold);
+    margin: 1rem auto 0;
+}
+
+.newsletter-input {
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: white;
+    padding: 14px 20px;
+    transition: all 0.3s ease;
+}
+
+.newsletter-input:focus {
+    border-color: var(--gold);
+    outline: none;
+    box-shadow: 0 0 0 2px var(--gold-glow);
+}
+
+.newsletter-button {
+    background: transparent;
+    border: 1px solid var(--gold);
+    color: var(--gold);
+    padding: 14px 30px;
+    transition: all 0.3s ease;
+    font-weight: 500;
+}
+
+.newsletter-button:hover {
+    background: var(--gold);
+    color: black;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px var(--gold-glow);
+}
+
+/* Footer gold accents */
+footer a:hover {
+    color: var(--gold) !important;
+}
+
+.social-icon {
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    transition: all 0.3s ease;
+}
+
+.social-icon:hover {
+    border-color: var(--gold);
+    color: var(--gold);
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px var(--gold-glow);
+}
+
+/* Gold divider lines */
+.gold-divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    width: 100%;
+    margin: 2rem 0;
+}
+
+/* Cart button gold accent */
+.cart-button {
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    transition: all 0.3s ease;
+}
+
+.cart-button:hover {
+    border-color: var(--gold);
+    background: var(--gold);
+    color: black;
+}
+
+.cart-count {
+    background: var(--gold);
+    color: black;
+    padding: 2px 6px;
+    border-radius: 0;
+    font-size: 10px;
+    margin-left: 4px;
+}
+
+/* Gold scrollbar for premium feel (optional) */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #1a1a1a;
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--gold);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--gold-light);
+}
+    
+    
+    
+    
+    
     </style>
 </head>
 <body>
@@ -374,9 +580,9 @@ button, .shop-button, .buy-button {
     
     <a href="#" class="hover:text-gray-400 transition">Archive</a>
     <a href="#" class="hover:text-gray-400 transition">Information</a>
-    <button onclick="openCart()" class="border border-white px-3 py-1 hover:bg-white hover:text-black transition">
-        BAG <span id="cart-count">(0)</span>
-    </button>
+    <button onclick="openCart()" class="cart-button border border-white/10 px-3 py-1">
+    BAG <span class="cart-count" id="cart-count">(0)</span>
+</button>
 </div>
 
         
@@ -423,9 +629,9 @@ button, .shop-button, .buy-button {
 
                 
                 <form class="flex flex-col md:flex-row gap-4 max-w-2xl mx-auto">
-                    <input type="email" placeholder="Your email address" class="flex-1 bg-transparent border border-white/20 px-6 py-4 text-sm uppercase tracking-widest focus:outline-none focus:border-[#c5a059] transition">
-                    <button type="submit" class="bg-white text-black px-8 py-4 text-sm uppercase tracking-widest font-bold hover:bg-[#c5a059] hover:text-white transition">Subscribe</button>
-                </form>
+    <input type="email" placeholder="Your email address" class="newsletter-input flex-1">
+    <button type="submit" class="newsletter-button">Subscribe</button>
+</form>
             </div>
             
             <!-- Main Footer Grid -->
@@ -438,10 +644,10 @@ button, .shop-button, .buy-button {
     <p class="text-gray-400 text-xs leading-relaxed mb-6" style="font-family: 'Inter', sans-serif; font-weight: 300;">INDIG-GROK is a premium fashion brand dedicated to quality and brilliant customer service since 2020. We believe in satisfying customers through our exceptional products.</p>
 
                     <div class="flex space-x-4">
-                        <a href="#" class="w-10 h-10 border border-white/20 flex items-center justify-center hover:border-[#c5a059] hover:text-[#c5a059] transition">f</a>
-                        <a href="#" class="w-10 h-10 border border-white/20 flex items-center justify-center hover:border-[#c5a059] hover:text-[#c5a059] transition">ig</a>
-                        <a href="#" class="w-10 h-10 border border-white/20 flex items-center justify-center hover:border-[#c5a059] hover:text-[#c5a059] transition">x</a>
-                    </div>
+    <a href="#" class="social-icon w-10 h-10 flex items-center justify-center">f</a>
+    <a href="#" class="social-icon w-10 h-10 flex items-center justify-center">ig</a>
+    <a href="#" class="social-icon w-10 h-10 flex items-center justify-center">x</a>
+</div>
                 </div>
                 
                 <!-- Help Menu -->
