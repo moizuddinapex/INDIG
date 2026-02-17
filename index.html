@@ -553,7 +553,296 @@ footer a:hover {
 }
     
     
-    
+
+/* ---------- Refined Micro-Interactions ---------- */
+
+/* Navigation Links - Elegant underline effect */
+nav a:not(.brand-font) {
+    position: relative;
+    transition: color 0.3s ease;
+}
+
+nav a:not(.brand-font)::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background: var(--gold, #c5a059);
+    transition: width 0.3s cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+nav a:not(.brand-font):hover::after {
+    width: 100%;
+}
+
+/* Product Cards - Enhanced hover with multiple effects */
+.product-box {
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.product-box:hover {
+    transform: translateY(-8px);
+}
+
+.product-box .fill-img {
+    transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.product-box:hover .fill-img {
+    transform: scale(1.08);
+}
+
+/* Shop Overlay - Smooth fade with scale */
+.product-box .shop-overlay {
+    opacity: 0;
+    background: linear-gradient(
+        to bottom,
+        rgba(0, 0, 0, 0.2),
+        rgba(0, 0, 0, 0.7)
+    );
+    backdrop-filter: blur(0px);
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.product-box:hover .shop-overlay {
+    opacity: 1;
+    backdrop-filter: blur(2px);
+}
+
+/* Shop Button - Elegant reveal with scale and shine */
+.product-box .shop-button {
+    background: transparent;
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    padding: 14px 32px;
+    transform: translateY(20px) scale(0.95);
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+}
+
+.product-box:hover .shop-button {
+    transform: translateY(0) scale(1);
+    border-color: var(--gold, #c5a059);
+    color: var(--gold, #c5a059);
+}
+
+/* Button shine effect */
+.product-box .shop-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(197, 160, 89, 0.3),
+        transparent
+    );
+    transition: left 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: -1;
+}
+
+.product-box:hover .shop-button::before {
+    left: 100%;
+}
+
+/* Product Card Border - Smooth glow */
+.product-box {
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.4s ease;
+}
+
+.product-box:hover {
+    border-color: var(--gold, #c5a059);
+    box-shadow: 0 10px 30px -10px rgba(197, 160, 89, 0.2);
+}
+
+/* Collection Dropdown - Refined hover */
+.dropdown-menu a {
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+}
+
+.dropdown-menu a::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, var(--gold, #c5a059), transparent);
+    transition: left 0.4s ease;
+    z-index: -1;
+    opacity: 0.3;
+}
+
+.dropdown-menu a:hover::before {
+    left: 100%;
+}
+
+/* Social Icons - Sophisticated pulse */
+.social-icon {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+}
+
+.social-icon:hover {
+    transform: translateY(-3px);
+    border-color: var(--gold, #c5a059);
+    color: var(--gold, #c5a059);
+    box-shadow: 0 5px 15px rgba(197, 160, 89, 0.2);
+}
+
+.social-icon::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    height: 100%;
+    border: 1px solid var(--gold, #c5a059);
+    border-radius: 0;
+    transform: translate(-50%, -50%) scale(0);
+    opacity: 0;
+    transition: all 0.4s ease;
+    pointer-events: none;
+}
+
+.social-icon:hover::after {
+    transform: translate(-50%, -50%) scale(1.2);
+    opacity: 0;
+}
+
+/* Newsletter Button - Refined hover */
+.newsletter-button {
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+    transition: all 0.4s ease;
+}
+
+.newsletter-button::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: var(--gold, #c5a059);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: width 0.6s ease, height 0.6s ease;
+    z-index: -1;
+}
+
+.newsletter-button:hover::before {
+    width: 300px;
+    height: 300px;
+}
+
+.newsletter-button:hover {
+    color: black;
+    border-color: var(--gold, #c5a059);
+}
+
+/* Newsletter Input - Elegant focus */
+.newsletter-input {
+    transition: all 0.3s ease;
+}
+
+.newsletter-input:focus {
+    transform: translateY(-2px);
+    border-color: var(--gold, #c5a059);
+    box-shadow: 0 5px 20px rgba(197, 160, 89, 0.15);
+}
+
+/* Cart Button - Smooth hover */
+.cart-button {
+    position: relative;
+    overflow: hidden;
+    transition: all 0.4s ease;
+    z-index: 1;
+}
+
+.cart-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: var(--gold, #c5a059);
+    transition: left 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: -1;
+}
+
+.cart-button:hover::before {
+    left: 0;
+}
+
+.cart-button:hover {
+    color: black;
+    border-color: var(--gold, #c5a059);
+}
+
+/* Footer Links - Subtle hover */
+footer a {
+    position: relative;
+    display: inline-block;
+    transition: color 0.3s ease;
+}
+
+footer a::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background: var(--gold, #c5a059);
+    transition: width 0.3s ease;
+}
+
+footer a:hover::after {
+    width: 100%;
+}
+
+/* Gold divider - Animated on scroll (optional) */
+.gold-divider {
+    position: relative;
+    overflow: hidden;
+}
+
+.gold-divider::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, var(--gold, #c5a059), transparent);
+    animation: goldShimmer 3s infinite;
+}
+
+@keyframes goldShimmer {
+    0% { left: -100%; }
+    20% { left: 100%; }
+    100% { left: 100%; }
+}
+
+
+
+
+        
     
     
     </style>
