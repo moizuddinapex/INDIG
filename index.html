@@ -1008,8 +1008,73 @@ footer a:hover::after {
     );
 }
 
-        
+        /* ---------- Mega Menu Styles ---------- */
+.group:hover .group-hover\:rotate-180 {
+    transform: rotate(180deg);
+}
 
+/* Category card hover effects */
+.group\/category {
+    transition: all 0.3s ease;
+}
+
+.group\/category .aspect-\[4\/5\] {
+    position: relative;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: border-color 0.3s ease;
+}
+
+.group\/category:hover .aspect-\[4\/5\] {
+    border-color: var(--gold, #c5a059);
+}
+
+/* Gradient overlay animation */
+.group\/category .bg-gradient-to-t {
+    opacity: 0;
+    transition: opacity 0.4s ease;
+}
+
+.group\/category:hover .bg-gradient-to-t {
+    opacity: 1;
+}
+
+/* Description text hover */
+.group\/category p {
+    transition: color 0.3s ease;
+}
+
+.group\/category:hover p {
+    color: #d1d1d1;
+}
+
+/* Mega menu container */
+.bg-black\/95 {
+    backdrop-filter: blur(10px);
+    box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.5);
+}
+
+/* Arrow animation */
+@keyframes slideArrow {
+    0% { transform: translateX(0); }
+    50% { transform: translateX(5px); }
+    100% { transform: translateX(0); }
+}
+
+.group\/category:hover span {
+    animation: slideArrow 1s infinite;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .group .absolute {
+        width: 100vw;
+        left: -100%;
+        right: -100%;
+    }
+}
+
+
+        
 
         
     
@@ -1023,9 +1088,82 @@ footer a:hover::after {
          <div class="space-x-10 hidden md:flex items-center">
     <a href="#" class="hover:text-gray-400 transition">Sale</a>
     
-    <!-- Collection Dropdown -->
-    <div class="relative group">
-        <a href="#" class="hover:text-gray-400 transition">Collection</a>
+    <!-- Collection Mega Menu -->
+<div class="relative group">
+    <a href="#" class="hover:text-gray-400 transition flex items-center">
+        Collection
+        <svg class="w-3 h-3 ml-1 transition-transform group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linecap="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+        </svg>
+    </a>
+    
+    <!-- Mega Menu Dropdown -->
+    <div class="absolute left-0 mt-4 w-[600px] bg-black/95 backdrop-blur-lg border border-white/10 shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50 p-6">
+        
+        <!-- Menu Header -->
+        <div class="border-b border-white/10 pb-4 mb-6">
+            <h4 class="text-xs tracking-[0.3em] text-gray-400">EXPLORE THE COLLECTIONS</h4>
+        </div>
+        
+        <!-- Categories Grid -->
+        <div class="grid grid-cols-2 gap-6">
+            
+            <!-- Shirts Category -->
+            <a href="product1.html" class="group/category flex flex-col">
+                <div class="aspect-[4/5] overflow-hidden mb-3 relative">
+                    <img src="images/product1.1.jpg" alt="Shirts Collection" class="w-full h-full object-cover transition-transform duration-700 group-hover/category:scale-110">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover/category:opacity-100 transition-opacity duration-300"></div>
+                </div>
+                <h5 class="text-sm tracking-widest mb-1 group-hover/category:text-[#c5a059] transition-colors">SHIRTS</h5>
+                <p class="text-[10px] text-gray-500 leading-relaxed">Structured polos & refined button-downs for the modern gentleman</p>
+                <span class="text-[10px] text-[#c5a059] mt-2 opacity-0 group-hover/category:opacity-100 transition-opacity">Explore →</span>
+            </a>
+            
+            <!-- Shoes Category -->
+            <a href="product2.html" class="group/category flex flex-col">
+                <div class="aspect-[4/5] overflow-hidden mb-3 relative">
+                    <img src="images/product2.1.jpg" alt="Shoes Collection" class="w-full h-full object-cover transition-transform duration-700 group-hover/category:scale-110">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover/category:opacity-100 transition-opacity duration-300"></div>
+                </div>
+                <h5 class="text-sm tracking-widest mb-1 group-hover/category:text-[#c5a059] transition-colors">SHOES</h5>
+                <p class="text-[10px] text-gray-500 leading-relaxed">Architectural elegance from the ground up</p>
+                <span class="text-[10px] text-[#c5a059] mt-2 opacity-0 group-hover/category:opacity-100 transition-opacity">Explore →</span>
+            </a>
+            
+            <!-- Pants Category -->
+            <a href="product3.html" class="group/category flex flex-col">
+                <div class="aspect-[4/5] overflow-hidden mb-3 relative">
+                    <img src="images/product3.1.jpg" alt="Pants Collection" class="w-full h-full object-cover transition-transform duration-700 group-hover/category:scale-110">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover/category:opacity-100 transition-opacity duration-300"></div>
+                </div>
+                <h5 class="text-sm tracking-widest mb-1 group-hover/category:text-[#c5a059] transition-colors">PANTS</h5>
+                <p class="text-[10px] text-gray-500 leading-relaxed">The foundation of a refined wardrobe</p>
+                <span class="text-[10px] text-[#c5a059] mt-2 opacity-0 group-hover/category:opacity-100 transition-opacity">Explore →</span>
+            </a>
+            
+            <!-- Watches Category -->
+            <a href="product4.html" class="group/category flex flex-col">
+                <div class="aspect-[4/5] overflow-hidden mb-3 relative">
+                    <img src="images/product4.1.jpg" alt="Watches Collection" class="w-full h-full object-cover transition-transform duration-700 group-hover/category:scale-110">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover/category:opacity-100 transition-opacity duration-300"></div>
+                </div>
+                <h5 class="text-sm tracking-widest mb-1 group-hover/category:text-[#c5a059] transition-colors">WATCHES</h5>
+                <p class="text-[10px] text-gray-500 leading-relaxed">Time told with authority and precision</p>
+                <span class="text-[10px] text-[#c5a059] mt-2 opacity-0 group-hover/category:opacity-100 transition-opacity">Explore →</span>
+            </a>
+        </div>
+        
+        <!-- Menu Footer with Quick Links -->
+        <div class="border-t border-white/10 mt-6 pt-4 flex justify-between items-center">
+            <div class="flex space-x-6">
+                <a href="#" class="text-[10px] text-gray-500 hover:text-[#c5a059] transition">New Arrivals</a>
+                <a href="#" class="text-[10px] text-gray-500 hover:text-[#c5a059] transition">Best Sellers</a>
+                <a href="#" class="text-[10px] text-gray-500 hover:text-[#c5a059] transition">Sale</a>
+            </div>
+            <a href="#" class="text-[10px] text-[#c5a059] hover:underline">View All Collections →</a>
+        </div>
+    </div>
+
         
         <!-- Dropdown Menu -->
         <div class="absolute top-full left-0 mt-2 w-40 bg-black border border-white/10 shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50">
