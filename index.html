@@ -1393,10 +1393,12 @@ footer a:hover::after {
         <span class="w-8 h-px bg-[#c5a059]/30 ml-3"></span>
     </p>
     
-    <form class="flex flex-col md:flex-row gap-4 max-w-2xl mx-auto">
-        <input type="email" placeholder="Your email address" class="newsletter-input flex-1">
-        <button type="submit" class="newsletter-button">Subscribe</button>
-    </form>
+   <form action="https://formspree.io/f/xvzbqjnn" method="POST" class="flex flex-col md:flex-row gap-4 max-w-2xl mx-auto">
+    <input type="email" name="email" placeholder="Your email address" class="newsletter-input flex-1" required>
+    <input type="hidden" name="_subject" value="New Newsletter Subscription">
+    <input type="hidden" name="_captcha" value="false">
+    <button type="submit" class="newsletter-button">Subscribe</button>
+</form>
 
             </div>
             
