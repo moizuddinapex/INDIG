@@ -1167,35 +1167,63 @@ footer a:hover::after {
     
     </style>
 </head>
-<body>
-    
-<nav class="flex justify-between items-center px-8 py-8 uppercase tracking-[0.3em] text-[10px] border-b border-white/10 relative z-50">
-    <a href="index.html" class="brand-font font-bold tracking-normal">INDIG-GROK</a>
-    
-    <div class="space-x-10 hidden md:flex items-center">
-        <!-- Sale Link -->
-        <a href="sale.html" class="hover:text-[#c5a059] transition relative group">
-            Sale
-            <span class="absolute -top-3 -right-3 bg-[#c5a059] text-black text-[8px] px-1.5 py-0.5 rounded-full">NEW</span>
-        </a>
+<body class="min-h-screen">
+
+    <!-- Navigation -->
+    <nav class="flex justify-between items-center px-8 py-8 uppercase tracking-[0.3em] text-[10px] border-b border-white/10 relative z-50">
+        <a href="index.html" class="brand-font font-bold tracking-normal">INDIG-GROK</a>
         
-        <!-- Collection Mega Menu (Connected to product pages) -->
-        <div class="relative group">
-            <a href="#" class="hover:text-[#c5a059] transition flex items-center">
-                Collection
-                <svg class="w-3 h-3 ml-1 transition-transform group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linecap="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-                </svg>
+        <div class="space-x-10 hidden md:flex items-center">
+            <!-- Sale Link -->
+            <a href="sale.html" class="hover:text-[#c5a059] transition relative group">
+                Sale
+                <span class="absolute -top-3 -right-3 bg-[#c5a059] text-black text-[8px] px-1.5 py-0.5 rounded-full">NEW</span>
             </a>
             
-            <!-- Mega Menu Dropdown -->
-            <div class="absolute left-0 mt-4 w-[600px] bg-black/95 backdrop-blur-lg border border-white/10 shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50 p-6">
+            <!-- Collection Dropdown -->
+            <div class="relative group">
+                <a href="#" class="hover:text-[#c5a059] transition flex items-center">
+                    Collection
+                    <svg class="w-3 h-3 ml-1 transition-transform group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linecap="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                    </svg>
+                </a>
                 
-                <!-- Menu Header -->
-                <div class="border-b border-white/10 pb-4 mb-6">
-                    <h4 class="text-xs tracking-[0.3em] text-gray-400">EXPLORE THE COLLECTIONS</h4>
+                <!-- Dropdown Menu -->
+                <div class="absolute left-0 mt-4 w-48 bg-black/95 backdrop-blur-lg border border-white/10 shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50 py-2">
+                    <a href="product1.html" class="block px-4 py-3 text-[10px] hover:bg-[#c5a059] hover:text-black transition border-b border-white/10">Shirts</a>
+                    <a href="product2.html" class="block px-4 py-3 text-[10px] hover:bg-[#c5a059] hover:text-black transition border-b border-white/10">Shoes</a>
+                    <a href="product3.html" class="block px-4 py-3 text-[10px] hover:bg-[#c5a059] hover:text-black transition border-b border-white/10">Pants</a>
+                    <a href="product4.html" class="block px-4 py-3 text-[10px] hover:bg-[#c5a059] hover:text-black transition">Watches</a>
                 </div>
-                
+            </div>
+            
+            <!-- Archive Link -->
+            <a href="archive.html" class="hover:text-[#c5a059] transition">Archive</a>
+            
+            <!-- Information Link -->
+            <a href="information.html" class="hover:text-[#c5a059] transition">Information</a>
+            
+            <!-- Search Button -->
+            <button onclick="openSearch()" class="hover:text-[#c5a059] transition">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linecap="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                </svg>
+            </button>
+            
+            <!-- Cart Button -->
+            <button onclick="openCart()" class="cart-button border border-white/20 px-3 py-1 flex items-center">
+                BAG <span class="cart-count ml-1" id="cart-count">(0)</span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Header -->
+    <header class="py-24 flex flex-col items-center justify-center border-b border-white/10 relative z-10">
+        <h1 class="text-6xl md:text-8xl serif-title uppercase tracking-tighter fade-in-up">
+            Men's Fashion
+        </h1>
+    </header>
                 <!-- Categories Grid -->
                 <div class="grid grid-cols-2 gap-6">
                     
