@@ -1163,30 +1163,216 @@ footer a:hover::after {
     }
 }
         
-    
-    
-    </style>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="theme-color" content="#000000">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <title>INDIG-GROK | Premium Men's Fashion</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
-    
-    <style>
-        /* ---------- Your Complete CSS (keep all your existing styles) ---------- */
-        /* ... (all the CSS from your current file) ... */
-        
-        /* Fix the incomplete rule at the end */
-        .product-box {
-            position: relative;
-            overflow: hidden;
-            transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+
+        /* ---------- Your Complete Existing CSS ---------- */
+        /* Paste ALL the CSS from your current file here */
+        /* START OF CSS COPY AREA */
+
+        /* ---------- Animations ---------- */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
         }
+        .fade-in-img { animation: fadeInUp 1.2s ease-out forwards; opacity: 0; }
+
+        /* ---------- Refined Typography ---------- */
+        body {
+            background-color: #0a0a0a; color: #ffffff; font-family: 'Inter', sans-serif;
+            font-weight: 300; letter-spacing: 0.02em; margin: 0;
+        }
+        h1, h2, h3, h4, h5, h6, .serif-title, .brand-font, .nav-links {
+            font-family: 'Playfair Display', serif; font-weight: 600; letter-spacing: -0.02em;
+        }
+        body::before {
+            content: ""; position: fixed; inset: 0;
+            background: url('images/backgroundimage1.jpg') center / cover no-repeat;
+            filter: brightness(0.3); z-index: -1;
+        }
+        .brand-font {
+            font-family: 'Playfair Display', serif; font-size: 1.8rem; font-weight: 700; letter-spacing: -0.01em;
+            background: linear-gradient(135deg, #ffffff 0%, #c5a059 100%);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+        }
+        @media (max-width: 768px) { header h1 { font-size: 3rem; } }
+        .section-title {
+            font-family: 'Playfair Display', serif; font-size: 2.5rem; font-weight: 600; letter-spacing: -0.01em;
+            text-align: center; margin-bottom: 2rem; position: relative;
+        }
+        .section-title::after {
+            content: ''; display: block; width: 60px; height: 2px;
+            background: var(--gold, #c5a059); margin: 1rem auto 0;
+        }
+        .newsletter-title {
+            font-family: 'Playfair Display', serif; font-size: 2rem; font-weight: 600;
+            letter-spacing: -0.01em; margin-bottom: 1rem;
+        }
+        .newsletter-text {
+            font-family: 'Inter', sans-serif; font-weight: 300; letter-spacing: 0.02em; color: #a0a0a0;
+        }
+        footer, .footer-text {
+            font-family: 'Inter', sans-serif; font-weight: 300; letter-spacing: 0.1em;
+            font-size: 0.7rem; text-transform: uppercase;
+        }
+        button, .shop-button, .buy-button {
+            font-family: 'Inter', sans-serif; font-weight: 500; letter-spacing: 0.2em;
+            text-transform: uppercase; font-size: 0.7rem;
+        }
+        .product-card h3 {
+            font-family: 'Playfair Display', serif; font-weight: 600; font-size: 0.8rem;
+            letter-spacing: 0.1em; text-transform: uppercase;
+        }
+        .product-card .price-tag {
+            font-family: 'Inter', sans-serif; font-weight: 400; color: var(--gold, #c5a059);
+        }
+        .serif-title { font-family: 'Playfair Display', serif; }
+
+        /* ---------- Product Grid ---------- */
+        .grid-border { border: 1px solid rgba(255,255,255,0.1); }
+        .product-box {
+            display: block; aspect-ratio: 1 / 1; position: relative;
+            overflow: hidden; background: #0d0d0d;
+        }
+        .fill-img {
+            width: 100%; height: 100%; object-fit: cover; transition: transform 0.7s ease;
+        }
+
+        /* ---------- Shop Overlay ---------- */
+        .shop-overlay {
+            position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+            background: rgba(0,0,0,0.4); opacity: 0; transition: opacity 0.4s ease;
+        }
+        .shop-button {
+            background: white; color: black; padding: 14px 28px; font-size: 11px;
+            letter-spacing: 0.2em; font-weight: bold; transform: translateY(15px); transition: transform 0.4s ease;
+        }
+        .product-box:hover .shop-overlay { opacity: 1; }
+        .product-box:hover .shop-button { transform: translateY(0); }
+        .product-box:hover img { transform: scale(1.08); }
+
+        .fade-section { opacity: 0; transform: translateY(40px); transition: all 1s ease; }
+        .fade-section.visible { opacity: 1; transform: translateY(0); }
+        .product-box.show-overlay .shop-overlay { opacity: 1; }
+
+        /* Fix tall product cropping */
+        .product-tall .tall-img { object-position: center top; object-fit: cover; width: 100%; height: 100%; }
+        .product-tall:hover .tall-img { transform: none !important; }
+        .product-tall { background: radial-gradient(circle at center, #111 0%, #0a0a0a 70%); overflow: hidden; }
+        .product-tall img { object-fit: contain; background: #0d0d0d; }
+
+        /* ---------- Cart Overlay ---------- */
+        .cart-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.5); opacity: 0; visibility: hidden; transition: opacity 0.3s ease; z-index: 999;
+        }
+        .cart-overlay.active { opacity: 1; visibility: visible; }
+
+        /* ---------- Cart Sidebar ---------- */
+        .cart-sidebar {
+            position: fixed; top: 0; right: -400px; width: 350px; height: 100%; background: #111;
+            color: #fff; padding: 20px; box-shadow: -3px 0 8px rgba(0,0,0,0.3);
+            transition: right 0.3s ease; z-index: 1000; overflow-y: auto;
+        }
+        .cart-sidebar.active { right: 0; }
+        .cart-sidebar h2 { margin-top: 0; }
+        .close-btn { position: absolute; top: 10px; left: 10px; font-size: 28px; cursor: pointer; background: none; border: none; color: #fff; }
+        .cart-item { display: flex; margin-bottom: 15px; gap: 10px; }
+        .cart-item img { width: 60px; height: 60px; object-fit: cover; }
+        .cart-info h4 { margin: 0; font-size: 16px; }
+        .cart-info p { margin: 5px 0; }
+        .remove-btn { cursor: pointer; background: #ff4444; border: none; color: white; padding: 4px 8px; font-size: 12px; }
+        .cart-footer { margin-top: 20px; display: flex; flex-direction: column; gap: 10px; }
+        .cart-footer button {
+            width: 100%; padding: 12px; background: #fff; color: #000; border: none;
+            cursor: pointer; font-weight: bold; letter-spacing: 0.1em;
+        }
+        .cart-footer button:hover { background: #f0f0f0; }
+
+        /* ---------- Refined Gold Accent Palette ---------- */
+        :root {
+            --gold: #c5a059; --gold-light: #d4b478; --gold-dark: #a88648; --gold-glow: rgba(197, 160, 89, 0.2);
+        }
+        nav a:hover { color: var(--gold) !important; transition: color 0.3s ease; }
+        nav .gold-border { border-color: var(--gold); }
+        .dropdown-menu a:hover { background: var(--gold) !important; color: black !important; }
+
+        header h1 { position: relative; display: inline-block; }
+        header h1::after {
+            content: ''; position: absolute; bottom: -15px; left: 50%; transform: translateX(-50%);
+            width: 80px; height: 2px; background: var(--gold);
+        }
+
+        .product-box { position: relative; overflow: hidden; }
+        .product-box::before {
+            content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, var(--gold-glow), transparent);
+            transition: left 0.7s ease; z-index: 1; pointer-events: none;
+        }
+        .product-box:hover::before { left: 100%; }
+        .product-box .shop-overlay { background: rgba(0, 0, 0, 0.6); backdrop-filter: blur(2px); }
+        .product-box .shop-button {
+            background: transparent; color: white; border: 1px solid var(--gold); padding: 12px 28px;
+            transition: all 0.4s ease; position: relative; overflow: hidden; z-index: 2;
+        }
+        .product-box .shop-button:hover {
+            background: var(--gold); color: black; border-color: var(--gold);
+            transform: translateY(-2px); box-shadow: 0 5px 15px var(--gold-glow);
+        }
+
+        .grid-border { border: 1px solid rgba(255, 255, 255, 0.1); transition: border-color 0.4s ease; }
+        .product-box:hover .grid-border { border-color: var(--gold); }
+
+        .newsletter-title::after {
+            content: ''; display: block; width: 60px; height: 2px; background: var(--gold); margin: 1rem auto 0;
+        }
+        .newsletter-input {
+            background: transparent; border: 1px solid rgba(255, 255, 255, 0.2); color: white;
+            padding: 14px 20px; transition: all 0.3s ease;
+        }
+        .newsletter-input:focus { border-color: var(--gold); outline: none; box-shadow: 0 0 0 2px var(--gold-glow); }
+        .newsletter-button {
+            background: transparent; border: 1px solid var(--gold); color: var(--gold);
+            padding: 14px 30px; transition: all 0.3s ease; font-weight: 500;
+        }
+        .newsletter-button:hover {
+            background: var(--gold); color: black; transform: translateY(-2px); box-shadow: 0 5px 15px var(--gold-glow);
+        }
+
+        footer a:hover { color: var(--gold) !important; }
+        .social-icon {
+            border: 1px solid rgba(255, 255, 255, 0.2); transition: all 0.3s ease;
+        }
+        .social-icon:hover {
+            border-color: var(--gold); color: var(--gold); transform: translateY(-3px);
+            box-shadow: 0 5px 15px var(--gold-glow);
+        }
+
+        .gold-divider {
+            height: 1px; background: linear-gradient(90deg, transparent, var(--gold), transparent); width: 100%; margin: 2rem 0;
+        }
+
+        .cart-button { border: 1px solid rgba(255, 255, 255, 0.2); transition: all 0.3s ease; }
+        .cart-button:hover { border-color: var(--gold); background: var(--gold); color: black; }
+        .cart-count { background: var(--gold); color: black; padding: 2px 6px; border-radius: 0; font-size: 10px; margin-left: 4px; }
+
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #1a1a1a; }
+        ::-webkit-scrollbar-thumb { background: var(--gold); }
+        ::-webkit-scrollbar-thumb:hover { background: var(--gold-light); }
+
+        /* ---------- Refined Micro-Interactions ---------- */
+        nav a:not(.brand-font) {
+            position: relative; transition: color 0.3s ease;
+        }
+        nav a:not(.brand-font)::after {
+            content: ''; position: absolute; bottom: -4px; left: 0; width: 0; height: 1px;
+            background: var(--gold, #c5a059); transition: width 0.3s cubic-bezier(0.65, 0, 0.35, 1);
+        }
+        nav a:not(.brand-font):hover::after { width: 100%; }
+
+        .product-box {
+            position: relative; overflow: hidden; transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        /* END OF CSS COPY AREA */
     </style>
 </head>
 <body class="min-h-screen">
@@ -1194,19 +1380,16 @@ footer a:hover::after {
     <!-- Navigation -->
     <nav class="flex justify-between items-center px-8 py-8 uppercase tracking-[0.3em] text-[10px] border-b border-white/10 relative z-50">
         <a href="index.html" class="brand-font font-bold tracking-normal">INDIG-GROK</a>
-        
         <div class="space-x-10 hidden md:flex items-center">
-            <a href="sale.html" class="hover:text-[#c5a059] transition">Sale</a>
-            
+            <a href="sale.html" class="hover:text-[#c5a059] transition relative group">
+                Sale <span class="absolute -top-3 -right-3 bg-[#c5a059] text-black text-[8px] px-1.5 py-0.5 rounded-full">NEW</span>
+            </a>
             <!-- Collection Dropdown -->
             <div class="relative group">
                 <a href="#" class="hover:text-[#c5a059] transition flex items-center">
                     Collection
-                    <svg class="w-3 h-3 ml-1 transition-transform group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linecap="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-                    </svg>
+                    <svg class="w-3 h-3 ml-1 transition-transform group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linecap="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                 </a>
-                
                 <div class="absolute left-0 mt-4 w-48 bg-black/95 backdrop-blur-lg border border-white/10 shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50 py-2">
                     <a href="product1.html" class="block px-4 py-3 text-[10px] hover:bg-[#c5a059] hover:text-black transition border-b border-white/10">Shirts</a>
                     <a href="product2.html" class="block px-4 py-3 text-[10px] hover:bg-[#c5a059] hover:text-black transition border-b border-white/10">Shoes</a>
@@ -1214,17 +1397,12 @@ footer a:hover::after {
                     <a href="product4.html" class="block px-4 py-3 text-[10px] hover:bg-[#c5a059] hover:text-black transition">Watches</a>
                 </div>
             </div>
-            
             <a href="archive.html" class="hover:text-[#c5a059] transition">Archive</a>
             <a href="information.html" class="hover:text-[#c5a059] transition">Information</a>
-            
             <!-- Search Button -->
             <button onclick="openSearch()" class="hover:text-[#c5a059] transition">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linecap="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
-                </svg>
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linecap="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
             </button>
-            
             <!-- Cart Button -->
             <button onclick="openCart()" class="cart-button border border-white/20 px-3 py-1 flex items-center">
                 BAG <span class="cart-count ml-1" id="cart-count">(0)</span>
@@ -1234,41 +1412,65 @@ footer a:hover::after {
 
     <!-- Header -->
     <header class="py-24 flex flex-col items-center justify-center border-b border-white/10 relative z-10">
-        <h1 class="text-6xl md:text-8xl serif-title uppercase tracking-tighter fade-in-up">
-            Men's Fashion
-        </h1>
+        <h1 class="text-6xl md:text-8xl serif-title uppercase tracking-tighter fade-in-up">Men's Fashion</h1>
     </header>
 
-    <!-- Featured Collections Grid -->
+    <!-- ===== FEATURED COLLECTIONS ===== (Restore your full product grid here) -->
     <section class="relative z-10 py-16 px-6 max-w-7xl mx-auto">
         <div class="text-center mb-12">
-            <h2 class="text-3xl md:text-4xl font-light mb-3" style="font-family: 'Playfair Display', serif;">
+            <h2 class="text-3xl md:text-4xl font-light mb-3" style="font-family: 'Playfair Display', serif; letter-spacing: -0.02em;">
                 Featured <span class="text-[#c5a059]">Collections</span>
             </h2>
             <div class="w-20 h-px bg-[#c5a059] mx-auto"></div>
         </div>
-        
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            <!-- Product 1 -->
-            <a href="product1.html" class="group block relative overflow-hidden bg-black/20 border border-white/5 hover:border-[#c5a059] transition-all">
+            <!-- Product 1: Shirts -->
+            <a href="product1.html" class="group block relative overflow-hidden bg-black/20 border border-white/5 hover:border-[#c5a059] transition-all duration-500">
                 <div class="aspect-[3/4] overflow-hidden">
-                    <img src="images/product1.1.jpg" alt="Shirts" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                    <img src="images/product1.1.jpg" alt="Shirts Collection" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
                 </div>
                 <div class="p-4 text-center">
                     <h4 class="text-xs tracking-widest">SHIRTS</h4>
                     <p class="text-[10px] text-gray-500 mt-1">From $145</p>
                 </div>
             </a>
-            <!-- Add other 3 products similarly -->
+            <!-- Product 2: Shoes -->
+            <a href="product2.html" class="group block relative overflow-hidden bg-black/20 border border-white/5 hover:border-[#c5a059] transition-all duration-500">
+                <div class="aspect-[3/4] overflow-hidden">
+                    <img src="images/product2.1.jpg" alt="Shoes Collection" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                </div>
+                <div class="p-4 text-center">
+                    <h4 class="text-xs tracking-widest">SHOES</h4>
+                    <p class="text-[10px] text-gray-500 mt-1">From $145</p>
+                </div>
+            </a>
+            <!-- Product 3: Pants -->
+            <a href="product3.html" class="group block relative overflow-hidden bg-black/20 border border-white/5 hover:border-[#c5a059] transition-all duration-500">
+                <div class="aspect-[3/4] overflow-hidden">
+                    <img src="images/product3.1.jpg" alt="Pants Collection" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                </div>
+                <div class="p-4 text-center">
+                    <h4 class="text-xs tracking-widest">PANTS</h4>
+                    <p class="text-[10px] text-gray-500 mt-1">From $145</p>
+                </div>
+            </a>
+            <!-- Product 4: Watches -->
+            <a href="product4.html" class="group block relative overflow-hidden bg-black/20 border border-white/5 hover:border-[#c5a059] transition-all duration-500">
+                <div class="aspect-[3/4] overflow-hidden">
+                    <img src="images/product4.1.jpg" alt="Watches Collection" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                </div>
+                <div class="p-4 text-center">
+                    <h4 class="text-xs tracking-widest">WATCHES</h4>
+                    <p class="text-[10px] text-gray-500 mt-1">From $145</p>
+                </div>
+            </a>
         </div>
     </section>
 
-    <!-- The INDIG-GROK Man Section -->
+    <!-- ===== THE INDIG-GROK MAN SECTION ===== (Your complete brand story) -->
     <section class="relative z-10 py-20 px-6 max-w-4xl mx-auto">
         <div class="gold-divider w-24 mx-auto mb-12"></div>
-        <h2 class="text-4xl md:text-5xl font-light mb-8 text-center" style="font-family: 'Playfair Display', serif;">
-            The <span class="text-[#c5a059]">INDIG-GROK</span> Man
-        </h2>
+        <h2 class="text-4xl md:text-5xl font-light mb-8 text-center" style="font-family: 'Playfair Display', serif;">The <span class="text-[#c5a059]">INDIG-GROK</span> Man</h2>
         <div class="space-y-6 text-gray-300 text-lg leading-relaxed" style="font-family: 'Inter', sans-serif; font-weight: 300;">
             <p>He exists in the space between tradition and tomorrow. INDIG-GROK was born from a singular vision: to clothe the modern gentleman in armor that whispers, never shouts.</p>
             <p>We believe in <span class="text-white font-medium">modern classicism</span>—where centuries-old tailoring traditions meet contemporary minimalism. Each piece is a study in restraint: clean lines, impeccable proportions, and details that reveal themselves only to those who look closely.</p>
@@ -1278,37 +1480,33 @@ footer a:hover::after {
             <p class="font-light text-sm tracking-widest text-gray-500" style="font-family: 'Playfair Display', serif;">— For those who understand that true elegance is invisible</p>
         </div>
         <div class="flex justify-center space-x-8 mt-12">
-            <span class="text-xs tracking-widest text-gray-400">TIMELESS</span>
-            <span class="text-[#c5a059]">•</span>
-            <span class="text-xs tracking-widest text-gray-400">EFFORTLESS</span>
-            <span class="text-[#c5a059]">•</span>
+            <span class="text-xs tracking-widest text-gray-400">TIMELESS</span> <span class="text-[#c5a059]">•</span>
+            <span class="text-xs tracking-widest text-gray-400">EFFORTLESS</span> <span class="text-[#c5a059]">•</span>
             <span class="text-xs tracking-widest text-gray-400">DISTINCT</span>
         </div>
         <div class="gold-divider w-24 mx-auto mt-12"></div>
     </section>
 
-    <!-- Newsletter Section -->
+    <!-- ===== NEWSLETTER SECTION ===== (With social proof) -->
     <section class="relative z-10 py-20 px-6 max-w-4xl mx-auto text-center">
         <h2 class="newsletter-title">Newsletter</h2>
         <p class="newsletter-text mb-6">Be the first to know about new collections and exclusive offers</p>
-        
         <div class="flex items-center justify-center space-x-2 mb-8">
             <div class="flex -space-x-2">
-                <div class="w-8 h-8 rounded-full border-2 border-black bg-[#c5a059]/20 flex items-center justify-center">✦</div>
-                <div class="w-8 h-8 rounded-full border-2 border-black bg-[#c5a059]/20 flex items-center justify-center">✦</div>
-                <div class="w-8 h-8 rounded-full border-2 border-black bg-[#c5a059]/20 flex items-center justify-center">✦</div>
-                <div class="w-8 h-8 rounded-full border-2 border-black bg-[#c5a059]/40 flex items-center justify-center font-bold">5K</div>
+                <div class="w-8 h-8 rounded-full border-2 border-black bg-[#c5a059]/20 flex items-center justify-center"><span class="text-[#c5a059] text-xs">✦</span></div>
+                <div class="w-8 h-8 rounded-full border-2 border-black bg-[#c5a059]/20 flex items-center justify-center"><span class="text-[#c5a059] text-xs">✦</span></div>
+                <div class="w-8 h-8 rounded-full border-2 border-black bg-[#c5a059]/20 flex items-center justify-center"><span class="text-[#c5a059] text-xs">✦</span></div>
+                <div class="w-8 h-8 rounded-full border-2 border-black bg-[#c5a059]/40 flex items-center justify-center"><span class="text-[#c5a059] text-sm font-bold">5K</span></div>
             </div>
             <p class="text-xs text-gray-400">Join <span class="text-[#c5a059] font-medium">5,000+</span> discerning customers</p>
         </div>
-        
         <form class="flex flex-col md:flex-row gap-4 max-w-xl mx-auto">
             <input type="email" placeholder="Your email address" class="newsletter-input flex-1">
             <button type="submit" class="newsletter-button">Subscribe</button>
         </form>
     </section>
 
-    <!-- Footer -->
+    <!-- ===== FOOTER ===== (Complete with all columns) -->
     <footer class="py-16 text-center text-[9px] uppercase tracking-[0.4em] text-gray-400 relative z-10 border-t border-white/10">
         <div class="max-w-6xl mx-auto px-6">
             <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12 text-left">
@@ -1349,7 +1547,7 @@ footer a:hover::after {
     <div id="cartOverlay" class="cart-overlay"></div>
     <div id="cartSidebar" class="cart-sidebar">
         <button id="closeCart" class="close-btn">×</button>
-        <h2 class="text-lg mb-6">My Cart</h2>
+        <h2>My Cart</h2>
         <div id="cart-items-container"></div>
         <div class="cart-footer">
             <span id="cart-total-price">$0</span>
@@ -1361,5 +1559,12 @@ footer a:hover::after {
     <script src="js/checkout.js"></script>
     <script src="js/sizing.js"></script>
     <script src="js/search.js"></script>
+    <script>
+        // Basic search functions (add your full search.js logic here or ensure it's in the file)
+        function openSearch() { alert('Search opened'); } // Placeholder
+        function closeSearch() {} // Placeholder
+    </script>
 </body>
-</html>
+</html>    
+    
+    
