@@ -11,21 +11,47 @@ const sizeLabel = document.querySelector(".selected-size");
 // Initialize cart from localStorage
 let cart = JSON.parse(localStorage.getItem("cart")) || [];
 
-// Render cart UI
+// ==== CART RENDER ====
 function renderCart() {
     cartItemsContainer.innerHTML = "";
-    cart.forEach(item => {
+    cart.forEach((item, index) => {
         const li = document.createElement("li");
+        li.classList.add("cart-item");
         li.innerHTML = `
-            ${item.name} - ${item.size} x${item.quantity} - $${item.price * item.quantity}
+            <div class="cart-item-name">${item.name}</div>
+            <div>Size: ${item.size}</div>
+            <div>
+                Qty: 
+                <button class="qty-btn" data-index="${index}" data-action="decrease">-</button>
+                <span>${item.quantity}</span>
+                <button class="qty-btn" data-index="${index}" data-action="increase">+</button>
+            </div>
+            <div>Rs ${item.price * item.quantity}</div>
         `;
         cartItemsContainer.appendChild(li);
     });
+
+    // Update total count
     cartCount.textContent = cart.reduce((sum, item) => sum + item.quantity, 0);
     localStorage.setItem("cart", JSON.stringify(cart));
+
+    // Attach quantity buttons
+    const qtyBtns = document.querySelectorAll(".qty-btn");
+    qtyBtns.forEach(btn => {
+        btn.addEventListener("click", () => {
+            const index = parseInt(btn.dataset.index);
+            if (btn.dataset.action === "increase") {
+                cart[index].quantity += 1;
+            } else if (btn.dataset.action === "decrease") {
+                cart[index].quantity -= 1;
+                if (cart[index].quantity <= 0) cart.splice(index, 1);
+            }
+            renderCart();
+        });
+    });
 }
 
-// Size selection handler
+// ==== SIZE SELECTION ====
 sizeOptions.forEach(option => {
     option.addEventListener("click", () => {
         sizeOptions.forEach(o => o.classList.remove("active"));
@@ -34,15 +60,15 @@ sizeOptions.forEach(option => {
     });
 });
 
-// Add to cart handler
+// ==== ADD TO CART ====
 addToCartBtns.forEach(btn => {
     btn.addEventListener("click", () => {
         const productCard = btn.closest(".product-card");
         const productName = productCard.querySelector(".product-name").textContent;
-        const productPrice = parseFloat(productCard.querySelector(".product-price").textContent.replace("$",""));
+        const productPrice = parseFloat(productCard.querySelector(".product-price").textContent.replace("Rs","").trim());
         const selectedSize = sizeLabel.textContent;
 
-        // Check if product + size already exists in cart
+        // Check if product+size exists
         const existingItem = cart.find(item => item.name === productName && item.size === selectedSize);
         if (existingItem) {
             existingItem.quantity += 1;
@@ -51,14 +77,14 @@ addToCartBtns.forEach(btn => {
         }
 
         renderCart();
-        cartSidebar.classList.add("open"); // optionally open sidebar
+        cartSidebar.classList.add("open"); // open sidebar after add
     });
 });
 
-// Toggle cart sidebar
+// ==== TOGGLE CART SIDEBAR ====
 cartToggle.addEventListener("click", () => {
     cartSidebar.classList.toggle("open");
 });
 
-// Initial render
+// ==== INITIAL RENDER ====
 renderCart();
