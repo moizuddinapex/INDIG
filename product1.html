@@ -421,6 +421,7 @@
                     <div class="size-tooltip">
                         <h4>Select Size</h4>
                         <div class="sizes">
+  <div class="sizes">
   <span>Select Size:</span>
   <button class="size-option active">SM</button>
   <button class="size-option">MED</button>
@@ -430,7 +431,7 @@
   <button class="size-option">3XL</button>
   <div>Selected: <span class="selected-size">SM</span></div>
 </div>
-                        <div class="size-display" id="size-display-2">Size: MED</div>
+                            <div class="size-display" id="size-display-2">Size: MED</div>
                         <button class="buy-now-tooltip" onclick="addToCartWithSize('IMPERIAL TEXTURED KNIT', 160.00, 'images/shirt1.2.1.png', 2)">ADD TO CART</button>
 
                     </div>
@@ -637,18 +638,19 @@
 <!-- Cart Overlay -->
     <div id="cartOverlay" class="cart-overlay"></div>
 
-    <!-- Cart Sidebar -->
-    <div id="cartSidebar" class="cart-sidebar">
-        <button id="closeCart" class="close-btn">×</button>
-        <button class="cart-toggle">🛒 Cart (<span class="cart-count">0</span>)</button>
-        <ul class="cart-items"></ul>
-        <h2>My Cart</h2>
-        <div id="cart-items-container"></div>
-        <div class="cart-footer">
-            <span id="cart-total-price">Rs 0</span>
-            <button onclick="goToCheckout()">Checkout</button>
-        </div>
+   <!-- Cart Sidebar -->
+<div id="cartSidebar" class="cart-sidebar">
+    <button id="closeCart" class="close-btn">×</button>
+    <ul class="cart-items"></ul> <!-- single container for cart items -->
+    <div class="cart-footer">
+        Total: Rs <span class="cart-total-price">0</span>
+        <button onclick="goToCheckout()">Checkout</button>
     </div>
+</div>
+
+<!-- Cart Toggle Button (can be outside the sidebar) -->
+<button class="cart-toggle">🛒 Cart (<span class="cart-count">0</span>)</button>
+    
 <script src="js/checkout.js"></script>
 <script src="js/cart.js"></script>
 <script src="js/sizing.js"></script>
