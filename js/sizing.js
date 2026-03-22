@@ -2,10 +2,14 @@
 // sizing.js
 
 function selectSize(button, size) {
+    // Remove selected class from all size buttons in the same container
     const sizeOptions = button.parentElement.querySelectorAll('.size-btn');
     sizeOptions.forEach(btn => btn.classList.remove('selected'));
+    
+    // Add selected class to clicked button
     button.classList.add('selected');
     
+    // Find the size display element in the same tooltip
     const tooltip = button.closest('.size-tooltip');
     const sizeDisplay = tooltip.querySelector('.size-display');
     if (sizeDisplay) {
@@ -45,9 +49,9 @@ function addToCartWithSize(name, price, image, productId) {
     }
 }
 
-// Initialize size buttons when page loads
+// Set default size styling when page loads
 document.addEventListener("DOMContentLoaded", function() {
-    // Set MED as default selected
+    // Ensure MED is selected by default in each product
     document.querySelectorAll('.size-btn').forEach(btn => {
         if (btn.textContent === 'MED') {
             btn.classList.add('selected');
