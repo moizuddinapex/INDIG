@@ -1,5 +1,5 @@
 
-// cart.js
+
 
 // Cart array to store items
 let cart = [];
