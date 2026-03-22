@@ -638,15 +638,14 @@
 <!-- Cart Overlay -->
     <div id="cartOverlay" class="cart-overlay"></div>
 
-   <!-- Cart Sidebar -->
-<div id="cartSidebar" class="cart-sidebar">
-    <button id="closeCart" class="close-btn">×</button>
-    <ul class="cart-items"></ul> <!-- single container for cart items -->
-    <div class="cart-footer">
-        Total: Rs <span class="cart-total-price">0</span>
-        <button onclick="goToCheckout()">Checkout</button>
-    </div>
-</div>
+   <!-- Cart Sidebar --> <div id="cartSidebar" class="cart-sidebar">
+       <button id="closeCart" class="close-btn">×</button> 
+       <button class="cart-toggle">🛒 Cart (<span class="cart-count">0</span>)</button> 
+       <ul class="cart-items"></ul> <h2>My Cart</h2> 
+       <div id="cart-items-container"></div> 
+       <div class="cart-footer"> 
+           <span id="cart-total-price">Rs 0</span>
+           <button onclick="goToCheckout()">Checkout</button> </div>
 
 <!-- Cart Toggle Button (can be outside the sidebar) -->
 <button class="cart-toggle">🛒 Cart (<span class="cart-count">0</span>)</button>
