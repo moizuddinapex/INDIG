@@ -1,111 +1,91 @@
 
+// cart.js
+
 // Cart array to store items
-let cart = JSON.parse(localStorage.getItem('cart')) || [];
+let cart = [];
 
-// Function to open cart
-window.openCart = function() {
-    document.getElementById('cartOverlay').classList.add('active');
-    document.getElementById('cartSidebar').classList.add('active');
-    updateCartDisplay();
-};
-
-// Function to close cart
-function closeCart() {
-    document.getElementById('cartOverlay').classList.remove('active');
-    document.getElementById('cartSidebar').classList.remove('active');
+// Load cart from localStorage when page loads
+function loadCart() {
+    const savedCart = localStorage.getItem('indigCart');
+    if (savedCart) {
+        cart = JSON.parse(savedCart);
+        updateCartDisplay();
+        updateCartCount();
+    }
 }
 
-// Function to select size
-window.selectSize = function(button, size) {
-    // Remove selected class from all size buttons in the same tooltip
-    let sizeOptions = button.closest('.size-options');
-    if (sizeOptions) {
-        let buttons = sizeOptions.querySelectorAll('.size-btn');
-        buttons.forEach(btn => btn.classList.remove('selected'));
-    }
-    
-    // Add selected class to clicked button
-    button.classList.add('selected');
-    
-    // Update the size display
-    let sizeDisplay = button.closest('.size-tooltip').querySelector('.size-display');
-    if (sizeDisplay) {
-        sizeDisplay.textContent = 'Size: ' + size;
-    }
-};
+// Save cart to localStorage
+function saveCart() {
+    localStorage.setItem('indigCart', JSON.stringify(cart));
+}
 
-// Function to add to cart with size
-window.addToCartWithSize = function(event, name, price, image, productId) {
-    // Prevent event issues
-    if (event) {
-        event.stopPropagation();
-    }
-    
-    // Find the selected size
-    let sizeDisplay = event.currentTarget.closest('.size-tooltip').querySelector('.size-display');
-    let selectedSize = 'MED'; // Default size
-    
+// Add item to cart with real-time update
+function addToCartWithSize(productName, price, imageUrl, productId, selectedSize) {
+    // Get the selected size from the size display for this product
+    let size = 'MED'; // default size
+    const sizeDisplay = document.getElementById(`size-display-${productId}`);
     if (sizeDisplay) {
-        selectedSize = sizeDisplay.textContent.replace('Size: ', '');
+        const sizeText = sizeDisplay.innerText;
+        size = sizeText.replace('Size: ', '');
     }
     
-    // Create cart item
-    let cartItem = {
-        id: productId + '-' + selectedSize + '-' + Date.now(), // Unique ID
-        name: name,
+    // Create cart item object
+    const cartItem = {
+        id: Date.now() + Math.random(), // unique ID for each cart item
+        name: productName,
         price: price,
-        size: selectedSize,
-        image: image,
+        image: imageUrl,
+        size: size,
         quantity: 1
     };
     
-    // Add to cart array
-    cart.push(cartItem);
+    // Check if item with same name and size already exists
+    const existingItemIndex = cart.findIndex(item => 
+        item.name === productName && item.size === size
+    );
+    
+    if (existingItemIndex !== -1) {
+        // Item exists, increment quantity
+        cart[existingItemIndex].quantity += 1;
+    } else {
+        // Add new item
+        cart.push(cartItem);
+    }
     
     // Save to localStorage
-    localStorage.setItem('cart', JSON.stringify(cart));
+    saveCart();
     
-    // Update cart count
+    // Update UI in real-time
+    updateCartDisplay();
     updateCartCount();
     
-    // Show feedback
-    alert(name + ' (Size: ' + selectedSize + ') added to cart!');
-    
-    // Open cart to show the item
-    openCart();
-};
-
-// Function to update cart count display
-function updateCartCount() {
-    let cartCount = document.getElementById('cart-count');
-    if (cartCount) {
-        let totalItems = cart.reduce((total, item) => total + item.quantity, 0);
-        cartCount.textContent = '(' + totalItems + ')';
-    }
+    // Show a quick notification
+    showAddToCartNotification(productName, size);
 }
 
-// Function to update cart display in sidebar
+// Update the cart sidebar display
 function updateCartDisplay() {
-    let container = document.getElementById('cart-items-container');
-    let totalPriceSpan = document.getElementById('cart-total-price');
+    const cartContainer = document.getElementById('cart-items-container');
+    const totalPriceElement = document.getElementById('cart-total-price');
     
-    if (!container) return;
+    if (!cartContainer) return;
     
     if (cart.length === 0) {
-        container.innerHTML = '<p class="text-gray-400 text-center py-8">Your cart is empty</p>';
-        totalPriceSpan.textContent = '$0';
+        cartContainer.innerHTML = '<p class="text-center text-gray-400 py-8">Your cart is empty</p>';
+        if (totalPriceElement) totalPriceElement.innerText = '$0.00';
         return;
     }
     
-    let html = '';
     let total = 0;
+    let cartHtml = '';
     
     cart.forEach((item, index) => {
-        total += item.price * item.quantity;
+        const itemTotal = item.price * item.quantity;
+        total += itemTotal;
         
-        html += `
+        cartHtml += `
             <div class="cart-item">
-                <img src="${item.image}" alt="${item.name}" onerror="this.src='https://via.placeholder.com/60'">
+                <img src="${item.image}" alt="${item.name}">
                 <div class="cart-info">
                     <h4>${item.name}</h4>
                     <p>Size: ${item.size}</p>
@@ -116,49 +96,110 @@ function updateCartDisplay() {
         `;
     });
     
-    container.innerHTML = html;
-    totalPriceSpan.textContent = '$' + total.toFixed(2);
+    cartContainer.innerHTML = cartHtml;
+    if (totalPriceElement) totalPriceElement.innerText = `$${total.toFixed(2)}`;
 }
 
-// Function to remove item from cart
-window.removeFromCart = function(index) {
-    cart.splice(index, 1);
-    localStorage.setItem('cart', JSON.stringify(cart));
-    updateCartCount();
-    updateCartDisplay();
-};
+// Update cart count badge
+function updateCartCount() {
+    const cartCountElement = document.getElementById('cart-count');
+    if (cartCountElement) {
+        const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+        cartCountElement.innerText = `(${totalItems})`;
+    }
+}
 
-// Function to go to checkout
-window.goToCheckout = function() {
+// Remove item from cart
+function removeFromCart(index) {
+    cart.splice(index, 1);
+    saveCart();
+    updateCartDisplay();
+    updateCartCount();
+}
+
+// Clear entire cart
+function clearCart() {
+    cart = [];
+    saveCart();
+    updateCartDisplay();
+    updateCartCount();
+}
+
+// Open cart sidebar
+function openCart() {
+    const sidebar = document.getElementById('cartSidebar');
+    const overlay = document.getElementById('cartOverlay');
+    if (sidebar && overlay) {
+        sidebar.classList.add('active');
+        overlay.classList.add('active');
+    }
+    updateCartDisplay();
+}
+
+// Close cart sidebar
+function closeCart() {
+    const sidebar = document.getElementById('cartSidebar');
+    const overlay = document.getElementById('cartOverlay');
+    if (sidebar && overlay) {
+        sidebar.classList.remove('active');
+        overlay.classList.remove('active');
+    }
+}
+
+// Show quick notification when item is added
+function showAddToCartNotification(productName, size) {
+    const notification = document.createElement('div');
+    notification.className = 'cart-notification';
+    notification.innerHTML = `
+        <div style="position: fixed; bottom: 20px; right: 20px; background: #c5a059; color: black; padding: 12px 24px; border-radius: 4px; z-index: 10000; font-family: monospace; font-size: 14px; animation: slideIn 0.3s ease;">
+            ✓ Added ${productName} (Size ${size}) to cart
+        </div>
+    `;
+    
+    if (!document.querySelector('#cart-notification-style')) {
+        const style = document.createElement('style');
+        style.id = 'cart-notification-style';
+        style.textContent = `
+            @keyframes slideIn {
+                from { transform: translateX(100%); opacity: 0; }
+                to { transform: translateX(0); opacity: 1; }
+            }
+        `;
+        document.head.appendChild(style);
+    }
+    
+    document.body.appendChild(notification);
+    
+    setTimeout(() => {
+        notification.remove();
+    }, 2000);
+}
+
+// Go to checkout
+function goToCheckout() {
     if (cart.length === 0) {
-        alert('Your cart is empty!');
+        showAddToCartNotification('', 'empty');
         return;
     }
-    alert('Proceeding to checkout with ' + cart.length + ' items');
-    // You can redirect to checkout page here
-    // window.location.href = 'checkout.html';
-};
+    alert('Proceeding to checkout with ' + cart.reduce((sum, item) => sum + item.quantity, 0) + ' items');
+}
 
-// Initialize everything when the page loads
-document.addEventListener('DOMContentLoaded', function() {
-    // Add close button listener
-    let closeBtn = document.getElementById('closeCart');
+// Event listeners for cart
+document.addEventListener('DOMContentLoaded', () => {
+    loadCart();
+    
+    const overlay = document.getElementById('cartOverlay');
+    const closeBtn = document.getElementById('closeCart');
+    
+    if (overlay) {
+        overlay.addEventListener('click', closeCart);
+    }
     if (closeBtn) {
         closeBtn.addEventListener('click', closeCart);
     }
     
-    // Close on overlay click
-    let overlay = document.getElementById('cartOverlay');
-    if (overlay) {
-        overlay.addEventListener('click', closeCart);
+    const sidebar = document.getElementById('cartSidebar');
+    if (sidebar) {
+        sidebar.addEventListener('click', (e) => e.stopPropagation());
     }
-    
-    // Update cart count on page load
-    updateCartCount();
-    
-    // Set default selected sizes
-    let sizeDisplays = document.querySelectorAll('.size-display');
-    sizeDisplays.forEach((display) => {
-        display.textContent = 'Size: MED';
-    });
 });
