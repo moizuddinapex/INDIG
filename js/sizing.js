@@ -1,14 +1,16 @@
 // Size selection functionality
-function selectSize(btn, size) {
-    event.stopPropagation();
-    const tooltip = btn.closest('.size-tooltip');
-    const sizeBtns = tooltip.querySelectorAll('.size-btn');
-    sizeBtns.forEach(b => b.classList.remove('selected'));
-    btn.classList.add('selected');
+// sizing.js
+
+function selectSize(button, size) {
+    const sizeOptions = button.parentElement.querySelectorAll('.size-btn');
+    sizeOptions.forEach(btn => btn.classList.remove('selected'));
+    button.classList.add('selected');
+    
+    const tooltip = button.closest('.size-tooltip');
     const sizeDisplay = tooltip.querySelector('.size-display');
-    sizeDisplay.textContent = `Size: ${size}`;
-    const productCard = btn.closest('.product-card');
-    productCard.setAttribute('data-selected-size', size);
+    if (sizeDisplay) {
+        sizeDisplay.textContent = `Size: ${size}`;
+    }
 }
 
 // Add to cart with size
