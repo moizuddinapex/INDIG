@@ -1,4 +1,23 @@
 
+function updateCartUI() {
+    const cartContainer = document.querySelector(".cart-content"); // adjust if needed
+    const cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+    cartContainer.innerHTML = "";
+
+    cart.forEach(item => {
+        const div = document.createElement("div");
+        div.classList.add("cart-box");
+
+        div.innerHTML = `
+            <div class="cart-product-title">${item.name}</div>
+            <div class="cart-price">$${item.price}</div>
+        `;
+
+        cartContainer.appendChild(div);
+    });
+}
+
 
 
 function addToCart(product) {
@@ -9,6 +28,8 @@ function addToCart(product) {
     localStorage.setItem("cart", JSON.stringify(cart));
 
     renderCart(); // 🔥 THIS IS THE FIX
+
+    updateCartUI();
 }
 
 
@@ -54,6 +75,7 @@ function addToCartWithSize(productName, price, imageUrl, productId, selectedSize
     // Get the selected size from the size display for this product
     let size = 'MED'; // default size
     const sizeDisplay = document.getElementById(`size-display-${productId}`);
+    updateCartUI();
     if (sizeDisplay) {
         const sizeText = sizeDisplay.innerText;
         size = sizeText.replace('Size: ', '');
@@ -217,7 +239,7 @@ function goToCheckout() {
 // Event listeners for cart
 document.addEventListener('DOMContentLoaded', () => {
     renderCart();
-    
+    updateCartUI();
     const overlay = document.getElementById('cartOverlay');
     const closeBtn = document.getElementById('closeCart');
     
@@ -233,3 +255,15 @@ document.addEventListener('DOMContentLoaded', () => {
         sidebar.addEventListener('click', (e) => e.stopPropagation());
     }
 });
+
+document.querySelectorAll(".add-cart").forEach(button => {
+    button.addEventListener("click", function () {
+        const productBox = this.closest(".product-box");
+
+        const title = productBox.querySelector(".product-title").innerText;
+        const price = productBox.querySelector(".price").innerText.replace("$", "");
+
+        addToCart(title, price);
+    });
+});
+
