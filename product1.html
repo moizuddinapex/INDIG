@@ -420,14 +420,16 @@
                     <div class="quick-buy">🛒</div>
                     <div class="size-tooltip">
                         <h4>Select Size</h4>
-                        <div class="size-options">
-                            <button class="size-btn" onclick="event.stopPropagation(); selectSize(this, 'SM')">SM</button>
-                            <button class="size-btn" onclick="event.stopPropagation(); selectSize(this, 'MED')">MED</button>
-                            <button class="size-btn" onclick="event.stopPropagation(); selectSize(this, 'LG')">LG</button>
-                            <button class="size-btn" onclick="event.stopPropagation(); selectSize(this, 'XL')">XL</button>
-                            <button class="size-btn" onclick="event.stopPropagation(); selectSize(this, '2XL')">2XL</button>
-                            <button class="size-btn" onclick="event.stopPropagation(); selectSize(this, '3XL')">3XL</button>
-                        </div>
+                        <div class="sizes">
+  <span>Select Size:</span>
+  <button class="size-option active">SM</button>
+  <button class="size-option">MED</button>
+  <button class="size-option">LG</button>
+  <button class="size-option">XL</button>
+  <button class="size-option">2XL</button>
+  <button class="size-option">3XL</button>
+  <div>Selected: <span class="selected-size">SM</span></div>
+</div>
                         <div class="size-display" id="size-display-2">Size: MED</div>
                         <button class="buy-now-tooltip" onclick="addToCartWithSize('IMPERIAL TEXTURED KNIT', 160.00, 'images/shirt1.2.1.png', 2)">ADD TO CART</button>
 
@@ -638,6 +640,8 @@
     <!-- Cart Sidebar -->
     <div id="cartSidebar" class="cart-sidebar">
         <button id="closeCart" class="close-btn">×</button>
+        <button class="cart-toggle">🛒 Cart (<span class="cart-count">0</span>)</button>
+        <ul class="cart-items"></ul>
         <h2>My Cart</h2>
         <div id="cart-items-container"></div>
         <div class="cart-footer">
