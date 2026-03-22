@@ -1,76 +1,79 @@
 
 // cart.js
 
-// Render the cart sidebar in real-time
-function renderCartSidebar() {
-    const cartItemsContainer = document.getElementById("cart-items-container");
-    const totalPriceElement = document.getElementById("cart-total-price");
-    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+// Get cart from localStorage or initialize
+let cart = JSON.parse(localStorage.getItem("cart")) || [];
 
-    if (!cartItemsContainer) return;
+// Cart sidebar container
+const cartContainer = document.getElementById("cart-items-container");
+const cartTotal = document.getElementById("cart-total-price");
+
+// Render cart sidebar
+function renderCart() {
+    if (!cartContainer) return;
+
+    cartContainer.innerHTML = "";
 
     if (cart.length === 0) {
-        cartItemsContainer.innerHTML = `<p>Your cart is empty</p>`;
-        if (totalPriceElement) totalPriceElement.innerText = "$0.00";
+        cartContainer.innerHTML = "<p>Your cart is empty</p>";
+        if (cartTotal) cartTotal.innerText = "$0.00";
         return;
     }
 
     let total = 0;
-    let html = "";
 
     cart.forEach((item, index) => {
         const itemTotal = item.price * item.quantity;
         total += itemTotal;
 
-        html += `
-        <div class="cart-item">
+        const div = document.createElement("div");
+        div.classList.add("cart-item");
+        div.innerHTML = `
             <div class="cart-product-details">
                 <span>${item.name}</span>
-                <span>Size: ${item.size || ""}</span>
+                <span>Size: ${item.size}</span>
             </div>
             <div class="cart-price">
                 $${item.price.toFixed(2)} x ${item.quantity}
             </div>
-            <button class="remove-cart-item" data-index="${index}">Remove</button>
-        </div>
+            <button class="remove-item" data-index="${index}">Remove</button>
         `;
+        cartContainer.appendChild(div);
     });
 
-    cartItemsContainer.innerHTML = html;
-    if (totalPriceElement) totalPriceElement.innerText = `$${total.toFixed(2)}`;
+    if (cartTotal) cartTotal.innerText = `$${total.toFixed(2)}`;
 
-    // Add remove item handlers
-    document.querySelectorAll('.remove-cart-item').forEach(btn => {
-        btn.addEventListener('click', function () {
-            const idx = parseInt(this.dataset.index);
+    // Remove item handler
+    document.querySelectorAll(".remove-item").forEach(btn => {
+        btn.addEventListener("click", e => {
+            const idx = parseInt(e.target.dataset.index);
             cart.splice(idx, 1);
-            localStorage.setItem('cart', JSON.stringify(cart));
-            renderCartSidebar();
+            localStorage.setItem("cart", JSON.stringify(cart));
+            renderCart();
         });
     });
 }
 
-// Add item to cart and immediately update sidebar
-function addToCart(productName, price, size = "") {
-    let cart = JSON.parse(localStorage.getItem('cart')) || [];
-
-    // look for existing identical item
-    const existingIndex = cart.findIndex(item => item.name === productName && item.size === size);
+// Add item to cart
+function addToCart(name, price, size) {
+    // Check if same product & size exists
+    const existingIndex = cart.findIndex(
+        item => item.name === name && item.size === size
+    );
 
     if (existingIndex >= 0) {
         cart[existingIndex].quantity += 1;
     } else {
         cart.push({
-            name: productName,
+            name: name,
             price: parseFloat(price),
             size: size,
             quantity: 1
         });
     }
 
-    localStorage.setItem('cart', JSON.stringify(cart));
-
-    renderCartSidebar(); // 🔥 This updates cart immediately
+    localStorage.setItem("cart", JSON.stringify(cart));
+    renderCart(); // Update sidebar immediately
 }
 
 // Hook add-to-cart buttons
@@ -79,13 +82,13 @@ document.querySelectorAll(".add-cart").forEach(btn => {
         const productBox = this.closest(".product-box");
         const title = productBox.querySelector(".product-title").innerText;
         const price = productBox.querySelector(".price").innerText.replace("$", "");
-        // if you have size selection, pass it here
-        const sizeText = productBox.querySelector(".size-selected")?.innerText || "";
-        addToCart(title, price, sizeText);
+        const size = productBox.querySelector(".size-selected")?.innerText || "MED";
+
+        addToCart(title, price, size);
     });
 });
 
-// Initialize cart on DOM load
-document.addEventListener('DOMContentLoaded', () => {
-    renderCartSidebar();
+// Initialize cart on page load
+document.addEventListener("DOMContentLoaded", () => {
+    renderCart();
 });
