@@ -1,94 +1,64 @@
 
-// cart.js
+// ==== CART HANDLER ====
+const cartToggle = document.querySelector(".cart-toggle");
+const cartSidebar = document.querySelector(".cart-sidebar");
+const cartItemsContainer = document.querySelector(".cart-items");
+const cartCount = document.querySelector(".cart-count");
+const addToCartBtns = document.querySelectorAll(".add-to-cart-btn");
+const sizeOptions = document.querySelectorAll(".size-option");
+const sizeLabel = document.querySelector(".selected-size");
 
-// Get cart from localStorage or initialize
+// Initialize cart from localStorage
 let cart = JSON.parse(localStorage.getItem("cart")) || [];
 
-// Cart sidebar container
-const cartContainer = document.getElementById("cart-items-container");
-const cartTotal = document.getElementById("cart-total-price");
-
-// Render cart sidebar
+// Render cart UI
 function renderCart() {
-    if (!cartContainer) return;
-
-    cartContainer.innerHTML = "";
-
-    if (cart.length === 0) {
-        cartContainer.innerHTML = "<p>Your cart is empty</p>";
-        if (cartTotal) cartTotal.innerText = "$0.00";
-        return;
-    }
-
-    let total = 0;
-
-    cart.forEach((item, index) => {
-        const itemTotal = item.price * item.quantity;
-        total += itemTotal;
-
-        const div = document.createElement("div");
-        div.classList.add("cart-item");
-        div.innerHTML = `
-            <div class="cart-product-details">
-                <span>${item.name}</span>
-                <span>Size: ${item.size}</span>
-            </div>
-            <div class="cart-price">
-                $${item.price.toFixed(2)} x ${item.quantity}
-            </div>
-            <button class="remove-item" data-index="${index}">Remove</button>
+    cartItemsContainer.innerHTML = "";
+    cart.forEach(item => {
+        const li = document.createElement("li");
+        li.innerHTML = `
+            ${item.name} - ${item.size} x${item.quantity} - $${item.price * item.quantity}
         `;
-        cartContainer.appendChild(div);
+        cartItemsContainer.appendChild(li);
     });
-
-    if (cartTotal) cartTotal.innerText = `$${total.toFixed(2)}`;
-
-    // Remove item handler
-    document.querySelectorAll(".remove-item").forEach(btn => {
-        btn.addEventListener("click", e => {
-            const idx = parseInt(e.target.dataset.index);
-            cart.splice(idx, 1);
-            localStorage.setItem("cart", JSON.stringify(cart));
-            renderCart();
-        });
-    });
-}
-
-// Add item to cart
-function addToCart(name, price, size) {
-    // Check if same product & size exists
-    const existingIndex = cart.findIndex(
-        item => item.name === name && item.size === size
-    );
-
-    if (existingIndex >= 0) {
-        cart[existingIndex].quantity += 1;
-    } else {
-        cart.push({
-            name: name,
-            price: parseFloat(price),
-            size: size,
-            quantity: 1
-        });
-    }
-
+    cartCount.textContent = cart.reduce((sum, item) => sum + item.quantity, 0);
     localStorage.setItem("cart", JSON.stringify(cart));
-    renderCart(); // Update sidebar immediately
 }
 
-// Hook add-to-cart buttons
-document.querySelectorAll(".add-cart").forEach(btn => {
-    btn.addEventListener("click", function () {
-        const productBox = this.closest(".product-box");
-        const title = productBox.querySelector(".product-title").innerText;
-        const price = productBox.querySelector(".price").innerText.replace("$", "");
-        const size = productBox.querySelector(".size-selected")?.innerText || "MED";
-
-        addToCart(title, price, size);
+// Size selection handler
+sizeOptions.forEach(option => {
+    option.addEventListener("click", () => {
+        sizeOptions.forEach(o => o.classList.remove("active"));
+        option.classList.add("active");
+        sizeLabel.textContent = option.textContent; // update label immediately
     });
 });
 
-// Initialize cart on page load
-document.addEventListener("DOMContentLoaded", () => {
-    renderCart();
+// Add to cart handler
+addToCartBtns.forEach(btn => {
+    btn.addEventListener("click", () => {
+        const productCard = btn.closest(".product-card");
+        const productName = productCard.querySelector(".product-name").textContent;
+        const productPrice = parseFloat(productCard.querySelector(".product-price").textContent.replace("$",""));
+        const selectedSize = sizeLabel.textContent;
+
+        // Check if product + size already exists in cart
+        const existingItem = cart.find(item => item.name === productName && item.size === selectedSize);
+        if (existingItem) {
+            existingItem.quantity += 1;
+        } else {
+            cart.push({ name: productName, price: productPrice, size: selectedSize, quantity: 1 });
+        }
+
+        renderCart();
+        cartSidebar.classList.add("open"); // optionally open sidebar
+    });
 });
+
+// Toggle cart sidebar
+cartToggle.addEventListener("click", () => {
+    cartSidebar.classList.toggle("open");
+});
+
+// Initial render
+renderCart();
