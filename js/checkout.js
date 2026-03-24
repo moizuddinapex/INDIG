@@ -1,19 +1,8 @@
-function clearCartAndRedirect() {
-    // Get cart data and customer info
-    const cart = JSON.parse(localStorage.getItem('cart')) || [];
-    const customerName = document.getElementById('fullname').value.trim();
-    
-    // Store order data in sessionStorage (survives redirect)
-    sessionStorage.setItem('orderData', JSON.stringify({
-        items: cart,
-        customerName: customerName,
-        total: cartTotal,
-        orderDate: new Date().toISOString()
-    }));
-    
-    // Clear the cart from localStorage
-    localStorage.removeItem('cart');
-    
-    // Redirect to success page
-    window.location.href = 'success.html';
+function goToCheckout() {
+    if (cart.length === 0) {
+        showNotification('Your cart is empty');
+        return;
+    }
+    localStorage.setItem("cart", JSON.stringify(cart));
+    window.location.href = "checkout.html";  // Single dynamic checkout page
 }
