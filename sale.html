@@ -1,0 +1,773 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SALE | INDIG-GROK</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --gold: #c5a059;
+            --gold-light: #d4b478;
+            --gold-dark: #a88648;
+            --gold-glow: rgba(197, 160, 89, 0.2);
+            --dark-bg: #0a0a0a;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--dark-bg);
+            color: #ffffff;
+            font-family: 'Inter', sans-serif;
+            font-weight: 300;
+            letter-spacing: 0.02em;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            background: url('images/backgroundimage1.jpg') center / cover no-repeat;
+            filter: brightness(0.25);
+            z-index: -1;
+        }
+
+        /* Typography */
+        .serif-font, h1, h2, h3, .brand-font {
+            font-family: 'Playfair Display', serif;
+        }
+
+        .brand-font {
+            font-size: 1.8rem;
+            font-weight: 700;
+            letter-spacing: -0.01em;
+            background: linear-gradient(135deg, #ffffff 0%, var(--gold) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Sale Badge */
+        .sale-badge {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            background: var(--gold);
+            color: black;
+            font-size: 10px;
+            font-weight: bold;
+            padding: 4px 10px;
+            letter-spacing: 0.1em;
+            z-index: 10;
+            text-transform: uppercase;
+        }
+
+        /* Product Card */
+        .product-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            backdrop-filter: blur(5px);
+            position: relative;
+        }
+
+        .product-card:hover {
+            border-color: var(--gold);
+            transform: translateY(-6px);
+            background: rgba(255, 255, 255, 0.06);
+            box-shadow: 0 15px 35px -15px rgba(0, 0, 0, 0.5);
+        }
+
+        .image-container {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 3/4;
+            overflow: hidden;
+        }
+
+        .product-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+        }
+
+        .product-card:hover .product-image {
+            transform: scale(1.05);
+        }
+
+        /* Price Styling */
+        .original-price {
+            text-decoration: line-through;
+            color: #888;
+            font-size: 12px;
+            margin-right: 8px;
+        }
+
+        .sale-price {
+            color: var(--gold);
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .price-tag {
+            font-family: 'Inter', sans-serif;
+        }
+
+        /* Quick Buy Button */
+        .quick-buy {
+            position: absolute;
+            bottom: 12px;
+            right: 12px;
+            background: rgba(0, 0, 0, 0.75);
+            border: 1px solid var(--gold);
+            color: var(--gold);
+            width: 36px;
+            height: 36px;
+            display: grid;
+            place-items: center;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(6px);
+            cursor: pointer;
+            z-index: 15;
+            border-radius: 0;
+        }
+
+        .quick-buy:hover {
+            background: var(--gold);
+            color: black;
+            transform: scale(1.1);
+        }
+
+        /* Size Tooltip */
+        .quick-buy-container {
+            position: absolute;
+            bottom: 12px;
+            right: 12px;
+            z-index: 20;
+        }
+
+        .size-tooltip {
+            position: absolute;
+            bottom: 50px;
+            right: 0;
+            background: rgba(0, 0, 0, 0.95);
+            border: 1px solid var(--gold);
+            padding: 15px;
+            width: 200px;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            z-index: 25;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.5);
+        }
+
+        .quick-buy-container:hover .size-tooltip {
+            opacity: 1;
+            visibility: visible;
+            bottom: 45px;
+        }
+
+        .size-tooltip h4 {
+            color: var(--gold);
+            font-size: 11px;
+            letter-spacing: 0.1em;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            border-bottom: 1px solid rgba(197, 160, 89, 0.3);
+            padding-bottom: 5px;
+        }
+
+        .size-options {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 5px;
+            margin-bottom: 12px;
+        }
+
+        .size-btn {
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 5px 0;
+            font-size: 10px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: 'Cinzel', serif;
+        }
+
+        .size-btn:hover, .size-btn.selected {
+            border-color: var(--gold);
+            background: var(--gold);
+            color: black;
+        }
+
+        .buy-now-tooltip {
+            width: 100%;
+            background: var(--gold);
+            color: black;
+            border: none;
+            padding: 8px 0;
+            font-size: 10px;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: bold;
+            margin-top: 8px;
+            font-family: 'Cinzel', serif;
+        }
+
+        .buy-now-tooltip:hover {
+            background: white;
+        }
+
+        .size-display {
+            font-size: 9px;
+            color: var(--gold);
+            margin-top: 5px;
+            text-align: center;
+        }
+
+        /* Cart Sidebar */
+        .cart-overlay {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0,0,0,0.6);
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease;
+            z-index: 999;
+        }
+        .cart-overlay.active { opacity: 1; visibility: visible; }
+        .cart-sidebar {
+            position: fixed;
+            top: 0; right: -400px;
+            width: 380px;
+            height: 100%;
+            background: #0f0f0f;
+            color: #fff;
+            padding: 25px;
+            transition: right 0.35s ease;
+            z-index: 1000;
+            overflow-y: auto;
+            border-left: 1px solid rgba(197, 160, 89, 0.3);
+        }
+        .cart-sidebar.active { right: 0; }
+        .close-btn {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            font-size: 28px;
+            cursor: pointer;
+            background: none;
+            border: none;
+            color: #fff;
+        }
+        .cart-sidebar h2 {
+            margin-top: 10px;
+            margin-bottom: 25px;
+            font-size: 22px;
+            letter-spacing: 0.2em;
+            text-align: center;
+            color: var(--gold);
+        }
+        .cart-item {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 18px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            padding-bottom: 12px;
+        }
+        .cart-item img { width: 70px; height: 70px; object-fit: cover; }
+        .cart-info { flex: 1; }
+        .cart-info h4 { font-size: 13px; margin-bottom: 4px; }
+        .cart-info p { font-size: 11px; color: var(--gold); margin-bottom: 6px; }
+        .remove-btn {
+            background: transparent;
+            border: 1px solid #ff4444;
+            color: #ff4444;
+            padding: 4px 10px;
+            font-size: 10px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .remove-btn:hover { background: #ff4444; color: black; }
+        .cart-footer { margin-top: 25px; padding-top: 15px; border-top: 1px solid rgba(255,255,255,0.2); }
+        .cart-footer button {
+            width: 100%;
+            padding: 12px;
+            background: var(--gold);
+            color: black;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+            letter-spacing: 0.15em;
+            font-size: 12px;
+            transition: all 0.3s;
+        }
+        .cart-footer button:hover { background: white; }
+
+        /* Navigation */
+        nav a { transition: color 0.3s ease; }
+        nav a:hover { color: var(--gold) !important; }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .product-grid { gap: 20px; }
+        }
+
+        /* Newsletter Input */
+        .newsletter-input {
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 14px 20px;
+            color: white;
+            transition: all 0.3s;
+        }
+        .newsletter-input:focus {
+            border-color: var(--gold);
+            outline: none;
+            box-shadow: 0 0 0 2px var(--gold-glow);
+        }
+        .newsletter-button {
+            background: transparent;
+            border: 1px solid var(--gold);
+            color: var(--gold);
+            padding: 14px 30px;
+            transition: all 0.3s;
+            font-weight: 500;
+            cursor: pointer;
+        }
+        .newsletter-button:hover {
+            background: var(--gold);
+            color: black;
+            transform: translateY(-2px);
+        }
+        .social-icon {
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+        }
+        .social-icon:hover {
+            border-color: var(--gold);
+            color: var(--gold);
+            transform: translateY(-3px);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav class="flex justify-between items-center px-6 md:px-8 py-6 uppercase tracking-[0.3em] text-[10px] border-b border-white/10 relative z-50">
+        <a href="index.html" class="brand-font font-bold tracking-normal text-xl">INDIG-GROK</a>
+        <div class="space-x-6 md:space-x-10 hidden md:flex items-center">
+            <a href="sale.html" class="text-[var(--gold)] relative">
+                Sale
+                <span class="absolute -top-3 -right-3 bg-[var(--gold)] text-black text-[8px] px-1.5 py-0.5 rounded-full">HOT</span>
+            </a>
+            <div class="relative group">
+                <a href="#" class="hover:text-[var(--gold)] transition flex items-center">
+                    Collection
+                    <svg class="w-3 h-3 ml-1 transition-transform group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                </a>
+                <div class="absolute left-0 mt-4 w-48 bg-black/95 backdrop-blur-lg border border-white/10 shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50 py-2">
+                    <a href="product1.html" class="block px-4 py-3 text-[10px] hover:bg-[var(--gold)] hover:text-black transition border-b border-white/10">Shirts</a>
+                    <a href="product2.html" class="block px-4 py-3 text-[10px] hover:bg-[var(--gold)] hover:text-black transition border-b border-white/10">Shoes</a>
+                    <a href="product3.html" class="block px-4 py-3 text-[10px] hover:bg-[var(--gold)] hover:text-black transition border-b border-white/10">Pants</a>
+                    <a href="product4.html" class="block px-4 py-3 text-[10px] hover:bg-[var(--gold)] hover:text-black transition">Watches</a>
+                </div>
+            </div>
+            <a href="archive.html" class="hover:text-[var(--gold)] transition">Archive</a>
+            <a href="information.html" class="hover:text-[var(--gold)] transition">Information</a>
+            <button onclick="openCart()" class="border border-white/30 px-3 py-1.5 hover:bg-[var(--gold)] hover:text-black hover:border-[var(--gold)] transition">
+                BAG <span id="cart-count">(0)</span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Sale Hero Section -->
+    <header class="py-16 md:py-24 text-center border-b border-white/10 relative">
+        <div class="max-w-4xl mx-auto px-6">
+            <span class="text-[var(--gold)] text-xs tracking-[0.3em] uppercase mb-4 block">Limited Time</span>
+            <h1 class="text-5xl md:text-7xl serif-font font-bold tracking-tight mb-6">
+                THE SALE <span class="text-[var(--gold)]">COLLECTION</span>
+            </h1>
+            <p class="text-gray-400 text-sm md:text-base max-w-2xl mx-auto leading-relaxed">
+                Exceptional pieces, thoughtfully reduced. Up to 40% off select styles.<br>
+                Timeless elegance, now within reach.
+            </p>
+            <div class="flex justify-center gap-8 mt-8">
+                <div class="text-center">
+                    <div class="text-2xl font-bold text-[var(--gold)]">40%</div>
+                    <div class="text-[10px] tracking-wider uppercase text-gray-500">Select Styles</div>
+                </div>
+                <div class="w-px h-10 bg-white/20"></div>
+                <div class="text-center">
+                    <div class="text-2xl font-bold text-[var(--gold)]">Free</div>
+                    <div class="text-[10px] tracking-wider uppercase text-gray-500">Shipping Over $150</div>
+                </div>
+                <div class="w-px h-10 bg-white/20"></div>
+                <div class="text-center">
+                    <div class="text-2xl font-bold text-[var(--gold)]">Limited</div>
+                    <div class="text-[10px] tracking-wider uppercase text-gray-500">Stock Available</div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Sale Products Grid -->
+    <main class="max-w-7xl mx-auto px-6 py-16">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 md:gap-8" id="sale-products-grid">
+            <!-- Products will be injected via JavaScript -->
+        </div>
+    </main>
+
+    <!-- Newsletter Section -->
+    <section class="relative z-10 py-20 px-6 border-t border-white/10 mt-12">
+        <div class="max-w-3xl mx-auto text-center">
+            <h2 class="text-2xl md:text-3xl serif-font mb-3">Newsletter</h2>
+            <p class="text-gray-400 text-sm mb-8">Be the first to know about new arrivals and exclusive sales</p>
+            <form class="flex flex-col md:flex-row gap-4 max-w-xl mx-auto">
+                <input type="email" placeholder="Your email address" class="newsletter-input flex-1">
+                <button type="submit" class="newsletter-button">Subscribe</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-12 border-t border-white/10">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-10">
+                <div>
+                    <h3 class="brand-font text-2xl mb-3">INDIG-GROK</h3>
+                    <p class="text-[10px] text-gray-500 leading-relaxed">Premium fashion for the modern gentleman since 2020.</p>
+                </div>
+                <div>
+                    <h4 class="text-xs tracking-widest mb-4">Help</h4>
+                    <ul class="space-y-2 text-[10px] text-gray-500">
+                        <li><a href="#" class="hover:text-[var(--gold)] transition">Shipping</a></li>
+                        <li><a href="#" class="hover:text-[var(--gold)] transition">Returns</a></li>
+                        <li><a href="#" class="hover:text-[var(--gold)] transition">FAQ</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-xs tracking-widest mb-4">About</h4>
+                    <ul class="space-y-2 text-[10px] text-gray-500">
+                        <li><a href="#" class="hover:text-[var(--gold)] transition">Our Story</a></li>
+                        <li><a href="#" class="hover:text-[var(--gold)] transition">Contact</a></li>
+                        <li><a href="#" class="hover:text-[var(--gold)] transition">Size Guide</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-xs tracking-widest mb-4">Follow</h4>
+                    <div class="flex space-x-3">
+                        <a href="#" class="social-icon">f</a>
+                        <a href="#" class="social-icon">ig</a>
+                        <a href="#" class="social-icon">x</a>
+                    </div>
+                </div>
+            </div>
+            <p class="text-center text-[9px] text-gray-600 tracking-[0.2em]">© 2026 INDIG-GROK. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Cart Overlay & Sidebar -->
+    <div id="cartOverlay" class="cart-overlay"></div>
+    <div id="cartSidebar" class="cart-sidebar">
+        <button id="closeCart" class="close-btn">×</button>
+        <h2>MY BAG</h2>
+        <div id="cart-items-container"></div>
+        <div class="cart-footer">
+            <div class="flex justify-between mb-4">
+                <span class="text-xs tracking-wider">TOTAL</span>
+                <span id="cart-total-price" class="text-[var(--gold)] font-bold">$0</span>
+            </div>
+            <button onclick="goToCheckout()">CHECKOUT</button>
+        </div>
+    </div>
+
+    <script src="js/checkout.js"></script>
+    <script>
+        // Sale products data
+        const saleProducts = [
+            {
+                id: 1,
+                name: "MONARCH PIQUÉ POLO",
+                originalPrice: 145,
+                salePrice: 102,
+                discount: 30,
+                frontImage: "images/shirt1.1.1.png",
+                backImage: "images/shirt1.1.2.png",
+                description: "Structured, breathable, and effortlessly sharp—crafted for the modern gentleman.",
+                category: "shirt",
+                sizes: ["SM", "MED", "LG", "XL", "2XL", "3XL"]
+            },
+            {
+                id: 2,
+                name: "IMPERIAL TEXTURED KNIT",
+                originalPrice: 160,
+                salePrice: 112,
+                discount: 30,
+                frontImage: "images/shirt1.2.1.png",
+                backImage: "images/shirt1.2.2.png",
+                description: "Rich texture meets refined comfort. An everyday essential elevated.",
+                category: "shirt",
+                sizes: ["SM", "MED", "LG", "XL", "2XL", "3XL"]
+            },
+            {
+                id: 3,
+                name: "SOVEREIGN SILK POLO",
+                originalPrice: 185,
+                salePrice: 130,
+                discount: 30,
+                frontImage: "images/shirt1.3.1.png",
+                backImage: "images/shirt1.3.3.png",
+                description: "Liquid luxury that moves with you. Impossibly soft, effortlessly elegant.",
+                category: "shirt",
+                sizes: ["SM", "MED", "LG", "XL", "2XL", "3XL"]
+            },
+            {
+                id: 4,
+                name: "MONARCH DERBY",
+                originalPrice: 145,
+                salePrice: 102,
+                discount: 30,
+                frontImage: "images/shoes1.1.1.png",
+                backImage: "images/shoes1.1.2.png",
+                description: "Architectural elegance meets everyday comfort.",
+                category: "shoe",
+                sizes: ["7", "8", "9", "10", "11", "12"]
+            },
+            {
+                id: 5,
+                name: "IMPERIAL LOAFER",
+                originalPrice: 160,
+                salePrice: 112,
+                discount: 30,
+                frontImage: "images/shoes1.2.1.png",
+                backImage: "images/shoes1.2.2.png",
+                description: "Slip into sophistication. Rich textures and refined craftsmanship.",
+                category: "shoe",
+                sizes: ["7", "8", "9", "10", "11", "12"]
+            },
+            {
+                id: 6,
+                name: "SOVEREIGN OXFORD",
+                originalPrice: 185,
+                salePrice: 130,
+                discount: 30,
+                frontImage: "images/shoes1.3.1.png",
+                backImage: "images/shoes1.3.3.png",
+                description: "The pinnacle of formal footwear. Each step becomes a statement.",
+                category: "shoe",
+                sizes: ["7", "8", "9", "10", "11", "12"]
+            },
+            {
+                id: 7,
+                name: "SIGNATURE CHINO",
+                originalPrice: 135,
+                salePrice: 95,
+                discount: 30,
+                frontImage: "images/pant1.1.1.png",
+                backImage: "images/pant1.1.2.png",
+                description: "Effortless refinement. Tailored for movement, designed for distinction.",
+                category: "pant",
+                sizes: ["28", "30", "32", "34", "36", "38"]
+            },
+            {
+                id: 8,
+                name: "HERITAGE WATCH",
+                originalPrice: 295,
+                salePrice: 206,
+                discount: 30,
+                frontImage: "images/watch1.1.1.png",
+                backImage: "images/watch1.1.2.png",
+                description: "Timeless precision. A statement of understated sophistication.",
+                category: "watch",
+                sizes: ["One Size"]
+            }
+        ];
+
+        // Store selected sizes for each product
+        let selectedSizes = {};
+
+        // Render sale products
+        function renderSaleProducts() {
+            const grid = document.getElementById('sale-products-grid');
+            if (!grid) return;
+
+            grid.innerHTML = saleProducts.map(product => {
+                const productId = `sale_${product.id}`;
+                const currentSize = selectedSizes[productId] || (product.sizes[0] === "One Size" ? "One Size" : "MED");
+                
+                return `
+                    <div class="product-card" data-product-id="${productId}" data-product-name="${product.name}" data-product-price="${product.salePrice}" data-product-image="${product.frontImage}">
+                        <div class="image-container">
+                            <img src="${product.frontImage}" class="product-image front-view" alt="${product.name}">
+                            <img src="${product.backImage}" class="product-image back-view" style="position: absolute; top:0; left:0; opacity:0;" alt="${product.name} Back">
+                            <div class="sale-badge">-${product.discount}%</div>
+                            <div class="quick-buy-container">
+                                <div class="quick-buy">🛒</div>
+                                <div class="size-tooltip">
+                                    <h4>Select Size</h4>
+                                    <div class="size-options">
+                                        ${product.sizes.map(size => `
+                                            <button class="size-btn ${currentSize === size ? 'selected' : ''}" onclick="event.stopPropagation(); selectSaleSize('${productId}', '${size}')">${size}</button>
+                                        `).join('')}
+                                    </div>
+                                    <div class="size-display" id="size-display-${productId}">Size: ${currentSize}</div>
+                                    <button class="buy-now-tooltip" onclick="event.stopPropagation(); addSaleToCart('${product.name}', ${product.salePrice}, '${product.frontImage}', '${productId}')">ADD TO CART</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="p-5 text-center">
+                            <h3 class="text-xs tracking-widest mb-2 uppercase font-semibold">${product.name}</h3>
+                            <p class="text-gray-400 text-[9px] mb-3 max-w-[180px] mx-auto leading-relaxed">${product.description.substring(0, 70)}...</p>
+                            <div class="price-tag">
+                                <span class="original-price">$${product.originalPrice}</span>
+                                <span class="sale-price">$${product.salePrice}</span>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            // Add hover effect for back image
+            document.querySelectorAll('.product-card').forEach(card => {
+                const frontImg = card.querySelector('.front-view');
+                const backImg = card.querySelector('.back-view');
+                if (frontImg && backImg) {
+                    card.addEventListener('mouseenter', () => {
+                        frontImg.style.opacity = '0';
+                        backImg.style.opacity = '1';
+                    });
+                    card.addEventListener('mouseleave', () => {
+                        frontImg.style.opacity = '1';
+                        backImg.style.opacity = '0';
+                    });
+                }
+            });
+        }
+
+        function selectSaleSize(productId, size) {
+            selectedSizes[productId] = size;
+            const display = document.getElementById(`size-display-${productId}`);
+            if (display) display.textContent = `Size: ${size}`;
+            
+            const tooltip = document.querySelector(`[data-product-id="${productId}"] .size-tooltip`);
+            if (tooltip) {
+                const buttons = tooltip.querySelectorAll('.size-btn');
+                buttons.forEach(btn => {
+                    if (btn.innerText === size) btn.classList.add('selected');
+                    else btn.classList.remove('selected');
+                });
+            }
+        }
+
+        function addSaleToCart(name, price, image, productId) {
+            const size = selectedSizes[productId] || 'MED';
+            const cartItem = {
+                name: `${name} (${size})`,
+                price: price,
+                image: image,
+                qty: 1,
+                size: size
+            };
+            
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+            cart.push(cartItem);
+            localStorage.setItem('cart', JSON.stringify(cart));
+            
+            updateCartCount();
+            
+            // Show quick notification
+            const notif = document.createElement('div');
+            notif.className = 'fixed bottom-4 right-4 bg-[var(--gold)] text-black px-5 py-2 text-xs z-50 animate-fade';
+            notif.innerText = `${name} (${size}) added to cart`;
+            document.body.appendChild(notif);
+            setTimeout(() => notif.remove(), 2000);
+            
+            openCart();
+        }
+
+        function updateCartCount() {
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            const countSpan = document.getElementById('cart-count');
+            if (countSpan) countSpan.innerText = `(${cart.length})`;
+        }
+
+        function openCart() {
+            const sidebar = document.getElementById('cartSidebar');
+            const overlay = document.getElementById('cartOverlay');
+            if (sidebar && overlay) {
+                sidebar.classList.add('active');
+                overlay.classList.add('active');
+                if (typeof renderCart === 'function') renderCart();
+            }
+        }
+
+        function closeCart() {
+            const sidebar = document.getElementById('cartSidebar');
+            const overlay = document.getElementById('cartOverlay');
+            if (sidebar && overlay) {
+                sidebar.classList.remove('active');
+                overlay.classList.remove('active');
+            }
+        }
+
+        function goToCheckout() {
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            if (cart.length === 0) {
+                alert('Your cart is empty');
+                return;
+            }
+            window.location.href = 'checkout.html';
+        }
+
+        // Add animation style
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes fadeSlide {
+                from { opacity: 0; transform: translateY(20px); }
+                to { opacity: 1; transform: translateY(0); }
+            }
+            .animate-fade { animation: fadeSlide 0.3s ease-out; }
+            .back-view { transition: opacity 0.4s ease-in-out; }
+            .front-view { transition: opacity 0.4s ease-in-out; }
+        `;
+        document.head.appendChild(style);
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            renderSaleProducts();
+            updateCartCount();
+            
+            const closeBtn = document.getElementById('closeCart');
+            const overlay = document.getElementById('cartOverlay');
+            if (closeBtn) closeBtn.addEventListener('click', closeCart);
+            if (overlay) overlay.addEventListener('click', closeCart);
+        });
+
+        window.selectSaleSize = selectSaleSize;
+        window.addSaleToCart = addSaleToCart;
+        window.openCart = openCart;
+        window.closeCart = closeCart;
+        window.goToCheckout = goToCheckout;
+    </script>
+</body>
+</html>
