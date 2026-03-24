@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout | INDIG-GROK</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        :root {
+            --gold: #c5a059;
+            --dark-bg: #0a0a0a;
+        }
+        body {
+            margin: 0;
+            background: var(--dark-bg);
+            color: white;
+            font-family: 'Cinzel', serif;
+        }
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            background: url('images/backgroundimage1.jpg') center/cover no-repeat;
+            filter: brightness(0.2);
+            z-index: -1;
+        }
+        .container {
+            max-width: 640px;
+            margin: auto;
+            padding: 3rem 1rem;
+        }
+        h1 {
+            font-size: 2rem;
+            text-align: center;
+            letter-spacing: 0.2em;
+        }
+        .section {
+            background: rgba(255,255,255,0.035);
+            border: 1px solid rgba(255,255,255,0.08);
+            padding: 2.4rem;
+            border-radius: 8px;
+            margin-top: 2rem;
+        }
+        .label {
+            text-transform: uppercase;
+            font-size: 10px;
+            letter-spacing: 0.25em;
+            color: #ccc;
+            display: block;
+            margin-bottom: 0.6rem;
+        }
+        input, select {
+            width: 100%;
+            margin-top: .6rem;
+            margin-bottom: 1rem;
+            padding: .8rem;
+            border: 1px solid rgba(255,255,255,0.2);
+            background: rgba(0,0,0,0.4);
+            color: white;
+            font-size: 14px;
+            border-radius: 4px;
+            margin-bottom: 2rem;
+        }
+        .checkout-btn {
+            background: var(--gold);
+            color: black;
+            font-weight: bold;
+            text-transform: uppercase;
+            padding: 1rem;
+            width: 100%;
+            font-size: 14px;
+            letter-spacing: .25em;
+            transition: .3s;
+            text-align: center;
+            cursor: pointer;
+            border: none;
+        }
+        .checkout-btn:hover {
+            background: white;
+            color: black;
+        }
+        .cart-item-summary {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            padding: 1rem 0;
+        }
+        .cart-item-summary:last-child {
+            border-bottom: none;
+        }
+        .cart-item-summary img {
+            width: 70px;
+            height: 70px;
+            object-fit: cover;
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 4px;
+        }
+        .cart-item-details {
+            flex: 1;
+        }
+        .cart-item-details h4 {
+            margin: 0 0 5px 0;
+            font-size: 14px;
+        }
+        .cart-item-details p {
+            margin: 0;
+            font-size: 12px;
+            color: var(--gold);
+        }
+        .grand-total {
+            display: flex;
+            justify-content: space-between;
+            font-size: 18px;
+            font-weight: bold;
+            color: var(--gold);
+            padding-top: 1rem;
+            margin-top: 1rem;
+            border-top: 1px solid rgba(255,255,255,0.2);
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Checkout</h1>
+
+    <!-- CART ITEMS SUMMARY -->
+    <div class="section">
+        <div class="label">Order Summary</div>
+        <div id="cart-items-summary"></div>
+        <div class="grand-total">
+            <span>Total</span>
+            <span id="grand-total">$0</span>
+        </div>
+    </div>
+
+    <!-- SIZE / OPTIONS (if single item) -->
+    <div class="section" id="size-section" style="display: none;">
+        <label class="label">Select Size</label>
+        <select id="size">
+            <option value="S">Small (S)</option>
+            <option value="M" selected>Medium (M)</option>
+            <option value="L">Large (L)</option>
+            <option value="XL">XL</option>
+        </select>
+
+        <label class="label">Quantity</label>
+        <input type="number" id="qty" min="1" value="1">
+    </div>
+
+    <!-- BILLING / PAYMENT -->
+    <div class="section">
+        <label class="label">Full Name</label>
+        <input type="text" placeholder="John Doe" id="fullname">
+
+        <label class="label">Email</label>
+        <input type="email" placeholder="you@example.com" id="email">
+
+        <label class="label">Phone</label>
+        <input type="tel" placeholder="+92__________" id="phone">
+
+        <label class="label">Address</label>
+        <input type="text" placeholder="Street Address" id="address">
+    </div>
+
+    <!-- PAYMENT BUTTON -->
+    <div class="section">
+        <button class="checkout-btn" id="completeCheckout">
+            Buy Now on WhatsApp
+        </button>
+    </div>
+</div>
+
+<script>
+    const PHONE = "923423163018";
+    let cart = [];
+    let cartTotal = 0;
+
+    function loadCart() {
+        cart = JSON.parse(localStorage.getItem("cart")) || [];
+        renderCartSummary();
+    }
+
+    function renderCartSummary() {
+        const container = document.getElementById('cart-items-summary');
+        const grandTotalSpan = document.getElementById('grand-total');
+        
+        if (!container) return;
+        
+        if (cart.length === 0) {
+            container.innerHTML = '<p class="text-center text-gray-500">Your cart is empty</p>';
+            grandTotalSpan.textContent = '$0';
+            cartTotal = 0;
+            return;
+        }
+        
+        let total = 0;
+        container.innerHTML = '';
+        
+        cart.forEach((item, index) => {
+            const itemTotal = item.price * (item.qty || 1);
+            total += itemTotal;
+            
+            const itemDiv = document.createElement('div');
+            itemDiv.className = 'cart-item-summary';
+            itemDiv.innerHTML = `
+                <img src="${item.image}" alt="${item.name}">
+                <div class="cart-item-details">
+                    <h4>${item.name}</h4>
+                    <p>$${item.price.toFixed(2)} × ${item.qty || 1}</p>
+                </div>
+                <div class="text-right">
+                    <p class="text-[var(--gold)]">$${itemTotal.toFixed(2)}</p>
+                </div>
+            `;
+            container.appendChild(itemDiv);
+        });
+        
+        cartTotal = total;
+        grandTotalSpan.textContent = `$${total.toFixed(2)}`;
+    }
+
+    function getOrderMessage() {
+        const fullname = document.getElementById('fullname').value.trim();
+        const email = document.getElementById('email').value.trim();
+        const phone = document.getElementById('phone').value.trim();
+        const address = document.getElementById('address').value.trim();
+        
+        // Build items list
+        let itemsList = '';
+        cart.forEach(item => {
+            itemsList += `• ${item.name} x${item.qty || 1} - $${(item.price * (item.qty || 1)).toFixed(2)}\n`;
+        });
+        
+        let message = `🛍️ NEW ORDER - INDIG-GROK 🛍️\n\n`;
+        message += `📦 ORDER DETAILS:\n${itemsList}\n`;
+        message += `💰 TOTAL: $${cartTotal.toFixed(2)}\n\n`;
+        message += `👤 CUSTOMER DETAILS:\n`;
+        message += `Name: ${fullname || 'Not provided'}\n`;
+        message += `Email: ${email || 'Not provided'}\n`;
+        message += `Phone: ${phone || 'Not provided'}\n`;
+        message += `Address: ${address || 'Not provided'}\n\n`;
+        message += `Thank you for shopping with INDIG-GROK!`;
+        
+        return message;
+    }
+
+    function clearCartAndRedirect() {
+        localStorage.removeItem('cart');
+        window.location.href = 'success.html';
+    }
+
+    document.getElementById('completeCheckout').addEventListener('click', () => {
+        if (cart.length === 0) {
+            alert('Your cart is empty!');
+            return;
+        }
+        
+        const fullname = document.getElementById('fullname').value.trim();
+        if (!fullname) {
+            alert('Please enter your full name');
+            return;
+        }
+        
+        const message = getOrderMessage();
+        const url = `https://wa.me/${PHONE}?text=${encodeURIComponent(message)}`;
+        
+        // Open WhatsApp and redirect to success page after a short delay
+        window.open(url, '_blank');
+        clearCartAndRedirect();
+    });
+
+    // Load cart on page load
+    loadCart();
+</script>
+</body>
+</html>
