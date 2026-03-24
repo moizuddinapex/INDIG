@@ -43,7 +43,7 @@
             background: rgba(255, 255, 255, 0.06);
         }
 
-        /* NEW CSS FOR SWAP EFFECT */
+        /* CSS FOR SWAP EFFECT */
         .image-container {
             position: relative;
             width: 100%;
@@ -74,157 +74,134 @@
             opacity: 1;
         }
 
-        .buy-button {
-            background: white;
-            color: black;
-            font-size: 10px;
-            letter-spacing: 0.2em;
-            font-weight: bold;
-            text-transform: uppercase;
-            padding: 12px;
-            width: 100%;
-            display: block;
-            text-align: center;
-            transition: all 0.3s;
-        }
-
-        .buy-button:hover {
-            background: var(--gold);
-            color: white;
-        }
-
         .price-tag {
             font-family: 'Inter', sans-serif;
             letter-spacing: 0;
             color: var(--gold);
         }
    
-               .quick-buy {
-    position: absolute;
-    bottom: 12px;
-    right: 12px;
-    background: rgba(0,0,0,0.7);
-    border: 1px solid var(--gold);
-    color: var(--gold);
-    width: 36px;
-    height: 36px;
-    display: grid;
-    place-items: center;
-    font-size: 14px;
-    transition: all 0.3s ease;
-    backdrop-filter: blur(6px);
-}
+        .quick-buy {
+            position: absolute;
+            bottom: 12px;
+            right: 12px;
+            background: rgba(0,0,0,0.7);
+            border: 1px solid var(--gold);
+            color: var(--gold);
+            width: 36px;
+            height: 36px;
+            display: grid;
+            place-items: center;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(6px);
+            cursor: pointer;
+        }
 
-.quick-buy:hover {
-    background: var(--gold);
-    color: black;
-    transform: scale(1.1);
-}
+        .quick-buy:hover {
+            background: var(--gold);
+            color: black;
+            transform: scale(1.1);
+        }
 
+        /* Sizing Tooltip - appears on hover */
+        .quick-buy-container {
+            position: absolute;
+            bottom: 12px;
+            right: 12px;
+            z-index: 10;
+        }
 
+        .size-tooltip {
+            position: absolute;
+            bottom: 50px;
+            right: 0;
+            background: rgba(0, 0, 0, 0.95);
+            border: 1px solid var(--gold);
+            padding: 15px;
+            width: 200px;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            z-index: 20;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.5);
+        }
 
-/* Sizing Tooltip - appears on hover */
-.quick-buy-container {
-    position: absolute;
-    bottom: 12px;
-    right: 12px;
-    z-index: 10;
-}
+        .quick-buy-container:hover .size-tooltip {
+            opacity: 1;
+            visibility: visible;
+            bottom: 45px;
+        }
 
-.size-tooltip {
-    position: absolute;
-    bottom: 50px;
-    right: 0;
-    background: rgba(0, 0, 0, 0.95);
-    border: 1px solid var(--gold);
-    padding: 15px;
-    width: 200px;
-    opacity: 0;
-    visibility: hidden;
-    transition: all 0.3s ease;
-    backdrop-filter: blur(10px);
-    z-index: 20;
-    box-shadow: 0 5px 20px rgba(0,0,0,0.5);
-}
+        .size-tooltip h4 {
+            color: var(--gold);
+            font-size: 12px;
+            letter-spacing: 0.1em;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            border-bottom: 1px solid rgba(197, 160, 89, 0.3);
+            padding-bottom: 5px;
+        }
 
-.quick-buy-container:hover .size-tooltip {
-    opacity: 1;
-    visibility: visible;
-    bottom: 45px;
-}
+        .size-options {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 5px;
+            margin-bottom: 15px;
+        }
 
-.size-tooltip h4 {
-    color: var(--gold);
-    font-size: 12px;
-    letter-spacing: 0.1em;
-    margin-bottom: 10px;
-    text-transform: uppercase;
-    border-bottom: 1px solid rgba(197, 160, 89, 0.3);
-    padding-bottom: 5px;
-}
+        .size-btn {
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 5px 0;
+            font-size: 11px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: 'Cinzel', serif;
+        }
 
-.size-options {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 5px;
-    margin-bottom: 15px;
-}
+        .size-btn:hover {
+            border-color: var(--gold);
+            color: var(--gold);
+        }
 
-.size-btn {
-    background: transparent;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    color: white;
-    padding: 5px 0;
-    font-size: 11px;
-    text-transform: uppercase;
-    cursor: pointer;
-    transition: all 0.2s;
-    font-family: 'Cinzel', serif;
-}
+        .size-btn.selected {
+            background: var(--gold);
+            color: black;
+            border-color: var(--gold);
+        }
 
-.size-btn:hover {
-    border-color: var(--gold);
-    color: var(--gold);
-}
+        .buy-now-tooltip {
+            width: 100%;
+            background: white;
+            color: black;
+            border: none;
+            padding: 10px 0;
+            font-size: 11px;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: bold;
+            margin-top: 10px;
+            font-family: 'Cinzel', serif;
+        }
 
-.size-btn.selected {
-    background: var(--gold);
-    color: black;
-    border-color: var(--gold);
-}
+        .buy-now-tooltip:hover {
+            background: var(--gold);
+            color: white;
+        }
 
-.buy-now-tooltip {
-    width: 100%;
-    background: white;
-    color: black;
-    border: none;
-    padding: 10px 0;
-    font-size: 11px;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    cursor: pointer;
-    transition: all 0.3s;
-    font-weight: bold;
-    margin-top: 10px;
-    font-family: 'Cinzel', serif;
-}
+        .size-display {
+            font-size: 10px;
+            color: var(--gold);
+            margin-top: 5px;
+            min-height: 15px;
+        }
 
-.buy-now-tooltip:hover {
-    background: var(--gold);
-    color: white;
-}
-
-.size-display {
-    font-size: 10px;
-    color: var(--gold);
-    margin-top: 5px;
-    min-height: 15px;
-}
-
-
-
-        
-   /* ---------- Cart Overlay ---------- */
+        /* ---------- Cart Overlay ---------- */
         .cart-overlay {
             position: fixed;
             top: 0; 
@@ -265,6 +242,7 @@
 
         .cart-sidebar h2 {
             margin-top: 0;
+            margin-bottom: 20px;
         }
 
         .close-btn {
@@ -282,6 +260,8 @@
             display: flex;
             margin-bottom: 15px;
             gap: 10px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            padding-bottom: 10px;
         }
 
         .cart-item img {
@@ -290,13 +270,19 @@
             object-fit: cover;
         }
 
+        .cart-info {
+            flex: 1;
+        }
+
         .cart-info h4 {
             margin: 0;
-            font-size: 16px;
+            font-size: 14px;
         }
 
         .cart-info p {
             margin: 5px 0;
+            font-size: 12px;
+            color: var(--gold);
         }
 
         .remove-btn {
@@ -306,6 +292,7 @@
             color: white;
             padding: 4px 8px;
             font-size: 12px;
+            border-radius: 3px;
         }
 
         .cart-footer {
@@ -327,32 +314,25 @@
         }
 
         .cart-footer button:hover {
-            background: #f0f0f0;
-        } 
-    
+            background: var(--gold);
+            color: white;
+        }
 
         /* Evocative description styling */
-.product-card p.text-gray-400 {
-    transition: all 0.3s ease;
-    opacity: 0.8;
-    border-top: 1px solid transparent;
-    border-bottom: 1px solid transparent;
-    padding: 0.5rem 0;
-}
+        .product-card p.text-gray-400 {
+            transition: all 0.3s ease;
+            opacity: 0.8;
+            border-top: 1px solid transparent;
+            border-bottom: 1px solid transparent;
+            padding: 0.5rem 0;
+        }
 
-.product-card:hover p.text-gray-400 {
-    opacity: 1;
-    color: #ffffff;
-    border-top-color: rgba(197, 160, 89, 0.2);
-    border-bottom-color: rgba(197, 160, 89, 0.2);
-}
-
-
-
-
-
-        
-    
+        .product-card:hover p.text-gray-400 {
+            opacity: 1;
+            color: #ffffff;
+            border-top-color: rgba(197, 160, 89, 0.2);
+            border-bottom-color: rgba(197, 160, 89, 0.2);
+        }
     </style>
 </head>
 <body class="min-h-screen">
@@ -361,198 +341,188 @@
         <a href="index.html" style="font-family: 'Noto Serif', serif; font-size: 1.5rem; letter-spacing: -0.02em; text-decoration: none; color: white;">INDIG-GROK</a>
         <div class="space-x-10">
             <a href="index.html" class="hover:text-gray-400 transition">Back to Home</a>
-       <button onclick="openCart()" class="border border-white px-3 py-1 hover:bg-white hover:text-black transition">
+            <button onclick="openCart()" class="border border-white px-3 py-1 hover:bg-white hover:text-black transition">
                 BAG <span id="cart-count">(0)</span>
             </button>
-        
         </div>
     </nav>
 
     <header class="py-16 text-center">
-    <h1 class="text-4xl md:text-6xl serif-title uppercase tracking-widest mb-4">The INDIG Collection</h1>
-    <p class="text-[10px] tracking-[0.5em] text-gray-400 uppercase">Premium Men's Polos & Shirts</p>
-</header>
+        <h1 class="text-4xl md:text-6xl serif-title uppercase tracking-widest mb-4">The INDIG Collection</h1>
+        <p class="text-[10px] tracking-[0.5em] text-gray-400 uppercase">Premium Men's Polos & Shirts</p>
+    </header>
 
     <main class="max-w-7xl mx-auto px-6 pb-24">
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
             
-             <!-- PRODUCT 1: MONARCH PIQUÉ POLO -->
-        <div class="product-card">
-            <div class="image-container">
-                <img src="images/shirt1.1.1.png" class="product-image front-view" alt="Monarch Piqué Polo Front">
-                <img src="images/shirt1.1.2.png" class="product-image back-view" alt="Monarch Piqué Polo Back">
-                
-                <div class="quick-buy-container">
-                    <div class="quick-buy">🛒</div>
-                    <div class="size-tooltip">
-                        <h4>Select Size</h4>
-                        <div class="size-options">
-                            <button class="size-btn" onclick="event.stopPropagation(); selectSize(this, 'SM')">SM</button>
-                            <button class="size-btn" onclick="event.stopPropagation(); selectSize(this, 'MED')">MED</button>
-                            <button class="size-btn" onclick="event.stopPropagation(); selectSize(this, 'LG')">LG</button>
-                            <button class="size-btn" onclick="event.stopPropagation(); selectSize(this, 'XL')">XL</button>
-                            <button class="size-btn" onclick="event.stopPropagation(); selectSize(this, '2XL')">2XL</button>
-                            <button class="size-btn" onclick="event.stopPropagation(); selectSize(this, '3XL')">3XL</button>
+            <!-- PRODUCT 1: MONARCH PIQUÉ POLO -->
+            <div class="product-card">
+                <div class="image-container">
+                    <img src="images/shirt1.1.1.png" class="product-image front-view" alt="Monarch Piqué Polo Front">
+                    <img src="images/shirt1.1.2.png" class="product-image back-view" alt="Monarch Piqué Polo Back">
+                    
+                    <div class="quick-buy-container">
+                        <div class="quick-buy">🛒</div>
+                        <div class="size-tooltip">
+                            <h4>Select Size</h4>
+                            <div class="size-options">
+                                <button class="size-btn" onclick="event.stopPropagation(); selectSize(this, 'SM', 1)">SM</button>
+                                <button class="size-btn" onclick="event.stopPropagation(); selectSize(this, 'MED', 1)">MED</button>
+                                <button class="size-btn" onclick="event.stopPropagation(); selectSize(this, 'LG', 1)">LG</button>
+                                <button class="size-btn" onclick="event.stopPropagation(); selectSize(this, 'XL', 1)">XL</button>
+                                <button class="size-btn" onclick="event.stopPropagation(); selectSize(this, '2XL', 1)">2XL</button>
+                                <button class="size-btn" onclick="event.stopPropagation(); selectSize(this, '3XL', 1)">3XL</button>
+                            </div>
+                            <div class="size-display" id="size-display-1">Size: MED</div>
+                            <button class="buy-now-tooltip" onclick="event.stopPropagation(); addToCartWithSize('MONARCH PIQUÉ POLO', 145.00, 'images/shirt1.1.1.png', 1)">ADD TO CART</button>
                         </div>
-                        <div class="size-display" id="size-display-1">Size: MED</div>
-                        <button class="buy-now-tooltip" onclick="event.stopPropagation(); addToCartWithSize('MONARCH PIQUÉ POLO', 145.00, 'images/shirt1.1.1.png', 1)">ADD TO CART</button>
                     </div>
                 </div>
+                <div class="p-6 text-center">
+                    <h3 class="text-xs tracking-widest mb-2">MONARCH PIQUÉ POLO</h3>
+                    <p class="text-gray-400 text-[10px] mb-3 max-w-[200px] mx-auto leading-relaxed" 
+                       style="font-family: 'Inter', sans-serif; font-weight: 300; letter-spacing: 0.02em;">
+                        Structured, breathable, and effortlessly sharp—crafted for the modern gentleman who commands attention without a word.
+                    </p>
+                    <p class="price-tag text-sm mb-4">$145.00</p>
+                </div>
             </div>
-            <div class="p-6 text-center">
-    <h3 class="text-xs tracking-widest mb-2">MONARCH PIQUÉ POLO</h3>
-    <!-- New evocative description -->
-    <p class="text-gray-400 text-[10px] mb-3 max-w-[200px] mx-auto leading-relaxed" 
-       style="font-family: 'Inter', sans-serif; font-weight: 300; letter-spacing: 0.02em;">
-        Structured, breathable, and effortlessly sharp—crafted for the modern gentleman who commands attention without a word.
-    </p>
-    <p class="price-tag text-sm mb-4">$145.00</p>
-</div>
-        </div>
 
-        <!-- PRODUCT 2: IMPERIAL TEXTURED KNIT -->
-        <div class="product-card">
-            <div class="image-container">
-                <img src="images/shirt1.2.1.png" class="product-image front-view" alt="Imperial Textured Knit Front">
-                <img src="images/shirt1.2.2.png" class="product-image back-view" alt="Imperial Textured Knit Back">
-                
-                <div class="quick-buy-container">
-                    <div class="quick-buy">🛒</div>
-                    <div class="size-tooltip">
-                        <h4>Select Size</h4>
-                        <div class="sizes">
-                             <div class="size-options">
-                            <button class="size-btn" onclick="event.stopPropagation(); selectSize(this, 'SM')">SM</button>
-                            <button class="size-btn" onclick="event.stopPropagation(); selectSize(this, 'MED')">MED</button>
-                            <button class="size-btn" onclick="event.stopPropagation(); selectSize(this, 'LG')">LG</button>
-                            <button class="size-btn" onclick="event.stopPropagation(); selectSize(this, 'XL')">XL</button>
-                            <button class="size-btn" onclick="event.stopPropagation(); selectSize(this, '2XL')">2XL</button>
-                            <button class="size-btn" onclick="event.stopPropagation(); selectSize(this, '3XL')">3XL</button>
-                        </div>
+            <!-- PRODUCT 2: IMPERIAL TEXTURED KNIT -->
+            <div class="product-card">
+                <div class="image-container">
+                    <img src="images/shirt1.2.1.png" class="product-image front-view" alt="Imperial Textured Knit Front">
+                    <img src="images/shirt1.2.2.png" class="product-image back-view" alt="Imperial Textured Knit Back">
+                    
+                    <div class="quick-buy-container">
+                        <div class="quick-buy">🛒</div>
+                        <div class="size-tooltip">
+                            <h4>Select Size</h4>
+                            <div class="size-options">
+                                <button class="size-btn" onclick="event.stopPropagation(); selectSize(this, 'SM', 2)">SM</button>
+                                <button class="size-btn" onclick="event.stopPropagation(); selectSize(this, 'MED', 2)">MED</button>
+                                <button class="size-btn" onclick="event.stopPropagation(); selectSize(this, 'LG', 2)">LG</button>
+                                <button class="size-btn" onclick="event.stopPropagation(); selectSize(this, 'XL', 2)">XL</button>
+                                <button class="size-btn" onclick="event.stopPropagation(); selectSize(this, '2XL', 2)">2XL</button>
+                                <button class="size-btn" onclick="event.stopPropagation(); selectSize(this, '3XL', 2)">3XL</button>
+                            </div>
                             <div class="size-display" id="size-display-2">Size: MED</div>
-                        <button class="buy-now-tooltip" onclick="event.stopPropagation(); addToCartWithSize('IMPERIAL TEXTURED KNIT', 145.00, 'images/shirt1.2.1.png', 1)">ADD TO CART</button>
-                    </div>
-                </div>
-            </div>
-            <div class="p-6 text-center">
-    <h3 class="text-xs tracking-widest mb-2">IMPERIAL TEXTURED KNIT</h3>
-    <!-- New evocative description -->
-    <p class="text-gray-400 text-[10px] mb-3 max-w-[200px] mx-auto leading-relaxed"
-       style="font-family: 'Inter', sans-serif; font-weight: 300; letter-spacing: 0.02em;">
-        Rich texture meets refined comfort. An everyday essential elevated—quiet confidence woven into every thread.
-    </p>
-    <p class="price-tag text-sm mb-4">$160.00</p>
-</div>
-        </div>
-
-        <!-- PRODUCT 3: SOVEREIGN SILK POLO (First) -->
-        <div class="product-card">
-            <div class="image-container">
-                <img src="images/shirt1.3.1.png" class="product-image front-view" alt="Sovereign Silk Polo Front">
-                <img src="images/shirt1.3.3.png" class="product-image back-view" alt="Sovereign Silk Polo Back">
-                
-                <div class="quick-buy-container">
-                    <div class="quick-buy">🛒</div>
-                    <div class="size-tooltip">
-                        <h4>Select Size</h4>
-                        <div class="size-options">
-                            <button class="size-btn" onclick="event.stopPropagation(); selectSize(this, 'SM')">SM</button>
-                            <button class="size-btn" onclick="event.stopPropagation(); selectSize(this, 'MED')">MED</button>
-                            <button class="size-btn" onclick="event.stopPropagation(); selectSize(this, 'LG')">LG</button>
-                            <button class="size-btn" onclick="event.stopPropagation(); selectSize(this, 'XL')">XL</button>
-                            <button class="size-btn" onclick="event.stopPropagation(); selectSize(this, '2XL')">2XL</button>
-                            <button class="size-btn" onclick="event.stopPropagation(); selectSize(this, '3XL')">3XL</button>
+                            <button class="buy-now-tooltip" onclick="event.stopPropagation(); addToCartWithSize('IMPERIAL TEXTURED KNIT', 160.00, 'images/shirt1.2.1.png', 2)">ADD TO CART</button>
                         </div>
-                        <div class="size-display" id="size-display-3">Size: MED</div>
-                        <button class="buy-now-tooltip" onclick="event.stopPropagation(); addToCartWithSize('MONARCH PIQUÉ POLO', 145.00, 'images/shirt1.3.1.png', 1)">ADD TO CART</button>
                     </div>
                 </div>
+                <div class="p-6 text-center">
+                    <h3 class="text-xs tracking-widest mb-2">IMPERIAL TEXTURED KNIT</h3>
+                    <p class="text-gray-400 text-[10px] mb-3 max-w-[200px] mx-auto leading-relaxed"
+                       style="font-family: 'Inter', sans-serif; font-weight: 300; letter-spacing: 0.02em;">
+                        Rich texture meets refined comfort. An everyday essential elevated—quiet confidence woven into every thread.
+                    </p>
+                    <p class="price-tag text-sm mb-4">$160.00</p>
+                </div>
             </div>
-            <div class="p-6 text-center">
-    <h3 class="text-xs tracking-widest mb-2">SOVEREIGN SILK POLO</h3>
-    <!-- New evocative description -->
-    <p class="text-gray-400 text-[10px] mb-3 max-w-[200px] mx-auto leading-relaxed"
-       style="font-family: 'Inter', sans-serif; font-weight: 300; letter-spacing: 0.02em;">
-        Liquid luxury that moves with you. Impossibly soft, effortlessly elegant—for moments that demand nothing less than exceptional.
-    </p>
-    <p class="price-tag text-sm mb-4">$185.00</p>
-</div>
-        </div>
 
-        <!-- PRODUCT 4: SOVEREIGN SILK POLO (Second) -->
-        <div class="product-card">
-            <div class="image-container">
-                <img src="images/shirt1.4.1.png" class="product-image front-view" alt="Sovereign Silk Polo Front">
-                <img src="images/shirt1.4.2_back.png" class="product-image back-view" alt="Sovereign Silk Polo Back">
-                
-                <div class="quick-buy-container">
-                    <div class="quick-buy">🛒</div>
-                    <div class="size-tooltip">
-                        <h4>Select Size</h4>
-                        <div class="size-options">
-                            <button class="size-btn" onclick="event.stopPropagation(); selectSize(this, 'SM')">SM</button>
-                            <button class="size-btn" onclick="event.stopPropagation(); selectSize(this, 'MED')">MED</button>
-                            <button class="size-btn" onclick="event.stopPropagation(); selectSize(this, 'LG')">LG</button>
-                            <button class="size-btn" onclick="event.stopPropagation(); selectSize(this, 'XL')">XL</button>
-                            <button class="size-btn" onclick="event.stopPropagation(); selectSize(this, '2XL')">2XL</button>
-                            <button class="size-btn" onclick="event.stopPropagation(); selectSize(this, '3XL')">3XL</button>
+            <!-- PRODUCT 3: SOVEREIGN SILK POLO -->
+            <div class="product-card">
+                <div class="image-container">
+                    <img src="images/shirt1.3.1.png" class="product-image front-view" alt="Sovereign Silk Polo Front">
+                    <img src="images/shirt1.3.3.png" class="product-image back-view" alt="Sovereign Silk Polo Back">
+                    
+                    <div class="quick-buy-container">
+                        <div class="quick-buy">🛒</div>
+                        <div class="size-tooltip">
+                            <h4>Select Size</h4>
+                            <div class="size-options">
+                                <button class="size-btn" onclick="event.stopPropagation(); selectSize(this, 'SM', 3)">SM</button>
+                                <button class="size-btn" onclick="event.stopPropagation(); selectSize(this, 'MED', 3)">MED</button>
+                                <button class="size-btn" onclick="event.stopPropagation(); selectSize(this, 'LG', 3)">LG</button>
+                                <button class="size-btn" onclick="event.stopPropagation(); selectSize(this, 'XL', 3)">XL</button>
+                                <button class="size-btn" onclick="event.stopPropagation(); selectSize(this, '2XL', 3)">2XL</button>
+                                <button class="size-btn" onclick="event.stopPropagation(); selectSize(this, '3XL', 3)">3XL</button>
+                            </div>
+                            <div class="size-display" id="size-display-3">Size: MED</div>
+                            <button class="buy-now-tooltip" onclick="event.stopPropagation(); addToCartWithSize('SOVEREIGN SILK POLO', 185.00, 'images/shirt1.3.1.png', 3)">ADD TO CART</button>
                         </div>
-                        <div class="size-display" id="size-display-4">Size: MED</div>
-                        <button class="buy-now-tooltip" onclick="event.stopPropagation(); addToCartWithSize('SOVEREIGN SILK POLO', 145.00, 'images/shirt1.4.1.png', 1)">ADD TO CART</button>
                     </div>
                 </div>
+                <div class="p-6 text-center">
+                    <h3 class="text-xs tracking-widest mb-2">SOVEREIGN SILK POLO</h3>
+                    <p class="text-gray-400 text-[10px] mb-3 max-w-[200px] mx-auto leading-relaxed"
+                       style="font-family: 'Inter', sans-serif; font-weight: 300; letter-spacing: 0.02em;">
+                        Liquid luxury that moves with you. Impossibly soft, effortlessly elegant—for moments that demand nothing less than exceptional.
+                    </p>
+                    <p class="price-tag text-sm mb-4">$185.00</p>
+                </div>
             </div>
-            <div class="p-6 text-center">
-    <h3 class="text-xs tracking-widest mb-2">SOVEREIGN SILK POLO</h3>
-    <!-- New evocative description -->
-    <p class="text-gray-400 text-[10px] mb-3 max-w-[200px] mx-auto leading-relaxed"
-       style="font-family: 'Inter', sans-serif; font-weight: 300; letter-spacing: 0.02em;">
-        Liquid luxury that moves with you. Impossibly soft, effortlessly elegant—for moments that demand nothing less than exceptional.
-    </p>
-    <p class="price-tag text-sm mb-4">$185.00</p>
-</div>
-        </div>
 
-        <!-- PRODUCT 5: SOVEREIGN SILK POLO (Third) -->
-        <div class="product-card">
-            <div class="image-container">
-                <img src="images/shirt1.5.1.png" class="product-image front-view" alt="Sovereign Silk Polo Front">
-                <img src="images/shirt1.5.2_back.png" class="product-image back-view" alt="Sovereign Silk Polo Back">
-                
-                <div class="quick-buy-container">
-                    <div class="quick-buy">🛒</div>
-                    <div class="size-tooltip">
-                        <h4>Select Size</h4>
-                        <div class="size-options">
-                            <button class="size-btn" onclick="event.stopPropagation(); selectSize(this, 'SM')">SM</button>
-                            <button class="size-btn" onclick="event.stopPropagation(); selectSize(this, 'MED')">MED</button>
-                            <button class="size-btn" onclick="event.stopPropagation(); selectSize(this, 'LG')">LG</button>
-                            <button class="size-btn" onclick="event.stopPropagation(); selectSize(this, 'XL')">XL</button>
-                            <button class="size-btn" onclick="event.stopPropagation(); selectSize(this, '2XL')">2XL</button>
-                            <button class="size-btn" onclick="event.stopPropagation(); selectSize(this, '3XL')">3XL</button>
+            <!-- PRODUCT 4: SOVEREIGN SILK POLO (Second) -->
+            <div class="product-card">
+                <div class="image-container">
+                    <img src="images/shirt1.4.1.png" class="product-image front-view" alt="Sovereign Silk Polo Front">
+                    <img src="images/shirt1.4.2_back.png" class="product-image back-view" alt="Sovereign Silk Polo Back">
+                    
+                    <div class="quick-buy-container">
+                        <div class="quick-buy">🛒</div>
+                        <div class="size-tooltip">
+                            <h4>Select Size</h4>
+                            <div class="size-options">
+                                <button class="size-btn" onclick="event.stopPropagation(); selectSize(this, 'SM', 4)">SM</button>
+                                <button class="size-btn" onclick="event.stopPropagation(); selectSize(this, 'MED', 4)">MED</button>
+                                <button class="size-btn" onclick="event.stopPropagation(); selectSize(this, 'LG', 4)">LG</button>
+                                <button class="size-btn" onclick="event.stopPropagation(); selectSize(this, 'XL', 4)">XL</button>
+                                <button class="size-btn" onclick="event.stopPropagation(); selectSize(this, '2XL', 4)">2XL</button>
+                                <button class="size-btn" onclick="event.stopPropagation(); selectSize(this, '3XL', 4)">3XL</button>
+                            </div>
+                            <div class="size-display" id="size-display-4">Size: MED</div>
+                            <button class="buy-now-tooltip" onclick="event.stopPropagation(); addToCartWithSize('SOVEREIGN SILK POLO', 185.00, 'images/shirt1.4.1.png', 4)">ADD TO CART</button>
                         </div>
-                        <div class="size-display" id="size-display-5">Size: MED</div>
-                        <button class="buy-now-tooltip" onclick="addToCartWithSize('SOVEREIGN SILK POLO', 185.00, 'images/shirt1.5.1.png', 5)">ADD TO CART</button>
-
                     </div>
                 </div>
+                <div class="p-6 text-center">
+                    <h3 class="text-xs tracking-widest mb-2">SOVEREIGN SILK POLO</h3>
+                    <p class="text-gray-400 text-[10px] mb-3 max-w-[200px] mx-auto leading-relaxed"
+                       style="font-family: 'Inter', sans-serif; font-weight: 300; letter-spacing: 0.02em;">
+                        Liquid luxury that moves with you. Impossibly soft, effortlessly elegant—for moments that demand nothing less than exceptional.
+                    </p>
+                    <p class="price-tag text-sm mb-4">$185.00</p>
+                </div>
             </div>
-            <div class="p-6 text-center">
-    <h3 class="text-xs tracking-widest mb-2">SOVEREIGN SILK POLO</h3>
-    <!-- New evocative description -->
-    <p class="text-gray-400 text-[10px] mb-3 max-w-[200px] mx-auto leading-relaxed"
-       style="font-family: 'Inter', sans-serif; font-weight: 300; letter-spacing: 0.02em;">
-        Liquid luxury that moves with you. Impossibly soft, effortlessly elegant—for moments that demand nothing less than exceptional.
-    </p>
-    <p class="price-tag text-sm mb-4">$185.00</p>
-</div>
+
+            <!-- PRODUCT 5: SOVEREIGN SILK POLO (Third) -->
+            <div class="product-card">
+                <div class="image-container">
+                    <img src="images/shirt1.5.1.png" class="product-image front-view" alt="Sovereign Silk Polo Front">
+                    <img src="images/shirt1.5.2_back.png" class="product-image back-view" alt="Sovereign Silk Polo Back">
+                    
+                    <div class="quick-buy-container">
+                        <div class="quick-buy">🛒</div>
+                        <div class="size-tooltip">
+                            <h4>Select Size</h4>
+                            <div class="size-options">
+                                <button class="size-btn" onclick="event.stopPropagation(); selectSize(this, 'SM', 5)">SM</button>
+                                <button class="size-btn" onclick="event.stopPropagation(); selectSize(this, 'MED', 5)">MED</button>
+                                <button class="size-btn" onclick="event.stopPropagation(); selectSize(this, 'LG', 5)">LG</button>
+                                <button class="size-btn" onclick="event.stopPropagation(); selectSize(this, 'XL', 5)">XL</button>
+                                <button class="size-btn" onclick="event.stopPropagation(); selectSize(this, '2XL', 5)">2XL</button>
+                                <button class="size-btn" onclick="event.stopPropagation(); selectSize(this, '3XL', 5)">3XL</button>
+                            </div>
+                            <div class="size-display" id="size-display-5">Size: MED</div>
+                            <button class="buy-now-tooltip" onclick="event.stopPropagation(); addToCartWithSize('SOVEREIGN SILK POLO', 185.00, 'images/shirt1.5.1.png', 5)">ADD TO CART</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="p-6 text-center">
+                    <h3 class="text-xs tracking-widest mb-2">SOVEREIGN SILK POLO</h3>
+                    <p class="text-gray-400 text-[10px] mb-3 max-w-[200px] mx-auto leading-relaxed"
+                       style="font-family: 'Inter', sans-serif; font-weight: 300; letter-spacing: 0.02em;">
+                        Liquid luxury that moves with you. Impossibly soft, effortlessly elegant—for moments that demand nothing less than exceptional.
+                    </p>
+                    <p class="price-tag text-sm mb-4">$185.00</p>
+                </div>
+            </div>
         </div>
+    </main>
 
-    </div>
-
-                </main> <!-- This closes your existing main tag with the product grid -->
-
-    <!-- NEWSLETTER & FOOTER SECTION with backgroundimage2.jpg -->
+    <!-- NEWSLETTER & FOOTER SECTION -->
     <section class="relative z-10 py-20 mt-20" style="background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('images/backgroundimage2.jpg') center/cover fixed;">
         <div class="max-w-7xl mx-auto px-6">
             
@@ -623,31 +593,143 @@
         </div>
     </section>
 
-    <footer class="py-16 text-center text-[9px] uppercase tracking-[0.4em] text-gray-400 relative z-10">
-        &copy; 2026 INDIG-GROK
-    </footer>
-
-    <footer class="py-16 text-center text-[9px] uppercase tracking-[0.4em] text-gray-400">
-        &copy; 2026 INDIG-GROK
-    </footer>
-<!-- Cart Overlay -->
+    <!-- Cart Overlay -->
     <div id="cartOverlay" class="cart-overlay"></div>
 
-   <!-- Cart Sidebar --> <div id="cartSidebar" class="cart-sidebar">
-       <button id="closeCart" class="close-btn">×</button> 
-       <button class="cart-toggle">🛒 Cart (<span class="cart-count">0</span>)</button> 
-       <ul class="cart-items"></ul> <h2>My Cart</h2> 
-       <div id="cart-items-container"></div> 
-       <div class="cart-footer"> 
-           <span id="cart-total-price">Rs 0</span>
-           <button onclick="goToCheckout()">Checkout</button> </div>
+    <!-- Cart Sidebar -->
+    <div id="cartSidebar" class="cart-sidebar">
+        <button id="closeCart" class="close-btn">×</button>
+        <h2>My Cart</h2>
+        <div id="cart-items-container"></div>
+        <div class="cart-footer">
+            <span id="cart-total-price">$0</span>
+            <button onclick="goToCheckout()">Checkout</button>
+        </div>
+    </div>
 
-<!-- Cart Toggle Button (can be outside the sidebar) -->
-<button class="cart-toggle">🛒 Cart (<span class="cart-count">0</span>)</button>
-    
-<script src="js/checkout.js"></script>
-<script src="js/sizing.js"></script>
-
-
+    <script>
+        // Cart state
+        let cart = [];
+        
+        // Size selection tracking for each product
+        let selectedSizes = {
+            1: 'MED',
+            2: 'MED',
+            3: 'MED',
+            4: 'MED',
+            5: 'MED'
+        };
+        
+        function selectSize(button, size, productId) {
+            // Update selected size for this product
+            selectedSizes[productId] = size;
+            
+            // Update display
+            const display = document.getElementById(`size-display-${productId}`);
+            if (display) {
+                display.textContent = `Size: ${size}`;
+            }
+            
+            // Update button styles in this tooltip
+            const container = button.closest('.size-tooltip');
+            const buttons = container.querySelectorAll('.size-btn');
+            buttons.forEach(btn => {
+                btn.classList.remove('selected');
+            });
+            button.classList.add('selected');
+        }
+        
+        function addToCartWithSize(name, price, image, productId) {
+            const size = selectedSizes[productId] || 'MED';
+            
+            cart.push({
+                name: name,
+                price: price,
+                size: size,
+                image: image,
+                id: Date.now() + Math.random()
+            });
+            
+            updateCartUI();
+            updateCartCount();
+            
+            // Optional: Show a quick notification
+            alert(`${name} (Size: ${size}) added to cart!`);
+        }
+        
+        function updateCartUI() {
+            const container = document.getElementById('cart-items-container');
+            const totalSpan = document.getElementById('cart-total-price');
+            
+            if (!container) return;
+            
+            let total = 0;
+            
+            if (cart.length === 0) {
+                container.innerHTML = '<p class="text-gray-400 text-center">Your cart is empty</p>';
+                if (totalSpan) totalSpan.textContent = '$0';
+                return;
+            }
+            
+            container.innerHTML = cart.map((item, index) => `
+                <div class="cart-item">
+                    <img src="${item.image}" alt="${item.name}">
+                    <div class="cart-info">
+                        <h4>${item.name}</h4>
+                        <p>Size: ${item.size}</p>
+                        <p>$${item.price.toFixed(2)}</p>
+                    </div>
+                    <button class="remove-btn" onclick="removeFromCart(${index})">Remove</button>
+                </div>
+            `).join('');
+            
+            total = cart.reduce((sum, item) => sum + item.price, 0);
+            if (totalSpan) totalSpan.textContent = `$${total.toFixed(2)}`;
+        }
+        
+        function removeFromCart(index) {
+            cart.splice(index, 1);
+            updateCartUI();
+            updateCartCount();
+        }
+        
+        function updateCartCount() {
+            const countElements = document.querySelectorAll('#cart-count, .cart-count');
+            countElements.forEach(el => {
+                if (el) el.textContent = `(${cart.length})`;
+            });
+        }
+        
+        function openCart() {
+            document.getElementById('cartOverlay').classList.add('active');
+            document.getElementById('cartSidebar').classList.add('active');
+        }
+        
+        function closeCart() {
+            document.getElementById('cartOverlay').classList.remove('active');
+            document.getElementById('cartSidebar').classList.remove('active');
+        }
+        
+        function goToCheckout() {
+            if (cart.length === 0) {
+                alert('Your cart is empty!');
+                return;
+            }
+            localStorage.setItem('cart', JSON.stringify(cart));
+            window.location.href = 'checkout.html';
+        }
+        
+        // Event listeners
+        document.addEventListener('DOMContentLoaded', () => {
+            const closeBtn = document.getElementById('closeCart');
+            const overlay = document.getElementById('cartOverlay');
+            
+            if (closeBtn) closeBtn.addEventListener('click', closeCart);
+            if (overlay) overlay.addEventListener('click', closeCart);
+            
+            updateCartUI();
+            updateCartCount();
+        });
+    </script>
 </body>
 </html>
