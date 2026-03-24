@@ -3,9 +3,9 @@
 const cartSidebar = document.getElementById("cartSidebar");
 const cartToggle = document.querySelector(".cart-toggle");
 const closeCartBtn = document.getElementById("closeCart");
-const cartItemsContainer = document.querySelector(".cart-items");
+const cartItemsContainer = document.getElementById("cart-items-container");
 const cartCount = document.querySelector(".cart-count");
-const cartTotalPrice = document.querySelector(".cart-total-price");
+const cartTotalPrice = document.getElementById("cart-total-price");
 const addToCartBtns = document.querySelectorAll(".add-to-cart-btn");
 
 // Initialize cart from localStorage
@@ -18,9 +18,9 @@ function renderCart() {
 
     cart.forEach((item, index) => {
         totalPrice += item.price * item.quantity;
-        const li = document.createElement("li");
-        li.classList.add("cart-item");
-        li.innerHTML = `
+        const div = document.createElement("div");
+        div.classList.add("cart-item");
+        div.innerHTML = `
             <div>${item.name}</div>
             <div>Size: ${item.size}</div>
             <div>
@@ -31,65 +31,49 @@ function renderCart() {
             </div>
             <div>Rs ${item.price * item.quantity}</div>
         `;
-        cartItemsContainer.appendChild(li);
+        cartItemsContainer.appendChild(div);
     });
 
-    // Update totals
+    // Update counts
     cartCount.textContent = cart.reduce((sum, i) => sum + i.quantity, 0);
     cartTotalPrice.textContent = totalPrice;
     localStorage.setItem("cart", JSON.stringify(cart));
 
-    // Attach quantity buttons
+    // Quantity buttons
     document.querySelectorAll(".qty-btn").forEach(btn => {
-        btn.addEventListener("click", () => {
+        btn.onclick = () => {
             const idx = parseInt(btn.dataset.index);
             const action = btn.dataset.action;
             if (action === "increase") cart[idx].quantity++;
             if (action === "decrease") cart[idx].quantity--;
             if (cart[idx].quantity <= 0) cart.splice(idx, 1);
             renderCart();
-        });
+        };
     });
 }
 
-// ==== ADD TO CART WITH SIZE ====
-document.querySelectorAll(".product-card").forEach(card => {
-    const sizeButtons = card.querySelectorAll(".size-option");
-    const selectedSizeSpan = card.querySelector(".selected-size");
+// ==== ADD TO CART (uses existing size text) ====
+addToCartBtns.forEach(btn => {
+    btn.addEventListener("click", () => {
+        const productCard = btn.closest(".product-card");
+        const productName = productCard.querySelector(".product-name").textContent;
+        const productPrice = parseFloat(productCard.querySelector(".product-price").textContent.replace(/[^0-9]/g,""));
+        const sizeText = productCard.querySelector(".selected-size")?.textContent || "MED"; // fallback if no span
 
-    // Size click handler
-    sizeButtons.forEach(btn => {
-        btn.addEventListener("click", () => {
-            sizeButtons.forEach(o => o.classList.remove("active"));
-            btn.classList.add("active");
-            selectedSizeSpan.textContent = btn.textContent;
-        });
-    });
-
-    // Add to cart click
-    card.querySelector(".add-to-cart-btn").addEventListener("click", () => {
-        const name = card.querySelector(".product-name").textContent;
-        const price = parseFloat(card.querySelector(".product-price").textContent.replace(/[^0-9]/g,""));
-        const size = selectedSizeSpan.textContent;
-
-        const existing = cart.find(i => i.name === name && i.size === size);
+        const existing = cart.find(i => i.name === productName && i.size === sizeText);
         if (existing) existing.quantity++;
-        else cart.push({ name, price, size, quantity: 1 });
+        else cart.push({ name: productName, price: productPrice, size: sizeText, quantity: 1 });
 
         renderCart();
         cartSidebar.classList.add("open");
     });
 });
 
-// ==== SIDEBAR TOGGLE ====
-cartToggle.addEventListener("click", () => {
-    cartSidebar.classList.toggle("open");
-});
+// ==== TOGGLE CART ====
+cartToggle.addEventListener("click", () => cartSidebar.classList.toggle("open"));
 
 // ==== CLOSE BUTTON ====
-closeCartBtn.addEventListener("click", () => {
-    cartSidebar.classList.remove("open");
-});
+closeCartBtn.addEventListener("click", () => cartSidebar.classList.remove("open"));
 
 // ==== INITIAL RENDER ====
 renderCart();
