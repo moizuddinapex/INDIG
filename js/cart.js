@@ -3,11 +3,11 @@
         
         // Size selection tracking for each product
         let selectedSizes = {
-            1: 'MED',
+            1: 'SM',
             2: 'MED',
-            3: 'MED',
-            4: 'MED',
-            5: 'MED'
+            3: 'LG',
+            4: 'XL',
+            5: '2XL'
         };
         
         function selectSize(button, size, productId) {
