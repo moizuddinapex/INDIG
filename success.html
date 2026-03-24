@@ -384,6 +384,10 @@
         setTimeout(() => {
             localStorage.removeItem('cart');
         }, 100);
+
+        // In checkout.html, when submitting the order:
+localStorage.setItem('customerName', document.getElementById('fullname').value);
+    
     </script>
 </body>
 </html>
