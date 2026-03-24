@@ -7,94 +7,336 @@
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        :root { --gold: #c5a059; --dark-bg: #0a0a0a; }
-        body { margin: 0; background-color: var(--dark-bg); color: #ffffff; font-family: 'Cinzel', serif; }
-        body::before { content: ""; position: fixed; inset: 0; background: url('images/backgroundimage1.jpg') center/cover no-repeat; filter: brightness(0.2); z-index: -1; }
+        :root {
+            --gold: #c5a059;
+            --dark-bg: #0a0a0a;
+        }
+
+        body {
+            margin: 0;
+            background-color: var(--dark-bg);
+            color: #ffffff;
+            font-family: 'Cinzel', serif;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            background: url('images/backgroundimage1.jpg') center / cover no-repeat;
+            filter: brightness(0.2);
+            z-index: -1;
+        }
+
         .serif-title { font-family: 'Playfair Display', serif; }
-        .product-detail-container { display: flex; flex-wrap: wrap; gap: 3rem; max-width: 1200px; margin: 2rem auto; padding: 2rem; }
-        .image-gallery { flex: 1; min-width: 280px; }
-        .image-gallery img { width: 100%; border: 1px solid rgba(255,255,255,0.1); }
-        .product-info { flex: 1; min-width: 280px; }
-        .size-options { display: flex; gap: 0.5rem; flex-wrap: wrap; margin: 1rem 0; }
-        .size-btn { background: transparent; border: 1px solid rgba(255,255,255,0.2); padding: 0.5rem 1rem; cursor: pointer; transition: all 0.3s; }
-        .size-btn:hover, .size-btn.selected { border-color: var(--gold); background: var(--gold); color: black; }
-        .add-to-cart { background: var(--gold); color: black; padding: 1rem 2rem; width: 100%; font-weight: bold; letter-spacing: 0.2em; cursor: pointer; border: none; margin-top: 1rem; }
-        .price { font-size: 1.5rem; color: var(--gold); margin: 1rem 0; }
-        /* Add your cart sidebar styles here */
-        .cart-overlay, .cart-sidebar { /* same as your existing styles */ }
+
+        /* Product Detail Layout */
+        .product-detail-container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 2rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 3rem;
+        }
+
+        .image-gallery {
+            flex: 1;
+            min-width: 280px;
+        }
+
+        .image-gallery img {
+            width: 100%;
+            border: 1px solid rgba(255,255,255,0.1);
+            transition: opacity 0.4s ease;
+        }
+
+        .thumbnail-row {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .thumbnail {
+            width: 80px;
+            cursor: pointer;
+            opacity: 0.6;
+            transition: opacity 0.3s, border-color 0.3s;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .thumbnail:hover, .thumbnail.active {
+            opacity: 1;
+            border-color: var(--gold);
+        }
+
+        .product-info {
+            flex: 1;
+            min-width: 280px;
+        }
+
+        .product-name {
+            font-size: 1.8rem;
+            letter-spacing: 0.1em;
+            margin-bottom: 1rem;
+        }
+
+        .product-description {
+            color: #aaa;
+            font-size: 0.9rem;
+            line-height: 1.6;
+            margin: 1.5rem 0;
+        }
+
+        .price {
+            font-size: 1.8rem;
+            color: var(--gold);
+            margin: 1.5rem 0;
+        }
+
+        .size-selector {
+            margin: 1.5rem 0;
+        }
+
+        .size-options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            margin: 1rem 0;
+        }
+
+        .size-btn {
+            background: transparent;
+            border: 1px solid rgba(255,255,255,0.2);
+            color: white;
+            padding: 0.6rem 1.2rem;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: 'Cinzel', serif;
+        }
+
+        .size-btn:hover, .size-btn.selected {
+            border-color: var(--gold);
+            background: var(--gold);
+            color: black;
+        }
+
+        .size-display {
+            font-size: 0.7rem;
+            color: var(--gold);
+            margin-top: 0.5rem;
+        }
+
+        .add-to-cart {
+            background: var(--gold);
+            color: black;
+            padding: 1rem 2rem;
+            width: 100%;
+            font-weight: bold;
+            letter-spacing: 0.2em;
+            cursor: pointer;
+            border: none;
+            margin-top: 1rem;
+            transition: all 0.3s;
+            font-family: 'Cinzel', serif;
+        }
+
+        .add-to-cart:hover {
+            background: white;
+        }
+
+        /* Cart Styles (matching your existing pages) */
+        .cart-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.5); opacity: 0; visibility: hidden;
+            transition: opacity 0.3s ease; z-index: 999;
+        }
+        .cart-overlay.active { opacity: 1; visibility: visible; }
+        .cart-sidebar {
+            position: fixed; top: 0; right: -400px; width: 350px; height: 100%;
+            background: #111; color: #fff; padding: 20px;
+            transition: right 0.3s ease; z-index: 1000; overflow-y: auto;
+        }
+        .cart-sidebar.active { right: 0; }
+        .close-btn { position: absolute; top: 10px; left: 10px; font-size: 28px; cursor: pointer; background: none; border: none; color: #fff; }
+        .cart-item { display: flex; margin-bottom: 15px; gap: 10px; }
+        .cart-item img { width: 60px; height: 60px; object-fit: cover; }
+        .cart-info h4 { margin: 0; font-size: 14px; }
+        .cart-info p { margin: 5px 0; font-size: 12px; color: var(--gold); }
+        .remove-btn { cursor: pointer; background: #ff4444; border: none; color: white; padding: 4px 8px; font-size: 12px; }
+        .cart-footer { margin-top: 20px; display: flex; flex-direction: column; gap: 10px; }
+        .cart-footer button { width: 100%; padding: 12px; background: #fff; color: #000; border: none; cursor: pointer; font-weight: bold; letter-spacing: 0.1em; }
+        .cart-footer button:hover { background: #f0f0f0; }
     </style>
 </head>
 <body>
+
     <nav class="flex justify-between items-center px-8 py-8 uppercase tracking-[0.3em] text-[10px] border-b border-white/10">
         <a href="index.html" style="font-family: 'Noto Serif', serif; font-size: 1.5rem; text-decoration: none; color: white;">INDIG-GROK</a>
         <div class="space-x-10">
-            <a href="pants.html" class="hover:text-gray-400 transition">Back to Pants</a>
-            <button onclick="openCart()" class="border border-white px-3 py-1 hover:bg-white hover:text-black transition">BAG <span id="cart-count">(0)</span></button>
+            <a href="product3.html" class="hover:text-gray-400 transition">Back to Pants</a>
+            <button onclick="openCart()" class="border border-white px-3 py-1 hover:bg-white hover:text-black transition">
+                BAG <span id="cart-count">(0)</span>
+            </button>
         </div>
     </nav>
 
     <div class="product-detail-container" id="product-detail">
-        <!-- Content loaded dynamically -->
         <div class="image-gallery">
             <img id="main-image" src="" alt="Product Image">
+            <div class="thumbnail-row" id="thumbnail-row"></div>
         </div>
         <div class="product-info">
-            <h1 id="product-name" class="text-2xl tracking-wider"></h1>
-            <p id="product-description" class="text-gray-400 text-sm my-4"></p>
+            <h1 id="product-name" class="product-name"></h1>
+            <p id="product-description" class="product-description"></p>
             <div class="price" id="product-price"></div>
             <div class="size-selector">
-                <p class="text-xs tracking-wider mb-2">SELECT SIZE</p>
-                <div class="size-options" id="size-options">
-                    <!-- Size buttons will be added here -->
-                </div>
-                <div class="size-display text-[10px] text-[var(--gold)] mt-2" id="selected-size">Size: MED</div>
+                <p class="text-xs tracking-wider">SELECT SIZE</p>
+                <div class="size-options" id="size-options"></div>
+                <div class="size-display" id="selected-size-display">Size: MED</div>
             </div>
             <button class="add-to-cart" id="add-to-cart-btn">ADD TO CART</button>
         </div>
     </div>
 
+    <!-- Newsletter & Footer (same as your product pages) -->
+    <section class="relative z-10 py-20 mt-20" style="background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('images/backgroundimage2.jpg') center/cover fixed;">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16 border-b border-white/10 pb-16">
+                <h2 class="text-3xl md:text-4xl serif-title uppercase tracking-widest mb-4">Newsletter</h2>
+                <p class="text-gray-400 text-sm max-w-2xl mx-auto mb-8">Be the first one to know about discounts, offers and events</p>
+                <form class="flex flex-col md:flex-row gap-4 max-w-2xl mx-auto">
+                    <input type="email" placeholder="Your email address" class="flex-1 bg-transparent border border-white/20 px-6 py-4 text-sm uppercase tracking-widest focus:outline-none focus:border-[#c5a059] transition">
+                    <button type="submit" class="bg-white text-black px-8 py-4 text-sm uppercase tracking-widest font-bold hover:bg-[#c5a059] hover:text-white transition">Subscribe</button>
+                </form>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
+                <div><h3 class="text-2xl mb-6">INDIG-GROK</h3><p class="text-gray-400 text-xs">Premium fashion brand dedicated to quality since 2020.</p></div>
+                <div><h4 class="text-sm tracking-widest mb-6">Help</h4><ul class="space-y-3 text-gray-400 text-xs"><li><a href="#" class="hover:text-white">Exchange & Return</a></li><li><a href="#" class="hover:text-white">Shipping</a></li></ul></div>
+                <div><h4 class="text-sm tracking-widest mb-6">About</h4><ul class="space-y-3 text-gray-400 text-xs"><li><a href="#" class="hover:text-white">Contact Us</a></li><li><a href="#" class="hover:text-white">Size Guide</a></li></ul></div>
+                <div><h4 class="text-sm tracking-widest mb-6">My Account</h4><ul class="space-y-3 text-gray-400 text-xs"><li><a href="#" class="hover:text-white">Login</a></li><li><a href="#" class="hover:text-white">Checkout</a></li></ul></div>
+            </div>
+            <div class="pt-8 border-t border-white/10 text-center text-gray-400 text-xs"><p>How can we help you? Let us know at <a href="mailto:info@indiggrok.com" class="text-white">info@indiggrok.com</a></p><p>Copyright © 2026 INDIG-GROK. All Rights Reserved.</p></div>
+        </div>
+    </section>
+
     <!-- Cart Overlay & Sidebar -->
     <div id="cartOverlay" class="cart-overlay"></div>
-    <div id="cartSidebar" class="cart-sidebar"><button id="closeCart" class="close-btn">×</button><h2>My Cart</h2><div id="cart-items-container"></div><div class="cart-footer"><span id="cart-total-price">$0</span><button onclick="goToCheckout()">Checkout</button></div></div>
+    <div id="cartSidebar" class="cart-sidebar">
+        <button id="closeCart" class="close-btn">×</button>
+        <h2>My Cart</h2>
+        <div id="cart-items-container"></div>
+        <div class="cart-footer">
+            <span id="cart-total-price">$0</span>
+            <button onclick="goToCheckout()">Checkout</button>
+        </div>
+    </div>
 
-    <script src="js/checkout.js"></script>
     <script>
-        // Pant data (same as listing page)
+        // Pants Data (matches product3.html)
         const pants = [
-            { id: 1, name: "SIGNATURE CHINO", price: 135, frontImage: "images/pant1.1.1.png", backImage: "images/pant1.1.2.png", description: "Effortless refinement. Tailored for movement, designed for distinction.", sizes: ["28", "30", "32", "34", "36", "38"] },
-            { id: 2, name: "TAILORED TROUSER", price: 155, frontImage: "images/pant1.2.1.png", backImage: "images/pant1.2.2.png", description: "Sharp pleats, clean lines. The foundation of a refined wardrobe.", sizes: ["28", "30", "32", "34", "36", "38"] },
-            { id: 3, name: "COTTON TWILL PANT", price: 125, frontImage: "images/pant1.3.1.png", backImage: "images/pant1.3.2.png", description: "Rugged elegance meets everyday comfort. Built to last.", sizes: ["28", "30", "32", "34", "36", "38"] },
-            { id: 4, name: "FLANNEL TROUSER", price: 165, frontImage: "images/pant1.4.1.png", backImage: "images/pant1.4.2.png", description: "Luxurious softness. Perfect for cooler evenings.", sizes: ["28", "30", "32", "34", "36", "38"] },
-            { id: 5, name: "PLEATED WOOL PANT", price: 195, frontImage: "images/pant1.5.1.png", backImage: "images/pant1.5.2.png", description: "Heritage styling. Exceptional drape and warmth.", sizes: ["28", "30", "32", "34", "36", "38"] }
+            { 
+                id: 1, 
+                name: "MONARCH CHINO", 
+                price: 145.00, 
+                frontImage: "images/pant1.1.1.png", 
+                backImage: "images/pant1.1.2.png",
+                description: "The foundation of a refined wardrobe. Impeccably cut, perfectly balanced between structure and comfort.",
+                sizes: ["28", "30", "32", "34", "36", "38"]
+            },
+            { 
+                id: 2, 
+                name: "IMPERIAL WOOL TROUSER", 
+                price: 160.00, 
+                frontImage: "images/pant1.2.1.png", 
+                backImage: "images/pant1.2.2.png",
+                description: "Luxurious wool that drapes effortlessly. For moments that demand substance and style in equal measure.",
+                sizes: ["28", "30", "32", "34", "36", "38"]
+            },
+            { 
+                id: 3, 
+                name: "SOVEREIGN LINEN PANT", 
+                price: 185.00, 
+                frontImage: "images/pant1.3.1.png", 
+                backImage: "images/pant1.3.3.png",
+                description: "Breathtakingly light, impossibly refined. Warm-weather elegance without compromise.",
+                sizes: ["28", "30", "32", "34", "36", "38"]
+            },
+            { 
+                id: 4, 
+                name: "SOVEREIGN CARGOS", 
+                price: 185.00, 
+                frontImage: "images/pant1.4.1.png", 
+                backImage: "images/pant1.4.2_back.png",
+                description: "Utility elevated. Rugged practicality wrapped in sophisticated design—for the man on the move.",
+                sizes: ["28", "30", "32", "34", "36", "38"]
+            },
+            { 
+                id: 5, 
+                name: "SOVEREIGN CARGOS", 
+                price: 185.00, 
+                frontImage: "images/pant1.5.1.png", 
+                backImage: "images/pant1.5.2_back.png",
+                description: "Utility elevated. Rugged practicality wrapped in sophisticated design—for the man on the move.",
+                sizes: ["28", "30", "32", "34", "36", "38"]
+            }
         ];
 
         let currentPant = null;
-        let selectedSize = "MED";
+        let selectedSize = "32"; // Default size
+        let currentImage = "";
 
         function getPantFromUrl() {
             const params = new URLSearchParams(window.location.search);
             const id = parseInt(params.get('id'));
             currentPant = pants.find(p => p.id === id) || pants[0];
+            currentImage = currentPant.frontImage;
         }
 
         function renderDetail() {
             if (!currentPant) return;
-            document.getElementById('main-image').src = currentPant.frontImage;
+            
+            // Set main elements
+            document.getElementById('main-image').src = currentImage;
             document.getElementById('product-name').textContent = currentPant.name;
             document.getElementById('product-description').textContent = currentPant.description;
-            document.getElementById('product-price').textContent = `$${currentPant.price}`;
+            document.getElementById('product-price').textContent = `$${currentPant.price.toFixed(2)}`;
             
-            // Render size buttons
+            // Thumbnails (front and back)
+            const thumbnailRow = document.getElementById('thumbnail-row');
+            thumbnailRow.innerHTML = `
+                <img src="${currentPant.frontImage}" class="thumbnail ${currentImage === currentPant.frontImage ? 'active' : ''}" onclick="switchImage('${currentPant.frontImage}')">
+                <img src="${currentPant.backImage}" class="thumbnail ${currentImage === currentPant.backImage ? 'active' : ''}" onclick="switchImage('${currentPant.backImage}')">
+            `;
+            
+            // Size buttons
             const sizeContainer = document.getElementById('size-options');
             sizeContainer.innerHTML = currentPant.sizes.map(size => `
                 <button class="size-btn ${selectedSize === size ? 'selected' : ''}" onclick="selectSize('${size}')">${size}</button>
             `).join('');
-            document.getElementById('selected-size').textContent = `Size: ${selectedSize}`;
+            
+            document.getElementById('selected-size-display').textContent = `Size: ${selectedSize}`;
+        }
+
+        function switchImage(imageSrc) {
+            currentImage = imageSrc;
+            document.getElementById('main-image').src = currentImage;
+            
+            // Update thumbnail active state
+            document.querySelectorAll('.thumbnail').forEach(thumb => {
+                thumb.classList.remove('active');
+                if (thumb.src.includes(imageSrc.split('/').pop())) {
+                    thumb.classList.add('active');
+                }
+            });
         }
 
         function selectSize(size) {
             selectedSize = size;
-            document.getElementById('selected-size').textContent = `Size: ${selectedSize}`;
+            document.getElementById('selected-size-display').textContent = `Size: ${selectedSize}`;
+            
+            // Update button styles
             const buttons = document.querySelectorAll('.size-btn');
             buttons.forEach(btn => {
                 if (btn.textContent === size) btn.classList.add('selected');
@@ -104,33 +346,132 @@
 
         function addToCart() {
             const cartItem = {
-                name: `${currentPant.name} (${selectedSize})`,
+                name: `${currentPant.name} (Size ${selectedSize})`,
                 price: currentPant.price,
                 image: currentPant.frontImage,
                 qty: 1,
                 size: selectedSize
             };
+            
             let cart = JSON.parse(localStorage.getItem('cart')) || [];
             cart.push(cartItem);
             localStorage.setItem('cart', JSON.stringify(cart));
+            
             updateCartCount();
             openCart();
+            
+            // Optional notification
+            const notif = document.createElement('div');
+            notif.className = 'fixed bottom-4 right-4 bg-[var(--gold)] text-black px-4 py-2 text-xs z-50';
+            notif.innerText = `${currentPant.name} (${selectedSize}) added to cart`;
+            document.body.appendChild(notif);
+            setTimeout(() => notif.remove(), 2000);
         }
 
         function updateCartCount() {
             const cart = JSON.parse(localStorage.getItem('cart')) || [];
             const countSpan = document.getElementById('cart-count');
             if (countSpan) countSpan.innerText = `(${cart.length})`;
+            
+            // Also update cart sidebar if open
+            if (typeof renderCart === 'function') renderCart();
+        }
+
+        function openCart() {
+            const sidebar = document.getElementById('cartSidebar');
+            const overlay = document.getElementById('cartOverlay');
+            if (sidebar && overlay) {
+                sidebar.classList.add('active');
+                overlay.classList.add('active');
+                if (typeof renderCart === 'function') renderCart();
+            }
+        }
+
+        function closeCart() {
+            const sidebar = document.getElementById('cartSidebar');
+            const overlay = document.getElementById('cartOverlay');
+            if (sidebar && overlay) {
+                sidebar.classList.remove('active');
+                overlay.classList.remove('active');
+            }
+        }
+
+        function goToCheckout() {
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            if (cart.length === 0) {
+                alert('Your cart is empty');
+                return;
+            }
+            window.location.href = 'checkout.html';
+        }
+
+        // Simple cart rendering for sidebar
+        function renderCart() {
+            const container = document.getElementById('cart-items-container');
+            const totalSpan = document.getElementById('cart-total-price');
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            
+            if (!container) return;
+            
+            if (cart.length === 0) {
+                container.innerHTML = '<p class="text-center text-gray-500 py-4">Your cart is empty</p>';
+                if (totalSpan) totalSpan.textContent = '$0';
+                return;
+            }
+            
+            let total = 0;
+            container.innerHTML = '';
+            
+            cart.forEach((item, index) => {
+                const itemTotal = item.price * (item.qty || 1);
+                total += itemTotal;
+                
+                const itemDiv = document.createElement('div');
+                itemDiv.className = 'cart-item';
+                itemDiv.innerHTML = `
+                    <img src="${item.image}" alt="${item.name}">
+                    <div class="cart-info">
+                        <h4>${item.name}</h4>
+                        <p>$${item.price.toFixed(2)} × ${item.qty || 1}</p>
+                    </div>
+                    <button class="remove-btn" onclick="removeCartItem(${index})">Remove</button>
+                `;
+                container.appendChild(itemDiv);
+            });
+            
+            if (totalSpan) totalSpan.textContent = `$${total.toFixed(2)}`;
+        }
+
+        function removeCartItem(index) {
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            cart.splice(index, 1);
+            localStorage.setItem('cart', JSON.stringify(cart));
+            renderCart();
+            updateCartCount();
         }
 
         // Expose functions globally
         window.selectSize = selectSize;
+        window.switchImage = switchImage;
         window.addToCart = addToCart;
+        window.openCart = openCart;
+        window.closeCart = closeCart;
+        window.goToCheckout = goToCheckout;
+        window.removeCartItem = removeCartItem;
+        window.renderCart = renderCart;
 
+        // Initialize
         document.addEventListener('DOMContentLoaded', () => {
             getPantFromUrl();
             renderDetail();
             updateCartCount();
+            renderCart();
+            
+            const closeBtn = document.getElementById('closeCart');
+            const overlay = document.getElementById('cartOverlay');
+            if (closeBtn) closeBtn.addEventListener('click', closeCart);
+            if (overlay) overlay.addEventListener('click', closeCart);
+            
             document.getElementById('add-to-cart-btn').addEventListener('click', addToCart);
         });
     </script>
