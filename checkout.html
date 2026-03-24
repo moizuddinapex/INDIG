@@ -247,29 +247,22 @@
     }
 
     function clearCartAndRedirect() {
-        localStorage.removeItem('cart');
-        window.location.href = 'success.html';
-    }
-
-    document.getElementById('completeCheckout').addEventListener('click', () => {
-        if (cart.length === 0) {
-            alert('Your cart is empty!');
-            return;
-        }
-        
-        const fullname = document.getElementById('fullname').value.trim();
-        if (!fullname) {
-            alert('Please enter your full name');
-            return;
-        }
-        
-        const message = getOrderMessage();
-        const url = `https://wa.me/${PHONE}?text=${encodeURIComponent(message)}`;
-        
-        // Open WhatsApp and redirect to success page after a short delay
-        window.open(url, '_blank');
-        clearCartAndRedirect();
-    });
+    // Get cart data and customer info
+    const cart = JSON.parse(localStorage.getItem('cart')) || [];
+    const customerName = document.getElementById('fullname').value.trim();
+    
+    // Store order data in sessionStorage (survives redirect)
+    sessionStorage.setItem('orderData', JSON.stringify({
+        items: cart,
+        customerName: customerName,
+        total: cartTotal,
+        orderDate: new Date().toISOString()
+    }));
+    // Clear the cart from localStorage
+    localStorage.removeItem('cart');
+    
+    // Redirect to success page
+    window.location.href = 'success.html';
 
     // Load cart on page load
     loadCart();
