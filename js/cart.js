@@ -1,7 +1,6 @@
+// ===== CART FIX FOR YOUR ORIGINAL LAYOUT =====
 
-// ===== SAFE CART FIX =====
-
-// Elements (match YOUR HTML)
+// Elements (matching YOUR structure)
 const cartSidebar = document.getElementById("cartSidebar");
 const cartItemsContainer = document.getElementById("cart-items-container");
 const cartCount = document.querySelector(".cart-count");
@@ -13,33 +12,30 @@ const closeCartBtn = document.getElementById("closeCart");
 // Load cart
 let cart = JSON.parse(localStorage.getItem("cart")) || [];
 
-// ===== RENDER CART (KEY FIX) =====
+// ===== RENDER CART =====
 function renderCart() {
-    if (!cartItemsContainer) return;
-
     cartItemsContainer.innerHTML = "";
     let total = 0;
 
     cart.forEach((item, index) => {
         total += item.price * item.quantity;
 
-        const itemDiv = document.createElement("div");
-        itemDiv.innerHTML = `
-            <div>${item.name}</div>
-            <div>Size: ${item.size}</div>
+        const div = document.createElement("div");
+        div.innerHTML = `
+            <p>${item.name}</p>
+            <p>Size: ${item.size}</p>
             <div>
                 <button onclick="changeQty(${index}, -1)">-</button>
                 ${item.quantity}
                 <button onclick="changeQty(${index}, 1)">+</button>
             </div>
-            <div>Rs ${item.price * item.quantity}</div>
+            <p>Rs ${item.price * item.quantity}</p>
             <hr>
         `;
 
-        cartItemsContainer.appendChild(itemDiv);
+        cartItemsContainer.appendChild(div);
     });
 
-    // Update totals
     if (cartCount) {
         cartCount.textContent = cart.reduce((sum, i) => sum + i.quantity, 0);
     }
@@ -51,7 +47,7 @@ function renderCart() {
     localStorage.setItem("cart", JSON.stringify(cart));
 }
 
-// ===== CHANGE QUANTITY =====
+// ===== CHANGE QTY =====
 function changeQty(index, change) {
     cart[index].quantity += change;
 
@@ -68,22 +64,24 @@ addToCartBtns.forEach(btn => {
         const card = btn.closest(".product-card");
 
         const name = card.querySelector(".product-name").innerText;
-        const price = parseFloat(card.querySelector(".product-price").innerText.replace(/[^0-9]/g,""));
+        const price = parseFloat(
+            card.querySelector(".product-price").innerText.replace(/[^0-9]/g, "")
+        );
 
-        // VERY IMPORTANT: your page currently has static size
-        const sizeText = card.innerText.includes("Size:") 
-            ? card.innerText.split("Size:")[1].trim().split("\n")[0]
-            : "MED";
+        // Extract size from text (works with your layout)
+        let size = "MED";
+        const sizeMatch = card.innerText.match(/Size:\s*(\w+)/);
+        if (sizeMatch) size = sizeMatch[1];
 
-        const existing = cart.find(i => i.name === name && i.size === sizeText);
+        const existing = cart.find(i => i.name === name && i.size === size);
 
         if (existing) {
             existing.quantity++;
         } else {
-            cart.push({ name, price, size: sizeText, quantity: 1 });
+            cart.push({ name, price, size, quantity: 1 });
         }
 
-        renderCart(); // 🔥 THIS FIXES YOUR ISSUE
+        renderCart(); // 🔥 REAL-TIME FIX
         cartSidebar.classList.add("open");
     });
 });
@@ -95,6 +93,7 @@ if (cartToggle) {
     });
 }
 
+// ===== CLOSE =====
 if (closeCartBtn) {
     closeCartBtn.addEventListener("click", () => {
         cartSidebar.classList.remove("open");
