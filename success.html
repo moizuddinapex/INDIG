@@ -33,7 +33,6 @@
             z-index: -1;
         }
 
-        /* Confetti Canvas */
         #confetti-canvas {
             position: fixed;
             top: 0;
@@ -69,11 +68,10 @@
             }
         }
 
-        /* Checkmark Animation */
         .checkmark-circle {
             width: 80px;
             height: 80px;
-            background: var(--gold, #c5a059);
+            background: #c5a059;
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -103,7 +101,7 @@
             font-size: 2rem;
             letter-spacing: 0.3em;
             margin-bottom: 1rem;
-            color: var(--gold, #c5a059);
+            color: #c5a059;
             text-transform: uppercase;
         }
 
@@ -111,7 +109,6 @@
             font-size: 1.2rem;
             margin-bottom: 1.5rem;
             font-family: 'Playfair Display', serif;
-            letter-spacing: 0.02em;
         }
 
         .order-summary {
@@ -124,7 +121,7 @@
         }
 
         .order-summary h3 {
-            color: var(--gold, #c5a059);
+            color: #c5a059;
             font-size: 0.8rem;
             letter-spacing: 0.2em;
             text-transform: uppercase;
@@ -149,9 +146,9 @@
             justify-content: space-between;
             margin-top: 0.8rem;
             padding-top: 0.8rem;
-            border-top: 1px solid var(--gold, #c5a059);
+            border-top: 1px solid #c5a059;
             font-weight: bold;
-            color: var(--gold, #c5a059);
+            color: #c5a059;
         }
 
         .order-number {
@@ -159,7 +156,6 @@
             color: #888;
             text-align: center;
             margin-top: 0.8rem;
-            letter-spacing: 0.05em;
         }
 
         .message {
@@ -173,7 +169,7 @@
             display: inline-block;
             margin-top: 1.5rem;
             padding: 1rem 2.5rem;
-            background: var(--gold, #c5a059);
+            background: #c5a059;
             color: black;
             text-decoration: none;
             letter-spacing: 0.3em;
@@ -181,20 +177,11 @@
             font-weight: bold;
             text-transform: uppercase;
             transition: all 0.3s ease;
-            border: none;
-            cursor: pointer;
         }
 
         .btn:hover {
             background: white;
             transform: translateY(-2px);
-        }
-
-        .confetti-message {
-            margin-top: 1rem;
-            font-size: 0.7rem;
-            color: var(--gold, #c5a059);
-            opacity: 0.7;
         }
     </style>
 </head>
@@ -203,7 +190,7 @@
 
     <div class="box">
         <div class="checkmark-circle">
-            <svg class="checkmark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+            <svg class="checkmark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
                 <polyline points="20 6 9 17 4 12"></polyline>
             </svg>
         </div>
@@ -214,7 +201,7 @@
             Dear Valued Customer,
         </div>
 
-        <div class="order-summary" id="order-summary">
+        <div class="order-summary">
             <h3>Order Summary</h3>
             <div id="order-items"></div>
             <div class="order-total" id="order-total">
@@ -230,11 +217,9 @@
         </p>
 
         <a href="index.html" class="btn">Back to Store</a>
-        <div class="confetti-message">✨ Your order is being processed ✨</div>
     </div>
 
     <script>
-        // Generate random order number
         function generateOrderNumber() {
             const prefix = 'IND';
             const timestamp = Date.now().toString().slice(-8);
@@ -242,7 +227,6 @@
             return `${prefix}-${timestamp}-${random}`;
         }
 
-        // Format date
         function formatDate() {
             const date = new Date();
             return date.toLocaleDateString('en-US', { 
@@ -254,22 +238,22 @@
             });
         }
 
-        // Load cart data and display order summary
-        function loadOrderSummary() {
-            const cart = JSON.parse(localStorage.getItem('cart')) || [];
-            const orderItemsContainer = document.getElementById('order-items');
-            const orderTotalSpan = document.getElementById('order-total');
+        // Load order data from sessionStorage
+        function loadOrderData() {
+            const orderData = JSON.parse(sessionStorage.getItem('orderData'));
             
-            let total = 0;
-            
-            if (cart.length === 0) {
-                orderItemsContainer.innerHTML = '<div class="order-item">No items found</div>';
+            if (!orderData || !orderData.items || orderData.items.length === 0) {
+                document.getElementById('order-items').innerHTML = '<div class="order-item">No items found</div>';
                 return;
             }
             
-            orderItemsContainer.innerHTML = '';
+            const itemsContainer = document.getElementById('order-items');
+            const totalSpan = document.getElementById('order-total');
+            let total = 0;
             
-            cart.forEach(item => {
+            itemsContainer.innerHTML = '';
+            
+            orderData.items.forEach(item => {
                 const qty = item.qty || 1;
                 const itemTotal = item.price * qty;
                 total += itemTotal;
@@ -280,28 +264,24 @@
                     <span>${item.name} × ${qty}</span>
                     <span>$${itemTotal.toFixed(2)}</span>
                 `;
-                orderItemsContainer.appendChild(itemDiv);
+                itemsContainer.appendChild(itemDiv);
             });
             
-            orderTotalSpan.innerHTML = `<span>Total</span><span>$${total.toFixed(2)}</span>`;
+            totalSpan.innerHTML = `<span>Total</span><span>$${total.toFixed(2)}</span>`;
             
             // Display order number
             const orderNumber = generateOrderNumber();
             document.getElementById('order-number').innerHTML = `Order #: ${orderNumber}<br>${formatDate()}`;
             
-            return { cart, total };
-        }
-
-        // Get customer name from localStorage (if stored during checkout)
-        function getCustomerName() {
-            const customerName = localStorage.getItem('customerName');
-            if (customerName) {
-                document.getElementById('greeting-message').innerHTML = `Dear ${customerName},`;
-                // Clear after use
-                localStorage.removeItem('customerName');
-            } else {
-                document.getElementById('greeting-message').innerHTML = `Dear Valued Customer,`;
+            // Set greeting with customer name
+            if (orderData.customerName) {
+                document.getElementById('greeting-message').innerHTML = `Dear ${orderData.customerName},`;
             }
+            
+            // Clear sessionStorage after displaying
+            setTimeout(() => {
+                sessionStorage.removeItem('orderData');
+            }, 1000);
         }
 
         // Confetti Animation
@@ -325,7 +305,7 @@
                     size: Math.random() * 8 + 4,
                     speedY: Math.random() * 5 + 3,
                     speedX: (Math.random() - 0.5) * 2,
-                    color: `hsl(${Math.random() * 60 + 30}, 70%, 60%)`, // Gold/amber tones
+                    color: `hsl(${Math.random() * 60 + 30}, 70%, 60%)`,
                     rotation: Math.random() * 360,
                     rotationSpeed: (Math.random() - 0.5) * 10
                 });
@@ -333,16 +313,11 @@
             
             function animate() {
                 ctx.clearRect(0, 0, width, height);
-                
                 let allDone = true;
                 
                 for (let i = 0; i < particles.length; i++) {
                     const p = particles[i];
-                    
-                    if (p.y < height + 100) {
-                        allDone = false;
-                    }
-                    
+                    if (p.y < height + 100) allDone = false;
                     p.y += p.speedY;
                     p.x += p.speedX;
                     p.rotation += p.rotationSpeed;
@@ -355,39 +330,22 @@
                     ctx.restore();
                 }
                 
-                if (!allDone) {
-                    requestAnimationFrame(animate);
-                }
+                if (!allDone) requestAnimationFrame(animate);
             }
             
             animate();
-            
-            // Stop confetti after 3 seconds
-            setTimeout(() => {
-                ctx.clearRect(0, 0, width, height);
-            }, 4000);
+            setTimeout(() => ctx.clearRect(0, 0, width, height), 4000);
         }
         
-        // Also add window resize handler
         window.addEventListener('resize', () => {
             const canvas = document.getElementById('confetti-canvas');
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
         });
         
-        // Initialize page
-        loadOrderSummary();
-        getCustomerName();
+        // Initialize
+        loadOrderData();
         startConfetti();
-        
-        // Clear cart after showing summary
-        setTimeout(() => {
-            localStorage.removeItem('cart');
-        }, 100);
-
-        // In checkout.html, when submitting the order:
-localStorage.setItem('customerName', document.getElementById('fullname').value);
-    
     </script>
 </body>
 </html>
