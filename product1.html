@@ -35,9 +35,9 @@
             border: 1px solid rgba(255, 255, 255, 0.1);
             transition: all 0.4s ease;
             backdrop-filter: blur(5px);
-            display: block;          
-            text-decoration: none;    
-            color: inherit;           
+            display: block;
+            text-decoration: none;
+            color: inherit;
         }
 
         .product-card:hover {
@@ -46,14 +46,13 @@
             background: rgba(255, 255, 255, 0.06);
         }
 
-        /* CRITICAL FIX: Ensures all images are perfectly sized */
         .image-container {
             position: relative;
             width: 100%;
-            aspect-ratio: 3 / 4; /* Consistent 3:4 ratio for all product images */
+            aspect-ratio: 3/4;
             overflow: hidden;
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            background-color: #1a1a1a; /* Fallback background while images load */
+            background-color: #1a1a1a;
         }
 
         .product-image {
@@ -62,8 +61,8 @@
             left: 0;
             width: 100%;
             height: 100%;
-            object-fit: cover; /* This is the key property - ensures images cover the area without distortion */
-            object-position: center center; /* Centers the image within the container */
+            object-fit: cover;
+            object-position: center center;
             transition: opacity 0.5s ease-in-out;
         }
 
@@ -109,12 +108,11 @@
             transform: scale(1.1);
         }
 
-        /* Sizing Tooltip - appears on hover */
         .quick-buy-container {
             position: absolute;
             bottom: 12px;
             right: 12px;
-            z-index: 20;
+            z-index: 10;
         }
 
         .size-tooltip {
@@ -129,9 +127,8 @@
             visibility: hidden;
             transition: all 0.3s ease;
             backdrop-filter: blur(10px);
-            z-index: 30;
+            z-index: 20;
             box-shadow: 0 5px 20px rgba(0,0,0,0.5);
-            pointer-events: auto;
         }
 
         .quick-buy-container:hover .size-tooltip {
@@ -208,14 +205,14 @@
             min-height: 15px;
         }
 
-        /* ---------- Cart Overlay ---------- */
+        /* Cart Overlay */
         .cart-overlay {
             position: fixed;
             top: 0; 
             left: 0;
             width: 100%; 
             height: 100%;
-            background: rgba(0,0,0,0.8);
+            background: rgba(0,0,0,0.5);
             opacity: 0;
             visibility: hidden;
             transition: opacity 0.3s ease;
@@ -227,21 +224,19 @@
             visibility: visible;
         }
 
-        /* ---------- Cart Sidebar (Right to Left) ---------- */
         .cart-sidebar {
             position: fixed;
             top: 0;
             right: -400px;
-            width: 380px;
+            width: 350px;
             height: 100%;
-            background: #0f0f0f;
+            background: #111;
             color: #fff;
-            padding: 25px;
-            box-shadow: -3px 0 15px rgba(0,0,0,0.5);
+            padding: 20px;
+            box-shadow: -3px 0 8px rgba(0,0,0,0.3);
             transition: right 0.3s ease;
             z-index: 1000;
             overflow-y: auto;
-            font-family: 'Cinzel', serif;
         }
 
         .cart-sidebar.active {
@@ -249,17 +244,14 @@
         }
 
         .cart-sidebar h2 {
-            margin-top: 30px;
+            margin-top: 0;
             margin-bottom: 20px;
-            font-size: 20px;
-            letter-spacing: 2px;
-            text-align: center;
         }
 
         .close-btn {
             position: absolute;
-            top: 15px;
-            left: 20px;
+            top: 10px;
+            left: 10px;
             font-size: 28px;
             cursor: pointer;
             background: none;
@@ -269,17 +261,16 @@
 
         .cart-item {
             display: flex;
-            margin-bottom: 20px;
-            gap: 12px;
+            margin-bottom: 15px;
+            gap: 10px;
             border-bottom: 1px solid rgba(255,255,255,0.1);
-            padding-bottom: 15px;
+            padding-bottom: 10px;
         }
 
         .cart-item img {
-            width: 70px;
-            height: 90px;
+            width: 60px;
+            height: 60px;
             object-fit: cover;
-            border: 1px solid rgba(197, 160, 89, 0.3);
         }
 
         .cart-info {
@@ -287,9 +278,8 @@
         }
 
         .cart-info h4 {
-            margin: 0 0 5px;
-            font-size: 13px;
-            letter-spacing: 1px;
+            margin: 0;
+            font-size: 14px;
         }
 
         .cart-info p {
@@ -303,17 +293,16 @@
             background: #ff4444;
             border: none;
             color: white;
-            padding: 4px 10px;
-            font-size: 11px;
-            border-radius: 2px;
-            margin-top: 8px;
+            padding: 4px 8px;
+            font-size: 12px;
+            border-radius: 3px;
         }
 
         .cart-footer {
-            margin-top: 25px;
+            margin-top: 20px;
             display: flex;
             flex-direction: column;
-            gap: 12px;
+            gap: 10px;
         }
 
         .cart-footer button {
@@ -325,7 +314,6 @@
             cursor: pointer;
             font-weight: bold;
             letter-spacing: 0.1em;
-            font-family: 'Cinzel', serif;
         }
 
         .cart-footer button:hover {
@@ -333,7 +321,6 @@
             color: white;
         }
 
-        /* Evocative description styling */
         .product-card p.text-gray-400 {
             transition: all 0.3s ease;
             opacity: 0.8;
@@ -349,19 +336,18 @@
             border-bottom-color: rgba(197, 160, 89, 0.2);
         }
 
-        /* Ensure responsive behavior */
         @media (max-width: 640px) {
             .image-container {
-                aspect-ratio: 4 / 5;
+                aspect-ratio: 4/5;
             }
         }
     </style>
 </head>
 <body class="min-h-screen">
 
-    <nav class="flex justify-between items-center px-6 md:px-8 py-6 uppercase tracking-[0.3em] text-[10px] border-b border-white/10">
-        <a href="index.html" style="font-family: 'Noto Serif', serif; font-size: 1.3rem; letter-spacing: -0.02em; text-decoration: none; color: white;">INDIG-GROK</a>
-        <div class="space-x-6 md:space-x-10">
+    <nav class="flex justify-between items-center px-8 py-8 uppercase tracking-[0.3em] text-[10px] border-b border-white/10">
+        <a href="index.html" style="font-family: 'Noto Serif', serif; font-size: 1.5rem; letter-spacing: -0.02em; text-decoration: none; color: white;">INDIG-GROK</a>
+        <div class="space-x-10">
             <a href="index.html" class="hover:text-gray-400 transition">Back to Home</a>
             <button onclick="openCart()" class="border border-white px-3 py-1 hover:bg-white hover:text-black transition">
                 BAG <span id="cart-count">(0)</span>
@@ -369,13 +355,13 @@
         </div>
     </nav>
 
-    <header class="py-12 md:py-16 text-center px-4">
-        <h1 class="text-3xl md:text-6xl serif-title uppercase tracking-widest mb-4">The INDIG Collection</h1>
+    <header class="py-16 text-center">
+        <h1 class="text-4xl md:text-6xl serif-title uppercase tracking-widest mb-4">The INDIG Collection</h1>
         <p class="text-[10px] tracking-[0.5em] text-gray-400 uppercase">Premium Men's Polos & Shirts</p>
     </header>
 
-    <main class="max-w-7xl mx-auto px-4 md:px-6 pb-24">
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 md:gap-8">
+    <main class="max-w-7xl mx-auto px-6 pb-24">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
             
             <!-- PRODUCT 1: MONARCH PIQUÉ POLO -->
             <div class="product-card">
@@ -400,7 +386,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="p-5 text-center">
+                <div class="p-6 text-center">
                     <h3 class="text-xs tracking-widest mb-2">MONARCH PIQUÉ POLO</h3>
                     <p class="text-gray-400 text-[10px] mb-3 max-w-[200px] mx-auto leading-relaxed" 
                        style="font-family: 'Inter', sans-serif; font-weight: 300; letter-spacing: 0.02em;">
@@ -433,7 +419,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="p-5 text-center">
+                <div class="p-6 text-center">
                     <h3 class="text-xs tracking-widest mb-2">IMPERIAL TEXTURED KNIT</h3>
                     <p class="text-gray-400 text-[10px] mb-3 max-w-[200px] mx-auto leading-relaxed"
                        style="font-family: 'Inter', sans-serif; font-weight: 300; letter-spacing: 0.02em;">
@@ -466,7 +452,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="p-5 text-center">
+                <div class="p-6 text-center">
                     <h3 class="text-xs tracking-widest mb-2">SOVEREIGN SILK POLO</h3>
                     <p class="text-gray-400 text-[10px] mb-3 max-w-[200px] mx-auto leading-relaxed"
                        style="font-family: 'Inter', sans-serif; font-weight: 300; letter-spacing: 0.02em;">
@@ -476,7 +462,7 @@
                 </div>
             </div>
 
-            <!-- PRODUCT 4: SOVEREIGN SILK POLO (Second Variant) -->
+            <!-- PRODUCT 4: SOVEREIGN SILK POLO (Second) -->
             <div class="product-card">
                 <div class="image-container">
                     <img src="images/shirt1.4.1.png" class="product-image front-view" alt="Sovereign Silk Polo Front">
@@ -499,7 +485,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="p-5 text-center">
+                <div class="p-6 text-center">
                     <h3 class="text-xs tracking-widest mb-2">SOVEREIGN SILK POLO</h3>
                     <p class="text-gray-400 text-[10px] mb-3 max-w-[200px] mx-auto leading-relaxed"
                        style="font-family: 'Inter', sans-serif; font-weight: 300; letter-spacing: 0.02em;">
@@ -509,7 +495,7 @@
                 </div>
             </div>
 
-            <!-- PRODUCT 5: SOVEREIGN SILK POLO (Third Variant) -->
+            <!-- PRODUCT 5: SOVEREIGN SILK POLO (Third) -->
             <div class="product-card">
                 <div class="image-container">
                     <img src="images/shirt1.5.1.png" class="product-image front-view" alt="Sovereign Silk Polo Front">
@@ -532,7 +518,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="p-5 text-center">
+                <div class="p-6 text-center">
                     <h3 class="text-xs tracking-widest mb-2">SOVEREIGN SILK POLO</h3>
                     <p class="text-gray-400 text-[10px] mb-3 max-w-[200px] mx-auto leading-relaxed"
                        style="font-family: 'Inter', sans-serif; font-weight: 300; letter-spacing: 0.02em;">
@@ -545,12 +531,11 @@
     </main>
 
     <!-- NEWSLETTER & FOOTER SECTION -->
-    <section class="relative z-10 py-16 md:py-20 mt-10 md:mt-20" style="background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('images/backgroundimage2.jpg') center/cover fixed;">
+    <section class="relative z-10 py-20 mt-20" style="background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('images/backgroundimage2.jpg') center/cover fixed;">
         <div class="max-w-7xl mx-auto px-6">
             
-            <!-- Newsletter Section -->
-            <div class="text-center mb-12 md:mb-16 border-b border-white/10 pb-12 md:pb-16">
-                <h2 class="text-2xl md:text-4xl serif-title uppercase tracking-widest mb-4">Newsletter</h2>
+            <div class="text-center mb-16 border-b border-white/10 pb-16">
+                <h2 class="text-3xl md:text-4xl serif-title uppercase tracking-widest mb-4">Newsletter</h2>
                 <p class="text-gray-400 text-sm max-w-2xl mx-auto mb-8">Be the first one to know about discounts, offers and events</p>
                 
                 <form class="flex flex-col md:flex-row gap-4 max-w-2xl mx-auto">
@@ -559,12 +544,9 @@
                 </form>
             </div>
             
-            <!-- Main Footer Grid -->
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 md:gap-12 mb-12 md:mb-16">
-                
-                <!-- Brand Info -->
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
                 <div>
-                    <h3 class="text-2xl mb-6" style="font-family: 'Playfair Display', serif;">INDIG-GROK</h3>
+                    <h3 class="brand-font text-2xl mb-6">INDIG-GROK</h3>
                     <p class="text-gray-400 text-xs leading-relaxed mb-6">INDIG-GROK is a premium fashion brand dedicated to quality and brilliant customer service since 2020. We believe in satisfying customers through our exceptional products.</p>
                     <div class="flex space-x-4">
                         <a href="#" class="w-10 h-10 border border-white/20 flex items-center justify-center hover:border-[#c5a059] hover:text-[#c5a059] transition">f</a>
@@ -573,7 +555,6 @@
                     </div>
                 </div>
                 
-                <!-- Help Menu -->
                 <div>
                     <h4 class="text-sm tracking-widest mb-6">Help</h4>
                     <ul class="space-y-3 text-gray-400 text-xs">
@@ -584,7 +565,6 @@
                     </ul>
                 </div>
                 
-                <!-- About Menu -->
                 <div>
                     <h4 class="text-sm tracking-widest mb-6">About</h4>
                     <ul class="space-y-3 text-gray-400 text-xs">
@@ -596,7 +576,6 @@
                     </ul>
                 </div>
                 
-                <!-- My Account Menu -->
                 <div>
                     <h4 class="text-sm tracking-widest mb-6">My Account</h4>
                     <ul class="space-y-3 text-gray-400 text-xs">
@@ -607,7 +586,6 @@
                 </div>
             </div>
             
-            <!-- Contact & Copyright -->
             <div class="pt-8 border-t border-white/10 text-center md:flex justify-between items-center text-gray-400 text-xs">
                 <p class="mb-4 md:mb-0">How can we help you? Let us know at <a href="mailto:info@indiggrok.com" class="text-white hover:text-[#c5a059]">info@indiggrok.com</a></p>
                 <p>Copyright © 2026 INDIG-GROK. All Rights Reserved.</p>
@@ -624,19 +602,16 @@
         <h2>My Cart</h2>
         <div id="cart-items-container"></div>
         <div class="cart-footer">
-            <div class="flex justify-between items-center">
-                <span class="text-sm uppercase tracking-wider">Total:</span>
-                <span id="cart-total-price" class="price-tag text-xl">$0.00</span>
-            </div>
+            <span id="cart-total-price">$0</span>
             <button onclick="goToCheckout()">Checkout</button>
         </div>
     </div>
-    
+
     <script>
         // Cart state
         let cart = [];
         
-        // Size selection state per product
+        // Size selection state
         let selectedSizes = {
             1: 'MED',
             2: 'MED',
@@ -645,18 +620,24 @@
             5: 'MED'
         };
         
+        // Load cart from localStorage on page load
+        function loadCart() {
+            const savedCart = localStorage.getItem('indigCart');
+            if (savedCart) {
+                cart = JSON.parse(savedCart);
+                updateCartUI();
+            }
+        }
+        
         // Select size function
         function selectSize(button, size, productId) {
-            // Update UI for this product's size buttons
             const container = button.closest('.size-options');
             const buttons = container.querySelectorAll('.size-btn');
             buttons.forEach(btn => btn.classList.remove('selected'));
             button.classList.add('selected');
             
-            // Store selected size
             selectedSizes[productId] = size;
             
-            // Update display
             const displayDiv = document.getElementById(`size-display-${productId}`);
             if (displayDiv) {
                 displayDiv.textContent = `Size: ${size}`;
@@ -687,11 +668,12 @@
             }
             
             updateCartUI();
+            saveCart();
             openCart();
             
-            // Optional: Add a subtle animation feedback
+            // Visual feedback
             const btn = event?.target;
-            if (btn && btn.classList.contains('buy-now-tooltip')) {
+            if (btn && btn.classList && btn.classList.contains('buy-now-tooltip')) {
                 const originalText = btn.textContent;
                 btn.textContent = '✓ ADDED!';
                 setTimeout(() => {
@@ -700,7 +682,7 @@
             }
         }
         
-        // Update cart display and localStorage
+        // Update cart display
         function updateCartUI() {
             const container = document.getElementById('cart-items-container');
             const totalSpan = document.getElementById('cart-total-price');
@@ -710,7 +692,7 @@
             
             if (cart.length === 0) {
                 container.innerHTML = '<p class="text-center text-gray-400 py-8">Your cart is empty.</p>';
-                totalSpan.textContent = '$0.00';
+                totalSpan.textContent = '$0';
                 if (cartCountSpan) cartCountSpan.textContent = '(0)';
                 return;
             }
@@ -738,18 +720,18 @@
             
             totalSpan.textContent = `$${total.toFixed(2)}`;
             if (cartCountSpan) cartCountSpan.textContent = `(${itemCount})`;
-            
-            // Save to localStorage
-            localStorage.setItem('indigCart', JSON.stringify(cart));
         }
         
         // Remove item from cart
         function removeFromCart(id) {
             cart = cart.filter(item => item.id !== id);
             updateCartUI();
-            if (cart.length === 0) {
-                // Optionally close cart if empty
-            }
+            saveCart();
+        }
+        
+        // Save cart to localStorage
+        function saveCart() {
+            localStorage.setItem('indigCart', JSON.stringify(cart));
         }
         
         // Cart sidebar controls
@@ -765,4 +747,38 @@
         
         function goToCheckout() {
             if (cart.length === 0) {
-                alert('Your cart is empty. Please add items before
+                alert('Your cart is empty. Please add items before checkout.');
+            } else {
+                alert('Proceeding to checkout. Total: ' + document.getElementById('cart-total-price').textContent);
+                // You can redirect to checkout page here
+                // window.location.href = 'checkout.html';
+            }
+        }
+        
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            loadCart();
+            
+            // Set default selected sizes in UI
+            for (let i = 1; i <= 5; i++) {
+                const defaultSize = selectedSizes[i];
+                const sizeDisplay = document.getElementById(`size-display-${i}`);
+                if (sizeDisplay) {
+                    sizeDisplay.textContent = `Size: ${defaultSize}`;
+                }
+                // Also mark the default size button as selected
+                const defaultBtn = document.querySelector(`#size-display-${i}`)?.closest('.size-tooltip')?.querySelector(`.size-btn:contains('${defaultSize}')`);
+                // Note: :contains is not standard JS, so we'll do a manual approach
+                const tooltip = document.getElementById(`size-display-${i}`)?.closest('.size-tooltip');
+                if (tooltip) {
+                    const btns = tooltip.querySelectorAll('.size-btn');
+                    btns.forEach(btn => {
+                        if (btn.textContent === defaultSize) {
+                            btn.classList.add('selected');
+                        }
+                    });
+                }
+            }
+            
+            // Close cart when clicking overlay
+            document.getElementById('cartOver
