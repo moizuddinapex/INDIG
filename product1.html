@@ -46,12 +46,14 @@
             background: rgba(255, 255, 255, 0.06);
         }
 
-         .image-container {
+        /* CRITICAL FIX: Ensures all images are perfectly sized */
+        .image-container {
             position: relative;
             width: 100%;
-            aspect-ratio: 3/4;
+            aspect-ratio: 3 / 4; /* Consistent 3:4 ratio for all product images */
             overflow: hidden;
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            background-color: #1a1a1a; /* Fallback background while images load */
         }
 
         .product-image {
@@ -60,7 +62,8 @@
             left: 0;
             width: 100%;
             height: 100%;
-            object-fit: cover;
+            object-fit: cover; /* This is the key property - ensures images cover the area without distortion */
+            object-position: center center; /* Centers the image within the container */
             transition: opacity 0.5s ease-in-out;
         }
 
@@ -97,6 +100,7 @@
             transition: all 0.3s ease;
             backdrop-filter: blur(6px);
             cursor: pointer;
+            z-index: 15;
         }
 
         .quick-buy:hover {
@@ -110,7 +114,7 @@
             position: absolute;
             bottom: 12px;
             right: 12px;
-            z-index: 10;
+            z-index: 20;
         }
 
         .size-tooltip {
@@ -125,8 +129,9 @@
             visibility: hidden;
             transition: all 0.3s ease;
             backdrop-filter: blur(10px);
-            z-index: 20;
+            z-index: 30;
             box-shadow: 0 5px 20px rgba(0,0,0,0.5);
+            pointer-events: auto;
         }
 
         .quick-buy-container:hover .size-tooltip {
@@ -210,7 +215,7 @@
             left: 0;
             width: 100%; 
             height: 100%;
-            background: rgba(0,0,0,0.5);
+            background: rgba(0,0,0,0.8);
             opacity: 0;
             visibility: hidden;
             transition: opacity 0.3s ease;
@@ -227,15 +232,16 @@
             position: fixed;
             top: 0;
             right: -400px;
-            width: 350px;
+            width: 380px;
             height: 100%;
-            background: #111;
+            background: #0f0f0f;
             color: #fff;
-            padding: 20px;
-            box-shadow: -3px 0 8px rgba(0,0,0,0.3);
+            padding: 25px;
+            box-shadow: -3px 0 15px rgba(0,0,0,0.5);
             transition: right 0.3s ease;
             z-index: 1000;
             overflow-y: auto;
+            font-family: 'Cinzel', serif;
         }
 
         .cart-sidebar.active {
@@ -243,14 +249,17 @@
         }
 
         .cart-sidebar h2 {
-            margin-top: 0;
+            margin-top: 30px;
             margin-bottom: 20px;
+            font-size: 20px;
+            letter-spacing: 2px;
+            text-align: center;
         }
 
         .close-btn {
             position: absolute;
-            top: 10px;
-            left: 10px;
+            top: 15px;
+            left: 20px;
             font-size: 28px;
             cursor: pointer;
             background: none;
@@ -260,16 +269,17 @@
 
         .cart-item {
             display: flex;
-            margin-bottom: 15px;
-            gap: 10px;
+            margin-bottom: 20px;
+            gap: 12px;
             border-bottom: 1px solid rgba(255,255,255,0.1);
-            padding-bottom: 10px;
+            padding-bottom: 15px;
         }
 
         .cart-item img {
-            width: 60px;
-            height: 60px;
+            width: 70px;
+            height: 90px;
             object-fit: cover;
+            border: 1px solid rgba(197, 160, 89, 0.3);
         }
 
         .cart-info {
@@ -277,8 +287,9 @@
         }
 
         .cart-info h4 {
-            margin: 0;
-            font-size: 14px;
+            margin: 0 0 5px;
+            font-size: 13px;
+            letter-spacing: 1px;
         }
 
         .cart-info p {
@@ -292,16 +303,17 @@
             background: #ff4444;
             border: none;
             color: white;
-            padding: 4px 8px;
-            font-size: 12px;
-            border-radius: 3px;
+            padding: 4px 10px;
+            font-size: 11px;
+            border-radius: 2px;
+            margin-top: 8px;
         }
 
         .cart-footer {
-            margin-top: 20px;
+            margin-top: 25px;
             display: flex;
             flex-direction: column;
-            gap: 10px;
+            gap: 12px;
         }
 
         .cart-footer button {
@@ -313,6 +325,7 @@
             cursor: pointer;
             font-weight: bold;
             letter-spacing: 0.1em;
+            font-family: 'Cinzel', serif;
         }
 
         .cart-footer button:hover {
@@ -335,13 +348,20 @@
             border-top-color: rgba(197, 160, 89, 0.2);
             border-bottom-color: rgba(197, 160, 89, 0.2);
         }
+
+        /* Ensure responsive behavior */
+        @media (max-width: 640px) {
+            .image-container {
+                aspect-ratio: 4 / 5;
+            }
+        }
     </style>
 </head>
 <body class="min-h-screen">
 
-    <nav class="flex justify-between items-center px-8 py-8 uppercase tracking-[0.3em] text-[10px] border-b border-white/10">
-        <a href="index.html" style="font-family: 'Noto Serif', serif; font-size: 1.5rem; letter-spacing: -0.02em; text-decoration: none; color: white;">INDIG-GROK</a>
-        <div class="space-x-10">
+    <nav class="flex justify-between items-center px-6 md:px-8 py-6 uppercase tracking-[0.3em] text-[10px] border-b border-white/10">
+        <a href="index.html" style="font-family: 'Noto Serif', serif; font-size: 1.3rem; letter-spacing: -0.02em; text-decoration: none; color: white;">INDIG-GROK</a>
+        <div class="space-x-6 md:space-x-10">
             <a href="index.html" class="hover:text-gray-400 transition">Back to Home</a>
             <button onclick="openCart()" class="border border-white px-3 py-1 hover:bg-white hover:text-black transition">
                 BAG <span id="cart-count">(0)</span>
@@ -349,21 +369,21 @@
         </div>
     </nav>
 
-    <header class="py-16 text-center">
-        <h1 class="text-4xl md:text-6xl serif-title uppercase tracking-widest mb-4">The INDIG Collection</h1>
+    <header class="py-12 md:py-16 text-center px-4">
+        <h1 class="text-3xl md:text-6xl serif-title uppercase tracking-widest mb-4">The INDIG Collection</h1>
         <p class="text-[10px] tracking-[0.5em] text-gray-400 uppercase">Premium Men's Polos & Shirts</p>
     </header>
 
-    <main class="max-w-7xl mx-auto px-6 pb-24">
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+    <main class="max-w-7xl mx-auto px-4 md:px-6 pb-24">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 md:gap-8">
             
             <!-- PRODUCT 1: MONARCH PIQUÉ POLO -->
-            <a href="shirt-detail.html?id=1" class="product-card" style="text-decoration: none; color: inherit;">
+            <div class="product-card">
                 <div class="image-container">
                     <img src="images/shirt1.1.1.png" class="product-image front-view" alt="Monarch Piqué Polo Front">
                     <img src="images/shirt1.1.2.png" class="product-image back-view" alt="Monarch Piqué Polo Back">
                     
-                   <div class="quick-buy-container" onclick="event.stopPropagation();">
+                    <div class="quick-buy-container" onclick="event.stopPropagation();">
                         <div class="quick-buy">🛒</div>
                         <div class="size-tooltip">
                             <h4>Select Size</h4>
@@ -380,7 +400,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="p-6 text-center">
+                <div class="p-5 text-center">
                     <h3 class="text-xs tracking-widest mb-2">MONARCH PIQUÉ POLO</h3>
                     <p class="text-gray-400 text-[10px] mb-3 max-w-[200px] mx-auto leading-relaxed" 
                        style="font-family: 'Inter', sans-serif; font-weight: 300; letter-spacing: 0.02em;">
@@ -389,13 +409,9 @@
                     <p class="price-tag text-sm mb-4">$145.00</p>
                 </div>
             </div>
-            </a>
-
-
-
 
             <!-- PRODUCT 2: IMPERIAL TEXTURED KNIT -->
-           <a href="shirt-detail.html?id=1" class="product-card" style="text-decoration: none; color: inherit;">
+            <div class="product-card">
                 <div class="image-container">
                     <img src="images/shirt1.2.1.png" class="product-image front-view" alt="Imperial Textured Knit Front">
                     <img src="images/shirt1.2.2.png" class="product-image back-view" alt="Imperial Textured Knit Back">
@@ -417,7 +433,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="p-6 text-center">
+                <div class="p-5 text-center">
                     <h3 class="text-xs tracking-widest mb-2">IMPERIAL TEXTURED KNIT</h3>
                     <p class="text-gray-400 text-[10px] mb-3 max-w-[200px] mx-auto leading-relaxed"
                        style="font-family: 'Inter', sans-serif; font-weight: 300; letter-spacing: 0.02em;">
@@ -426,15 +442,14 @@
                     <p class="price-tag text-sm mb-4">$160.00</p>
                 </div>
             </div>
-             </a>
 
             <!-- PRODUCT 3: SOVEREIGN SILK POLO -->
-            <a href="shirt-detail.html?id=1" class="product-card" style="text-decoration: none; color: inherit;">
+            <div class="product-card">
                 <div class="image-container">
                     <img src="images/shirt1.3.1.png" class="product-image front-view" alt="Sovereign Silk Polo Front">
                     <img src="images/shirt1.3.3.png" class="product-image back-view" alt="Sovereign Silk Polo Back">
                     
-                   <div class="quick-buy-container" onclick="event.stopPropagation();">
+                    <div class="quick-buy-container" onclick="event.stopPropagation();">
                         <div class="quick-buy">🛒</div>
                         <div class="size-tooltip">
                             <h4>Select Size</h4>
@@ -451,7 +466,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="p-6 text-center">
+                <div class="p-5 text-center">
                     <h3 class="text-xs tracking-widest mb-2">SOVEREIGN SILK POLO</h3>
                     <p class="text-gray-400 text-[10px] mb-3 max-w-[200px] mx-auto leading-relaxed"
                        style="font-family: 'Inter', sans-serif; font-weight: 300; letter-spacing: 0.02em;">
@@ -461,8 +476,8 @@
                 </div>
             </div>
 
-            <!-- PRODUCT 4: SOVEREIGN SILK POLO (Second) -->
-            <a href="shirt-detail.html?id=1" class="product-card" style="text-decoration: none; color: inherit;">
+            <!-- PRODUCT 4: SOVEREIGN SILK POLO (Second Variant) -->
+            <div class="product-card">
                 <div class="image-container">
                     <img src="images/shirt1.4.1.png" class="product-image front-view" alt="Sovereign Silk Polo Front">
                     <img src="images/shirt1.4.2_back.png" class="product-image back-view" alt="Sovereign Silk Polo Back">
@@ -484,7 +499,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="p-6 text-center">
+                <div class="p-5 text-center">
                     <h3 class="text-xs tracking-widest mb-2">SOVEREIGN SILK POLO</h3>
                     <p class="text-gray-400 text-[10px] mb-3 max-w-[200px] mx-auto leading-relaxed"
                        style="font-family: 'Inter', sans-serif; font-weight: 300; letter-spacing: 0.02em;">
@@ -494,13 +509,13 @@
                 </div>
             </div>
 
-            <!-- PRODUCT 5: SOVEREIGN SILK POLO (Third) -->
-            <a href="shirt-detail.html?id=1" class="product-card" style="text-decoration: none; color: inherit;">
+            <!-- PRODUCT 5: SOVEREIGN SILK POLO (Third Variant) -->
+            <div class="product-card">
                 <div class="image-container">
                     <img src="images/shirt1.5.1.png" class="product-image front-view" alt="Sovereign Silk Polo Front">
                     <img src="images/shirt1.5.2_back.png" class="product-image back-view" alt="Sovereign Silk Polo Back">
                     
-                   <div class="quick-buy-container" onclick="event.stopPropagation();">
+                    <div class="quick-buy-container" onclick="event.stopPropagation();">
                         <div class="quick-buy">🛒</div>
                         <div class="size-tooltip">
                             <h4>Select Size</h4>
@@ -517,7 +532,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="p-6 text-center">
+                <div class="p-5 text-center">
                     <h3 class="text-xs tracking-widest mb-2">SOVEREIGN SILK POLO</h3>
                     <p class="text-gray-400 text-[10px] mb-3 max-w-[200px] mx-auto leading-relaxed"
                        style="font-family: 'Inter', sans-serif; font-weight: 300; letter-spacing: 0.02em;">
@@ -530,12 +545,12 @@
     </main>
 
     <!-- NEWSLETTER & FOOTER SECTION -->
-    <section class="relative z-10 py-20 mt-20" style="background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('images/backgroundimage2.jpg') center/cover fixed;">
+    <section class="relative z-10 py-16 md:py-20 mt-10 md:mt-20" style="background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('images/backgroundimage2.jpg') center/cover fixed;">
         <div class="max-w-7xl mx-auto px-6">
             
             <!-- Newsletter Section -->
-            <div class="text-center mb-16 border-b border-white/10 pb-16">
-                <h2 class="text-3xl md:text-4xl serif-title uppercase tracking-widest mb-4">Newsletter</h2>
+            <div class="text-center mb-12 md:mb-16 border-b border-white/10 pb-12 md:pb-16">
+                <h2 class="text-2xl md:text-4xl serif-title uppercase tracking-widest mb-4">Newsletter</h2>
                 <p class="text-gray-400 text-sm max-w-2xl mx-auto mb-8">Be the first one to know about discounts, offers and events</p>
                 
                 <form class="flex flex-col md:flex-row gap-4 max-w-2xl mx-auto">
@@ -545,11 +560,11 @@
             </div>
             
             <!-- Main Footer Grid -->
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 md:gap-12 mb-12 md:mb-16">
                 
                 <!-- Brand Info -->
                 <div>
-                    <h3 class="brand-font text-2xl mb-6">INDIG-GROK</h3>
+                    <h3 class="text-2xl mb-6" style="font-family: 'Playfair Display', serif;">INDIG-GROK</h3>
                     <p class="text-gray-400 text-xs leading-relaxed mb-6">INDIG-GROK is a premium fashion brand dedicated to quality and brilliant customer service since 2020. We believe in satisfying customers through our exceptional products.</p>
                     <div class="flex space-x-4">
                         <a href="#" class="w-10 h-10 border border-white/20 flex items-center justify-center hover:border-[#c5a059] hover:text-[#c5a059] transition">f</a>
@@ -609,11 +624,145 @@
         <h2>My Cart</h2>
         <div id="cart-items-container"></div>
         <div class="cart-footer">
-            <span id="cart-total-price">$0</span>
+            <div class="flex justify-between items-center">
+                <span class="text-sm uppercase tracking-wider">Total:</span>
+                <span id="cart-total-price" class="price-tag text-xl">$0.00</span>
+            </div>
             <button onclick="goToCheckout()">Checkout</button>
         </div>
     </div>
-    <script src="js/cart.js"></script>
     
-</body>
-</html>
+    <script>
+        // Cart state
+        let cart = [];
+        
+        // Size selection state per product
+        let selectedSizes = {
+            1: 'MED',
+            2: 'MED',
+            3: 'MED',
+            4: 'MED',
+            5: 'MED'
+        };
+        
+        // Select size function
+        function selectSize(button, size, productId) {
+            // Update UI for this product's size buttons
+            const container = button.closest('.size-options');
+            const buttons = container.querySelectorAll('.size-btn');
+            buttons.forEach(btn => btn.classList.remove('selected'));
+            button.classList.add('selected');
+            
+            // Store selected size
+            selectedSizes[productId] = size;
+            
+            // Update display
+            const displayDiv = document.getElementById(`size-display-${productId}`);
+            if (displayDiv) {
+                displayDiv.textContent = `Size: ${size}`;
+            }
+        }
+        
+        // Add to cart with size
+        function addToCartWithSize(name, price, image, productId) {
+            const size = selectedSizes[productId] || 'MED';
+            addToCart(name, price, image, size);
+        }
+        
+        // Main add to cart function
+        function addToCart(name, price, image, size) {
+            const existingItem = cart.find(item => item.name === name && item.size === size);
+            
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cart.push({
+                    id: Date.now() + Math.random(),
+                    name: name,
+                    price: price,
+                    image: image,
+                    size: size,
+                    quantity: 1
+                });
+            }
+            
+            updateCartUI();
+            openCart();
+            
+            // Optional: Add a subtle animation feedback
+            const btn = event?.target;
+            if (btn && btn.classList.contains('buy-now-tooltip')) {
+                const originalText = btn.textContent;
+                btn.textContent = '✓ ADDED!';
+                setTimeout(() => {
+                    btn.textContent = originalText;
+                }, 800);
+            }
+        }
+        
+        // Update cart display and localStorage
+        function updateCartUI() {
+            const container = document.getElementById('cart-items-container');
+            const totalSpan = document.getElementById('cart-total-price');
+            const cartCountSpan = document.getElementById('cart-count');
+            
+            if (!container) return;
+            
+            if (cart.length === 0) {
+                container.innerHTML = '<p class="text-center text-gray-400 py-8">Your cart is empty.</p>';
+                totalSpan.textContent = '$0.00';
+                if (cartCountSpan) cartCountSpan.textContent = '(0)';
+                return;
+            }
+            
+            let total = 0;
+            let itemCount = 0;
+            
+            container.innerHTML = cart.map(item => {
+                const itemTotal = item.price * item.quantity;
+                total += itemTotal;
+                itemCount += item.quantity;
+                return `
+                    <div class="cart-item">
+                        <img src="${item.image}" alt="${item.name}">
+                        <div class="cart-info">
+                            <h4>${item.name}</h4>
+                            <p>Size: ${item.size}</p>
+                            <p>$${item.price.toFixed(2)} x ${item.quantity}</p>
+                            <button class="remove-btn" onclick="removeFromCart(${item.id})">Remove</button>
+                        </div>
+                        <div class="price-tag">$${itemTotal.toFixed(2)}</div>
+                    </div>
+                `;
+            }).join('');
+            
+            totalSpan.textContent = `$${total.toFixed(2)}`;
+            if (cartCountSpan) cartCountSpan.textContent = `(${itemCount})`;
+            
+            // Save to localStorage
+            localStorage.setItem('indigCart', JSON.stringify(cart));
+        }
+        
+        // Remove item from cart
+        function removeFromCart(id) {
+            cart = cart.filter(item => item.id !== id);
+            updateCartUI();
+            if (cart.length === 0) {
+                // Optionally close cart if empty
+            }
+        }
+        
+        // Cart sidebar controls
+        function openCart() {
+            document.getElementById('cartSidebar').classList.add('active');
+            document.getElementById('cartOverlay').classList.add('active');
+        }
+        
+        function closeCart() {
+            document.getElementById('cartSidebar').classList.remove('active');
+            document.getElementById('cartOverlay').classList.remove('active');
+        }
+        
+        function goToCheckout() {
+            if (cart.length === 0) {
+                alert('Your cart is empty. Please add items before
