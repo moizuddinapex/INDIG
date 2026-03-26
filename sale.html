@@ -645,7 +645,129 @@
                         </div>
                     </div>
                 `;
-            <script src="js/cart.js"></script>
+            }).join('');
+
+            // Add hover effect for back image
+            document.querySelectorAll('.product-card').forEach(card => {
+                const frontImg = card.querySelector('.front-view');
+                const backImg = card.querySelector('.back-view');
+                if (frontImg && backImg) {
+                    card.addEventListener('mouseenter', () => {
+                        frontImg.style.opacity = '0';
+                        backImg.style.opacity = '1';
+                    });
+                    card.addEventListener('mouseleave', () => {
+                        frontImg.style.opacity = '1';
+                        backImg.style.opacity = '0';
+                    });
+                }
+            });
+        }
+
+        function selectSaleSize(productId, size) {
+            selectedSizes[productId] = size;
+            const display = document.getElementById(`size-display-${productId}`);
+            if (display) display.textContent = `Size: ${size}`;
+            
+            const tooltip = document.querySelector(`[data-product-id="${productId}"] .size-tooltip`);
+            if (tooltip) {
+                const buttons = tooltip.querySelectorAll('.size-btn');
+                buttons.forEach(btn => {
+                    if (btn.innerText === size) btn.classList.add('selected');
+                    else btn.classList.remove('selected');
+                });
+            }
+        }
+
+        function addSaleToCart(name, price, image, productId) {
+            const size = selectedSizes[productId] || 'MED';
+            const cartItem = {
+                name: `${name} (${size})`,
+                price: price,
+                image: image,
+                qty: 1,
+                size: size
+            };
+            
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+            cart.push(cartItem);
+            localStorage.setItem('cart', JSON.stringify(cart));
+            
+            updateCartCount();
+            
+            // Show quick notification
+            const notif = document.createElement('div');
+            notif.className = 'fixed bottom-4 right-4 bg-[var(--gold)] text-black px-5 py-2 text-xs z-50 animate-fade';
+            notif.innerText = `${name} (${size}) added to cart`;
+            document.body.appendChild(notif);
+            setTimeout(() => notif.remove(), 2000);
+            
+            openCart();
+        }
+
+        function updateCartCount() {
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            const countSpan = document.getElementById('cart-count');
+            if (countSpan) countSpan.innerText = `(${cart.length})`;
+        }
+
+        function openCart() {
+            const sidebar = document.getElementById('cartSidebar');
+            const overlay = document.getElementById('cartOverlay');
+            if (sidebar && overlay) {
+                sidebar.classList.add('active');
+                overlay.classList.add('active');
+                if (typeof renderCart === 'function') renderCart();
+            }
+        }
+
+        function closeCart() {
+            const sidebar = document.getElementById('cartSidebar');
+            const overlay = document.getElementById('cartOverlay');
+            if (sidebar && overlay) {
+                sidebar.classList.remove('active');
+                overlay.classList.remove('active');
+            }
+        }
+
+        function goToCheckout() {
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            if (cart.length === 0) {
+                alert('Your cart is empty');
+                return;
+            }
+            window.location.href = 'checkout.html';
+        }
+
+        // Add animation style
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes fadeSlide {
+                from { opacity: 0; transform: translateY(20px); }
+                to { opacity: 1; transform: translateY(0); }
+            }
+            .animate-fade { animation: fadeSlide 0.3s ease-out; }
+            .back-view { transition: opacity 0.4s ease-in-out; }
+            .front-view { transition: opacity 0.4s ease-in-out; }
+        `;
+        document.head.appendChild(style);
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            renderSaleProducts();
+            updateCartCount();
+            
+            const closeBtn = document.getElementById('closeCart');
+            const overlay = document.getElementById('cartOverlay');
+            if (closeBtn) closeBtn.addEventListener('click', closeCart);
+            if (overlay) overlay.addEventListener('click', closeCart);
+        });
+
+        window.selectSaleSize = selectSaleSize;
+        window.addSaleToCart = addSaleToCart;
+        window.openCart = openCart;
+        window.closeCart = closeCart;
+        window.goToCheckout = goToCheckout;
     </script>
 </body>
 </html>
