@@ -382,7 +382,7 @@
             </a>
             <div class="relative group">
                 <a href="#" class="hover:text-[var(--gold)] transition flex items-center">
-                         Collection
+                    Collection
                     <svg class="w-3 h-3 ml-1 transition-transform group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                 </a>
                 <div class="absolute left-0 mt-4 w-48 bg-black/95 backdrop-blur-lg border border-white/10 shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50 py-2">
@@ -399,7 +399,6 @@
             </button>
         </div>
     </nav>
-
 
     <!-- Sale Hero Section -->
     <header class="py-16 md:py-24 text-center border-b border-white/10 relative">
@@ -502,10 +501,7 @@
         </div>
     </div>
 
-    <!-- Shared cart.js for cart functionality -->
-    <script src="js/cart.js"></script>
-    
-    <!-- Sale page specific JavaScript -->
+    <script src="js/checkout.js"></script>
     <script>
         // Sale products data
         const saleProducts = [
@@ -685,24 +681,19 @@
 
         function addSaleToCart(name, price, image, productId) {
             const size = selectedSizes[productId] || 'MED';
-            // Use the global addToCart function from cart.js
-            if (typeof window.addToCart === 'function') {
-                window.addToCart(name, price, image, size);
-            } else {
-                // Fallback if cart.js hasn't loaded
-                const cartItem = {
-                    name: `${name} (${size})`,
-                    price: price,
-                    image: image,
-                    quantity: 1,
-                    size: size
-                };
-                let cart = JSON.parse(localStorage.getItem('indigCart')) || [];
-                cart.push(cartItem);
-                localStorage.setItem('indigCart', JSON.stringify(cart));
-                if (typeof window.updateCartUI === 'function') window.updateCartUI();
-                if (typeof window.openCart === 'function') window.openCart();
-            }
+            const cartItem = {
+                name: `${name} (${size})`,
+                price: price,
+                image: image,
+                qty: 1,
+                size: size
+            };
+            
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+            cart.push(cartItem);
+            localStorage.setItem('cart', JSON.stringify(cart));
+            
+            updateCartCount();
             
             // Show quick notification
             const notif = document.createElement('div');
@@ -710,16 +701,37 @@
             notif.innerText = `${name} (${size}) added to cart`;
             document.body.appendChild(notif);
             setTimeout(() => notif.remove(), 2000);
+            
+            openCart();
         }
 
         function updateCartCount() {
-            const cart = JSON.parse(localStorage.getItem('indigCart')) || [];
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
             const countSpan = document.getElementById('cart-count');
             if (countSpan) countSpan.innerText = `(${cart.length})`;
         }
 
+        function openCart() {
+            const sidebar = document.getElementById('cartSidebar');
+            const overlay = document.getElementById('cartOverlay');
+            if (sidebar && overlay) {
+                sidebar.classList.add('active');
+                overlay.classList.add('active');
+                if (typeof renderCart === 'function') renderCart();
+            }
+        }
+
+        function closeCart() {
+            const sidebar = document.getElementById('cartSidebar');
+            const overlay = document.getElementById('cartOverlay');
+            if (sidebar && overlay) {
+                sidebar.classList.remove('active');
+                overlay.classList.remove('active');
+            }
+        }
+
         function goToCheckout() {
-            const cart = JSON.parse(localStorage.getItem('indigCart')) || [];
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
             if (cart.length === 0) {
                 alert('Your cart is empty');
                 return;
@@ -747,17 +759,14 @@
             
             const closeBtn = document.getElementById('closeCart');
             const overlay = document.getElementById('cartOverlay');
-            if (closeBtn) closeBtn.addEventListener('click', () => {
-                if (typeof window.closeCart === 'function') window.closeCart();
-            });
-            if (overlay) overlay.addEventListener('click', () => {
-                if (typeof window.closeCart === 'function') window.closeCart();
-            });
+            if (closeBtn) closeBtn.addEventListener('click', closeCart);
+            if (overlay) overlay.addEventListener('click', closeCart);
         });
 
-        // Make functions globally available
         window.selectSaleSize = selectSaleSize;
         window.addSaleToCart = addSaleToCart;
+        window.openCart = openCart;
+        window.closeCart = closeCart;
         window.goToCheckout = goToCheckout;
     </script>
 </body>
